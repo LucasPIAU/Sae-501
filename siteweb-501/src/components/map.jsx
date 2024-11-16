@@ -1,82 +1,98 @@
 import React, { useEffect } from 'react';
 import * as echarts from 'echarts';
-import $ from 'jquery'; // Assure-toi d'avoir installé jQuery
 
 const Map = () => {
   useEffect(() => {
-    function createOptionForMayenne() {
-      return {
-        geo: {
-          nameProperty: 'nom',
-          map: 'Mayenne',
-          roam: true,
-          zoom: 1,
-            scaleLimit: {
-                min: 1,
+    async function loadMapData() {
+      try {
+        // Charger les données Mayenne depuis le fichier GeoJSON
+        const responseMayenne = await fetch('/assets/json/mayenneV2.geojson');
+        const mayenneData = await responseMayenne.json();
+        console.log("Données Mayenne:", mayenneData);  // Log des données Mayenne
+
+        const responseCitiesAndRoutes = await fetch('/assets/json/routeMayenne.geojson');
+        const citiesAndRoutes = await responseCitiesAndRoutes.json();
+        console.log("Données supplémentaires (villes et routes):", citiesAndRoutes);
+
+        function createOptionForMayenne() {
+
+          const routes = citiesAndRoutes.features || [];
+
+          console.log("Routes extraites:", routes);
+
+          const routeData = routes
+            .filter(route => route.geometry && route.geometry.coordinates)
+            .map(route => ({
+              name: route.properties.name || "Route sans nom",
+              coords: route.geometry.coordinates.map(coord => coord)
+            }));
+
+          console.log("Données des routes:", routeData);
+
+          return {
+            geo: {
+              nameProperty: 'name',
+              map: 'Mayenne',
+              roam: true,
+              zoom: 95,
+              center: [-0.6200, 48.100],
+              scaleLimit: {
+                min: 50,
+              },
+              itemStyle: {
+                areaColor: '#fff',
+              },
+              emphasis: {
+                label: {
+                  show: false,
+                  color: 'white',
+                  fontFamily: 'Barlow, Arial, sans-serif',
+                },
+                itemStyle: {
+                  areaColor: '#FFFFFF',
+                },
+              },
             },
-          itemStyle: {
-            areaColor: '#fff',
-          },
-          emphasis: {
-            label: {
-              show: true,
-              color: 'white',
-              fontFamily: 'Barlow, Arial, sans-serif',
-            },
-            itemStyle: {
-              areaColor: '#FFFFFF',
-            },
-          },
-        },
-        series: [
-          {
-            name: 'Villes',
-            type: 'scatter',
-            coordinateSystem: 'geo',
-            data: [
-              { name: 'Laval', value: [-0.7782, 48.0651] },
-              { name: 'Château-Gontier', value: [-0.7062, 47.8286] },
-              { name: 'Mayenne', value: [-0.6133, 48.3038] },
+            series: [
+              // Séries pour les routes principales
+              {
+                name: 'Routes principales',
+                type: 'lines',
+                coordinateSystem: 'geo',
+                polyline: true,
+                data: routeData,
+                lineStyle: {
+                  color: '#000000',
+                  width: 2,
+                  opacity: 0.1,
+                  type: 'solid',
+                },
+                smooth: true,
+              },
             ],
-            symbolSize: 8,
-            label: {
+            tooltip: {
               show: true,
               formatter: '{b}',
-              position: 'right',
             },
-            itemStyle: {
-              color: '#ff5733',
-            },
-          },
-        ],
-        tooltip: {
-          trigger: 'item',
-          formatter: (params) => params.name,
-        },
-      };
-    }
+          };
+        }
 
-    // Initialiser la carte ECharts
-    const chartDom = document.getElementById('map');
-    const myChart = echarts.init(chartDom);
+        const chartDom = document.getElementById('map');
+        const myChart = echarts.init(chartDom);
 
-    myChart.showLoading();
-    $.get('/assets/json/departements.geojson', (geoJson) => {
-      const mayenneData = geoJson.features.filter(
-        (feature) => feature.properties.nom === 'Mayenne'
-      );
+        myChart.showLoading();
 
-      if (mayenneData.length > 0) {
-        geoJson.features = mayenneData;
-        echarts.registerMap('Mayenne', geoJson);
+        // Enregistrer la carte de la Mayenne directement avec les données de mayenneV2.geojson
+        echarts.registerMap('Mayenne', mayenneData);
 
         myChart.hideLoading();
         myChart.setOption(createOptionForMayenne());
-      } else {
-        myChart.hideLoading();
-        console.error("Le département de la Mayenne n'a pas été trouvé dans le fichier geojson.");
+      } catch (error) {
+        console.error("Erreur lors du chargement des données :", error);
       }
-    });
+    }
+
+    loadMapData();
   }, []);
 
   return (
