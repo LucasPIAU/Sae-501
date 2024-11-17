@@ -1,0 +1,13 @@
+.containerMapFormation {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .containerListCard {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .containerMap {
+    margin: 25px;
+  }

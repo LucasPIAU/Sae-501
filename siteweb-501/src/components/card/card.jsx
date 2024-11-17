@@ -1,14 +1,24 @@
 import React from 'react';
 import style from './card.module.css'
+import { useNavigate } from 'react-router-dom';
+
 function Card({ item }) {
+
+  const navigate = useNavigate();
+
+  const navigateTo = () => {
+    if(item.link){
+      navigate('/spePremiere');
+    }
+  }
   return (
     <div className={style.card}>
       <div className={style.containerTitleMotClef}>
       <h3>{item.nom}</h3>
-      <p>Mot clef : {item.motClef}</p>
+      {item.motClef && <p>Mot clef : {item.motClef}</p>}
       </div>
       <div className={style.containerButtonCard}>
-        <button>Voir plus</button>
+        <button onClick={navigateTo}>Voir plus</button>
       </div>
       {/* <p>Établissements associés:</p>
       <ul>

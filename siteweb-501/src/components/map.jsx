@@ -158,7 +158,7 @@ const Map = () => {
   }, []);
 
   return (
-    <div id="map" className="map" style={{ width: '600px', height: '400px', background: "#FECFFF" }}></div>
+    <div id="map" className="map" style={{width: '600px', height: '400px', background: "#FECFFF", borderRadius: "15px", boxShadow: "0px 0px 16px 3px rgba(0,0,0,0.15)" }}></div>
   );
 };
 
