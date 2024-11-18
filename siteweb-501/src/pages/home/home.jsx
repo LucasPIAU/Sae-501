@@ -35,7 +35,7 @@ function Home() {
       <div className={style.containerMapFormation}>
         {/* <Map /> */}
         {/* <ListCard items={formations} type="formation" /> */}
-        <ListCard items={sectionItem} />
+        <ListCard items={sectionItem} noTitle={true} />
       </div>
     </div>
   );
