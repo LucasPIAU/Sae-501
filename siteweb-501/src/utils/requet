@@ -1,0 +1,10 @@
+[out:json][timeout:25];
+// Définir la zone de la Mayenne par ses limites administratives
+{{geocodeArea:Mayenne}}->.searchArea;
+
+// Récupérer les routes principales et secondaires
+way
+  ["highway"~"^(primary|secondary|tertiary)$"](area.searchArea);
+out body;
+>;
+out skel qt;
