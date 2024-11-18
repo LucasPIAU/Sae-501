@@ -65,3 +65,22 @@ h1 {
 }
 
 /* ==> Filtrage */
+.filtre-filiere {
+  margin: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+input[type=text] {
+  padding: 10px;
+  border: black solid 2px;
+  border-radius: 10px;
+  width: 20%;
+}
+
+fieldset {
+  border: none;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
