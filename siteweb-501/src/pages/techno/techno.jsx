@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import style from "./spePremiere.module.css";
-import Map from '../../components/map';
+import style from "./techno.module.css";
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
 
-function SpePremiere() {
+function Techno() {
   const [formations, setFormations] = useState([]);
 
-  // Récupération des données depuis data.json
   useEffect(() => {
     fetch('/assets/json/data.json')
       .then(response => response.json())
-      .then(data => {setFormations(data);console.log(data)}); // Sauvegarde les données récupérées
+      .then(data => {setFormations(data);console.log(data)});
   }, []);
 
   const navigate = useNavigate();
@@ -26,13 +24,13 @@ function SpePremiere() {
     <div className={style.AppA}>
       <button className={style.backButton} onClick={navigateTo}>Back</button>
       <div className={style.containerMapFormation}>
-        <div className={style.containerMap}>
+        {/* <div className={style.containerMap}>
         <Map />
-        </div>
-        <ListCard items={formations} type="generale"/>
+        </div> */}
+        <ListCard items={formations} type="techno"/>
       </div>
     </div>
   );
 }
 
-export default SpePremiere;
+export default Techno;

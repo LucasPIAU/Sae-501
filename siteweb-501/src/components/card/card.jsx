@@ -8,7 +8,7 @@ function Card({ item }) {
 
   const navigateTo = () => {
     if(item.link){
-      navigate('/spePremiere');
+      navigate(item.link);
     }
   }
   return (

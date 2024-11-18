@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import style from "./home.module.css";
+import style from "./options.module.css";
 import Map from '../../components/map';
 import ListCard from '../../components/listCard/listCard';
+import { useNavigate } from 'react-router-dom';
 
-function Home() {
+function Options() {
   const [formations, setFormations] = useState([]);
 
   // Récupération des données depuis data.json
@@ -13,32 +14,25 @@ function Home() {
       .then(data => {setFormations(data);console.log(data)}); // Sauvegarde les données récupérées
   }, []);
 
-  console.log(formations)
+  const navigate = useNavigate();
 
-  const sectionItem = [
-    {
-      nom: "seconde générale et technologique",
-      link: "optionGenerale"
-    },
-    {
-      nom:"Première générale",
-      link: "spePremiere"
-    },
-    {
-      nom: "Première technologique",
-      link: "filiereTechno"
-    }
-  ]
+  const navigateTo = () => {
+      navigate(-1);
+  }
+
+  console.log(formations)
 
   return (
     <div className={style.AppA}>
+      <button className={style.backButton} onClick={navigateTo}>Back</button>
       <div className={style.containerMapFormation}>
-        {/* <Map /> */}
-        {/* <ListCard items={formations} type="formation" /> */}
-        <ListCard items={sectionItem} />
+        {/* <div className={style.containerMap}>
+        <Map />
+        </div> */}
+        <ListCard items={formations} type="options"/>
       </div>
     </div>
   );
 }
 
-export default Home;
+export default Options;
