@@ -1,3 +1,7 @@
+.App {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -78,9 +82,20 @@ input[type=text] {
   width: 20%;
 }
 
+
 fieldset {
   border: none;
   display: flex;
   gap: 1rem;
   align-items: center;
+
+
+.containerMapFormation {
+  display: flex;
+  flex-direction: column;
+}
+
+.containerListCard {
+  display: flex;
+  flex-wrap: wrap;
 }
