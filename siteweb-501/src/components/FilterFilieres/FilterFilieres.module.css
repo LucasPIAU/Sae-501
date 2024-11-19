@@ -1,0 +1,35 @@
+.filtreFiliere {
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border: black solid 2px;
+  border-radius: 10px;
+  width: 25%;
+  background-image: url("../../assets/images/loupe.png");
+  background-repeat: no-repeat;
+  background-position: 7px 7px;
+  background-size: 20px 20px; 
+  padding-left: 35px;
+  margin-right: 2rem;
+  max-height: 1rem;
+}
+
+fieldset {
+  border: none;
+}
+
+fieldset legend {
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+}
+
+.oscour {
+  display: flex; 
+  gap: 1rem;
+  accent-color: black;
+}
