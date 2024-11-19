@@ -8,7 +8,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import SpePremiere from "./pages/spePremiere/spePremiere"
 import Options from './pages/options/options';
 import Techno from "./pages/techno/techno"
-import Pro from "./pages/pro/pro.jsx"
+import Pro from "./pages/pro/pro.jsx";
+import Detail from "./pages/detail/detail.jsx"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/optionGenerale" element={<Options/>} />
         <Route path="/filiereTechno" element={<Techno/>} />
         <Route path="/pro" element={<Pro/>} />
+        <Route path="/detail" element={<Detail/>} />
       </Routes>
     </Router>
     </>

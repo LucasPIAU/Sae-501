@@ -1,0 +1,13 @@
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; /* Couleur du texte */
+    margin-bottom: 16px; /* Espacement sous le titre */
+    text-align: left; /* Alignement du texte */
+  }
+  
+
+  .containerTitle {
+    display: flex;
+    justify-content: center;
+  }
