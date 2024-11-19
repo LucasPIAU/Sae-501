@@ -5,7 +5,7 @@ const FilterFiliere = () => {
     return (
         <>
             <div className={style.filtreFiliere}>
-                <input type="text" id="key" name="key"/>
+                <input type="text" id="key" name="key" placeholder='Mots-clés'/>
                 <fieldset>
                     <legend>Filière</legend>
 
