@@ -1,0 +1,93 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2024-11-17T09:02:01Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/26691777",
+        "addr:postcode": "53100",
+        "capital": "7",
+        "name": "Mayenne",
+        "name:br": "Mezven",
+        "name:fr": "Mayenne",
+        "name:ru": "Майен",
+        "name:uk": "Майєнн",
+        "place": "town",
+        "population": "12900",
+        "population:date": "2021",
+        "ref:FR:SIREN": "215301474",
+        "source:population": "INSEE 2024",
+        "website": "https://www.mairie-mayenne.fr/",
+        "wikidata": "Q213513",
+        "wikipedia": "fr:Mayenne (commune)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.6179871,
+          48.3044218
+        ]
+      },
+      "id": "node/26691777"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/26692003",
+        "addr:postcode": "53000",
+        "capital": "6",
+        "name": "Laval",
+        "name:br": "Laval",
+        "name:fr": "Laval",
+        "name:ru": "Лаваль",
+        "name:uk": "Лаваль",
+        "place": "town",
+        "population": "49657",
+        "population:date": "2021",
+        "ref:FR:SIREN": "215301300",
+        "source:population": "INSEE 2024",
+        "website": "https://www.laval.fr/",
+        "wikidata": "Q184154",
+        "wikipedia": "fr:Laval (Mayenne)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.7734022,
+          48.0706687
+        ]
+      },
+      "id": "node/26692003"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/817362758",
+        "addr:postcode": "53200",
+        "capital": "7",
+        "name": "Château-Gontier",
+        "name:fr": "Château-Gontier",
+        "name:uk": "Шато-Гонтьє",
+        "place": "town",
+        "population": "16710",
+        "population:date": "2021",
+        "ref:FR:SIREN": "215300625",
+        "source:population": "INSEE 2024",
+        "website": "http://www.ville-chateau-gontier.fr/",
+        "wikidata": "Q214580",
+        "wikipedia": "fr:Château-Gontier"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.7066665,
+          47.8263058
+        ]
+      },
+      "id": "node/817362758"
+    }
+  ]
+}

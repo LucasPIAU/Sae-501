@@ -1,0 +1,20 @@
+.containerMapFormation {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .containerListCard {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .containerMap {
+    margin: 25px;
+  }
+
+  .backButton {
+    border-radius: 15px;
+    background-color: #B059B1;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
