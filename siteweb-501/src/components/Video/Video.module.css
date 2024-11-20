@@ -1,0 +1,16 @@
+.containerVideo {
+    display: flex;
+    justify-content: center;
+}
+
+.video {
+    width: 100%; /* Vidéo pleine largeur */
+    height: auto; /* Garde les proportions de la vidéo */
+    border-radius: 8px; /* Coins arrondis */
+    margin-bottom: 16px; /* Espacement sous la vidéo */
+    outline: none; /* Retire le contour */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+    width: auto;
+    height: 200px;
+  }
+  

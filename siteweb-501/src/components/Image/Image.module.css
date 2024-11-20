@@ -1,0 +1,16 @@
+.contaimerImage {
+    display: flex;
+    justify-content: center;
+}
+
+
+.image {
+    width: 100%; /* Image pleine largeur */
+    height: auto; /* Garde les proportions de l'image */
+    border-radius: 8px; /* Coins arrondis */
+    margin-bottom: 16px; /* Espacement sous l'image */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+    width: auto;
+    height:200px;
+  }
+  

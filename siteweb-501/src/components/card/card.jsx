@@ -9,6 +9,8 @@ function Card({ item }) {
   const navigateTo = () => {
     if(item.link){
       navigate(item.link);
+    } else {
+      navigate('/detail', { state: { itemId: item.id } });
     }
   }
 

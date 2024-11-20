@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import style from "./home.module.css";
 import Map from '../../components/map';
 import ListCard from '../../components/listCard/listCard';
-import FiltrageFilieres from '../../components/FilterFilieres/FilterFilieres';
 
 function Home() {
   const [formations, setFormations] = useState([]);
@@ -33,7 +32,6 @@ function Home() {
 
   return (
     <>
-      <FiltrageFilieres/>
       <div className={style.AppA}>
         <div className={style.containerMapFormation}>
           {/* <Map /> */}

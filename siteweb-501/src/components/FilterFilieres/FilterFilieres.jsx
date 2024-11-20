@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import style from './FilterFilieres.module.css'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const FilterFiliere = () => {
+    const navigate = useNavigate();
     const [filieres, setFlieres] = useState([]);
     const [searchTerm, setSearchTerm] = useState(''); 
     const [selectedType, setSelectedType] = useState('g&t');
@@ -12,6 +14,11 @@ const FilterFiliere = () => {
 
     const handleTypeChange = (event) => {
         setSelectedType(event.target.value);
+        if(event.target.value == 'pro'){
+            navigate("/pro")
+        }else{
+            navigate("/")
+        }
     };
 
     const filteredFilieres = filieres.filter(filiere => 
