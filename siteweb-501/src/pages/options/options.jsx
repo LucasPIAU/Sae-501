@@ -3,7 +3,6 @@ import style from "./options.module.css";
 import Map from '../../components/map';
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
-import FiltrageFilieres from '../../components/FilterFilieres/FilterFilieres';
 
 function Options() {
   const [formations, setFormations] = useState([]);
@@ -25,7 +24,6 @@ function Options() {
 
   return (
     <>
-      <FiltrageFilieres/>
       <div className={style.AppA}>
         <button className={style.backButton} onClick={navigateTo}>Back</button>
         <div className={style.containerMapFormation}>

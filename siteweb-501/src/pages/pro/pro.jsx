@@ -13,6 +13,7 @@ function Techno() {
   }, []);
 
   return (
+    <>
     <div className={style.AppA}>
       {/* <button className={style.backButton} onClick={navigateTo}>Back</button> */}
       <div className={style.containerMapFormation}>
@@ -22,6 +23,7 @@ function Techno() {
         <ListCard items={formations} type="pro"/>
       </div>
     </div>
+    </>
   );
 }
 

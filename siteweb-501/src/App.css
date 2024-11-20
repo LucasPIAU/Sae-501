@@ -7,7 +7,7 @@
   pointer-events: none;
 }
 
-/* ==> Header */
+/* 
 .App-header {
   background-image: url('../public/headerImage.png');
   background-size: cover;
@@ -68,14 +68,14 @@ h1 {
   max-width: 100vh;
 }
 
-/* ==> Filtrage */
+
 .filtre-filiere {
   margin: 1rem;
   display: flex;
   gap: 1rem;
-}
+} */
 
-input[type=text] {
+/* input[type=text] {
   padding: 10px;
   border: black solid 2px;
   border-radius: 10px;
@@ -88,7 +88,7 @@ fieldset {
   display: flex;
   gap: 1rem;
   align-items: center;
-}
+} */
 
 
 .containerMapFormation {

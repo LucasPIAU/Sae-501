@@ -14,11 +14,12 @@ import Detail from "./pages/detail/detail.jsx"
 import AdminSpace from './pages/AdminSpace/AdminSpace.jsx';
 import Lycees from "./pages/lycees/lycees";
 
+function App({ item }) {
   return (
      <Router>
-      <Routes>
         <Header/>
-        <Filtrage/>
+        <FiltrageFilieres />
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/spePremiere" element={<SpePremiere />} />
         <Route path="/optionGenerale" element={<Options/>} />
@@ -30,6 +31,6 @@ import Lycees from "./pages/lycees/lycees";
       </Routes>
     </Router>
   );
-
+}
 
 export default App;
