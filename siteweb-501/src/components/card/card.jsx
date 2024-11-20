@@ -13,7 +13,7 @@ function Card({ item }) {
       navigate('/detail', { state: { itemId: item.id } });
     }
   }
-  console.log(item.id)
+
   return (
     <div className={style.card}>
       <div className={style.containerTitleMotClef}>
@@ -21,7 +21,7 @@ function Card({ item }) {
       {item.motClef && <p>Mot clef : {item.motClef}</p>}
       </div>
       <div className={style.containerButtonCard}>
-        <button onClick={navigateTo}>Voir plus</button>
+        { item.type === 'etablissement'?<a href={item.link} target="_blank" rel="noopener noreferrer">Voir plus</a> : <button onClick={navigateTo}>Voir plus</button>}
       </div>
       {/* <p>Établissements associés:</p>
       <ul>
