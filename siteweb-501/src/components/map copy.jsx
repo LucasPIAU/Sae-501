@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import * as echarts from 'echarts';
 
-const Map = ({ filteredData }) => {
+const Map = () => {
   useEffect(() => {
     async function loadMapData() {
       try {
@@ -20,6 +20,11 @@ const Map = ({ filteredData }) => {
         const villesData = await responseVilles.json();
         console.log("Données des villes:", villesData);
 
+        // Charger les données des établissements
+        const responseEtablissements = await fetch('/assets/json/data.json');
+        const etablissementsData = await responseEtablissements.json();
+        console.log("Données des établissements:", etablissementsData);
+
         function createOptionForMayenne() {
           const routes = citiesAndRoutes.features || [];
           const villes = villesData.features || [];
@@ -32,7 +37,7 @@ const Map = ({ filteredData }) => {
             .filter(route => route.geometry && route.geometry.coordinates)
             .map(route => ({
               name: route.properties.name || "Route sans nom",
-              coords: route.geometry.coordinates.map(coord => coord),
+              coords: route.geometry.coordinates.map(coord => coord)
             }));
 
           // Formater les données des villes
@@ -41,8 +46,8 @@ const Map = ({ filteredData }) => {
             value: ville.geometry.coordinates,
           }));
 
-          // Formater les données des établissements filtrés
-          const etablissementsPoints = (filteredData || []).map(etablissement => ({
+          // Formater les données des établissements
+          const etablissementsPoints = etablissementsData.map(etablissement => ({
             name: etablissement.nom,
             value: etablissement.coordinates,
           }));
@@ -106,13 +111,13 @@ const Map = ({ filteredData }) => {
                   fontFamily: 'Barlow, Arial, sans-serif',
                 },
               },
-              // Série pour les établissements filtrés
+              // Série pour les établissements
               {
                 name: 'Établissements',
                 type: 'scatter',
                 coordinateSystem: 'geo',
                 data: etablissementsPoints,
-                symbol: 'diamond',
+                symbol: 'diamond', // Vous pouvez changer ce symbole selon votre besoin
                 symbolSize: 10,
                 itemStyle: {
                   color: '#0000ff',
@@ -150,20 +155,10 @@ const Map = ({ filteredData }) => {
     }
 
     loadMapData();
-  }, [filteredData]); // Relancer l'effet quand `filteredData` change
+  }, []);
 
   return (
-    <div
-      id="map"
-      className="map"
-      style={{
-        width: '600px',
-        height: '400px',
-        background: "#FECFFF",
-        borderRadius: "15px",
-        boxShadow: "0px 0px 16px 3px rgba(0,0,0,0.15)",
-      }}
-    ></div>
+    <div id="map" className="map" style={{width: '600px', height: '400px', background: "#FECFFF", borderRadius: "15px", boxShadow: "0px 0px 16px 3px rgba(0,0,0,0.15)" }}></div>
   );
 };
 
