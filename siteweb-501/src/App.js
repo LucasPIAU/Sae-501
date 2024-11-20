@@ -10,6 +10,7 @@ import Options from './pages/options/options';
 import Techno from "./pages/techno/techno"
 import Pro from "./pages/pro/pro.jsx";
 import Detail from "./pages/detail/detail.jsx"
+import AdminSpace from './pages/AdminSpace/AdminSpace.jsx';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/filiereTechno" element={<Techno/>} />
         <Route path="/pro" element={<Pro/>} />
         <Route path="/detail" element={<Detail/>} />
+        <Route path="/adminspace" element={<AdminSpace/>} />
       </Routes>
     </Router>
     </>

@@ -10,9 +10,10 @@ function Card({ item }) {
     if(item.link){
       navigate(item.link);
     } else {
-      navigate('/detail', { state: { item } });
+      navigate('/detail', { state: { itemId: item.id } });
     }
   }
+  console.log(item.id)
   return (
     <div className={style.card}>
       <div className={style.containerTitleMotClef}>

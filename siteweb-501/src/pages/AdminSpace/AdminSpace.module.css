@@ -1,0 +1,68 @@
+.detail {
+  margin: 1rem;
+}
+
+.containerMapFormation {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .containerListCard {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .containerMap {
+    margin: 25px;
+  }
+
+  .backButton {
+    border-radius: 15px;
+    background-color: #B059B1;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+  .titleDetail {
+    font-size: 30px;
+    color: black;
+  }
+
+  .containerContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .containerDetail {
+    display: flex;
+  }
+
+  .containerListCard {
+    overflow-y: scroll;
+    max-height: 350px;
+  }
+
+  .backButton {
+    border-radius: 15px;
+    background-color: #B059B1;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+  .containerContentTitle {
+    flex: 1;
+  }
+
+
+  .draggableItem {
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin-bottom: 8px;
+    background-color: white;
+    cursor: grab;
+  }
+  

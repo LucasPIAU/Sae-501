@@ -8,29 +8,29 @@ const Map = () => {
         // Charger les données de la Mayenne depuis le fichier GeoJSON
         const responseMayenne = await fetch('/assets/json/mayenneV2.geojson');
         const mayenneData = await responseMayenne.json();
-        console.log("Données Mayenne:", mayenneData);
+        // console.log("Données Mayenne:", mayenneData);
 
         // Charger les données des routes
         const responseCitiesAndRoutes = await fetch('/assets/json/routeMayenne.geojson');
         const citiesAndRoutes = await responseCitiesAndRoutes.json();
-        console.log("Données supplémentaires (villes et routes):", citiesAndRoutes);
+        // console.log("Données supplémentaires (villes et routes):", citiesAndRoutes);
 
         // Charger les données des villes
         const responseVilles = await fetch('/assets/json/BigVilleMayenne.geojson');
         const villesData = await responseVilles.json();
-        console.log("Données des villes:", villesData);
+        // console.log("Données des villes:", villesData);
 
         // Charger les données des établissements
         const responseEtablissements = await fetch('/assets/json/data.json');
         const etablissementsData = await responseEtablissements.json();
-        console.log("Données des établissements:", etablissementsData);
+        // console.log("Données des établissements:", etablissementsData);
 
         function createOptionForMayenne() {
           const routes = citiesAndRoutes.features || [];
           const villes = villesData.features || [];
 
-          console.log("Routes extraites:", routes);
-          console.log("Villes extraites:", villes);
+          // console.log("Routes extraites:", routes);
+          // console.log("Villes extraites:", villes);
 
           // Formater les données des routes
           const routeData = routes
