@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const formationSlice = createSlice({
   name: 'formations',
   initialState: {
-    formations: [],  // Stocke les formations récupérées dans data.js
+    formations: [], // Stocke les formations (options, techno, generale, pro)
+    etablissement: [], // Stocke les établissements
     loading: false,
     errors: null,
   },
@@ -12,47 +13,105 @@ const formationSlice = createSlice({
       console.log("Données envoyées au state : ", action.payload);
       state.formations = action.payload;
     },
+    setEtablissements: (state, action) => {
+      console.log("Données des établissements envoyées au state : ", action.payload);
+      state.etablissement = action.payload;
+    },
+    initializeData: (state, action) => {
+      const data = action.payload;
+
+      // Filtrer les formations par types
+      const formations = data.filter(item =>
+        ['options', 'techno', 'generale', 'pro'].includes(item.type)
+      );
+
+      // Filtrer les établissements
+      const etablissements = data.filter(item => item.type === 'etablissement');
+
+      // Mettre à jour le state
+      state.formations = formations;
+      state.etablissement = etablissements;
+
+      console.log(state.formations);
+      console.log(state.etablissement);
+    },
     moveContent: (state, action) => {
       const { formationId, indexFrom, indexTo } = action.payload;
-      
+
       // Recherche de la formation par son id
       const formationIndex = state.formations.findIndex(f => f.id === formationId);
-      
+
       if (formationIndex === -1) {
         console.error(`Formation avec l'ID "${formationId}" introuvable`);
         return;
       }
 
-      console.log(JSON.parse(JSON.stringify(state.formations)))
-      console.log(formationId)
-      console.log(formationIndex)
-
       const formation = state.formations[formationIndex];
-
-      // Déproxyification de l'objet formation
       const formationCopy = JSON.parse(JSON.stringify(formation)); // Crée une copie sans proxy
 
-      console.log("formationCopy (déréférencée) : ", formationCopy);
-
-      // Vérification que 'content' existe bien dans la formation
       if (formationCopy?.content) {
         const content = formationCopy.content;
-        console.log("content avant modification : ", content);
-
-        // Manipulation du contenu (déplacement de l'élément)
         const [movedItem] = content.splice(indexFrom, 1); // Suppression de l'élément à l'indexFrom
         content.splice(indexTo, 0, movedItem); // Insertion de l'élément à l'indexTo
-
-        console.log("content après modification : ", content);
-        
-        // Mise à jour de la formation dans le tableau formations
         state.formations[formationIndex] = formationCopy;
       } else {
         console.error("Erreur: Le contenu de la formation est manquant ou invalide.");
       }
-    }
-  }
+    },
+    editContent: (state, action) => {
+      const { formationId, index, newValue } = action.payload;
+
+      // Recherche de la formation par son id
+      const formationIndex = state.formations.findIndex(f => f.id === formationId);
+
+      if (formationIndex === -1) {
+        console.error(`Formation avec l'ID "${formationId}" introuvable`);
+        return;
+      }
+
+      const formation = state.formations[formationIndex];
+      const formationCopy = JSON.parse(JSON.stringify(formation));
+
+      if (formationCopy?.content && formationCopy.content[index] !== undefined) {
+        formationCopy.content[index] = newValue; // Mise à jour de l'élément
+        state.formations[formationIndex] = formationCopy;
+      } else {
+        console.error("Erreur: L'élément à modifier est manquant ou invalide.");
+      }
+    },
+    deleteContent: (state, action) => {
+      const { formationId, index } = action.payload;
+
+      // Recherche de la formation par son id
+      const formationIndex = state.formations.findIndex(f => f.id === formationId);
+
+      if (formationIndex === -1) {
+        console.error(`Formation avec l'ID "${formationId}" introuvable`);
+        return;
+      }
+
+      const formation = state.formations[formationIndex];
+      const formationCopy = JSON.parse(JSON.stringify(formation));
+
+      if (formationCopy?.content && formationCopy.content[index] !== undefined) {
+        formationCopy.content.splice(index, 1); // Suppression de l'élément
+        state.formations[formationIndex] = formationCopy;
+      } else {
+        console.error("Erreur: L'élément à supprimer est manquant ou invalide.");
+      }
+    },
+  },
 });
 
-export const { setFormations, moveContent } = formationSlice.actions;
+// Exporter les actions
+export const {
+  setFormations,
+  setEtablissements,
+  initializeData,
+  moveContent,
+  editContent,
+  deleteContent,
+} = formationSlice.actions;
+
+// Exporter le reducer
 export default formationSlice.reducer;

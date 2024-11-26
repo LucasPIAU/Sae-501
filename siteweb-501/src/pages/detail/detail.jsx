@@ -11,7 +11,7 @@ import Hr from "../../components/Hr/Hr";
 import Video from "../../components/Video/Video"
 import ListCard from '../../components/listCard/listCard';
 import bgCardImage from '../../assets/images/test.jpg';
-import { setFormations } from '../../store/formation/formationSlice';
+// import { setFormations } from '../../store/formation/formationSlice';
 
 function Detail() {
   const location = useLocation();
@@ -21,18 +21,16 @@ function Detail() {
 
   const formations = useSelector(selectFormations);
 
-  useEffect(() => {
-    // Si les formations sont déjà présentes dans Redux, on ne fait rien
-    if (formations.length === 0) {
-      // Charger les données depuis le fichier JSON si elles ne sont pas déjà présentes dans Redux
-      fetch('/assets/json/data.json')
-        .then(response => response.json())
-        .then((data) => {
-          console.log("Données chargées depuis le fichier JSON : ", data);
-          dispatch(setFormations(data));  // Mettre à jour le store Redux
-        });
-    }
-  }, [dispatch, formations]);
+  // useEffect(() => {
+  //   if (formations.length === 0) {
+  //     fetch('/assets/json/data.json')
+  //       .then(response => response.json())
+  //       .then((data) => {
+  //         console.log("Données chargées depuis le fichier JSON : ", data);
+  //         dispatch(setFormations(data));  // Mettre à jour le store Redux
+  //       });
+  //   }
+  // }, [dispatch, formations]);
 
   const item = formations?.find(formation => formation.id === itemId);  // Trouver la formation par son id
   console.log("Formation récupérée depuis le store : ", item);
