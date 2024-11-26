@@ -3,7 +3,7 @@ import style from "./lycees.module.css";
 import ListCard from '../../components/listCard/listCard';
 import Map from '../../components/map';
 import { useNavigate } from 'react-router-dom';
-import FiltrageCarte from '../../components/FilterCarte/FilterCarte';
+import FilterCarte from '../../components/FilterCarte/FilterCarte';
 
 function Lycees() {
     const [lycees, setLycees] = useState([]);
@@ -22,7 +22,7 @@ function Lycees() {
 
     return (
         <>
-            <FiltrageCarte/>
+            <FilterCarte/>
             <div className={style.AppA}>
                 <button className={style.backButton} onClick={navigateTo}>Back</button>
                 <div className={style.containerMapFormation}>
