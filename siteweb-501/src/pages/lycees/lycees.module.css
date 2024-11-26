@@ -13,8 +13,11 @@
 }
 
 .backButton {
-    border-radius: 15px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    border-radius: 50%;
+    padding: 20px;
     background-color: #B059B1;
-    padding: 10px 15px;
     cursor: pointer;
 }
