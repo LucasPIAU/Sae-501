@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { loadInfos } from './formationAsyncAction';
 
 const formationSlice = createSlice({
   name: 'formations',
   initialState: {
     formations: [], // Stocke les formations (options, techno, generale, pro)
     etablissement: [], // Stocke les établissements
+    filteredEtablissements: [], // Contient les établissements filtrés
     loading: false,
     errors: null,
   },
@@ -17,23 +19,9 @@ const formationSlice = createSlice({
       console.log("Données des établissements envoyées au state : ", action.payload);
       state.etablissement = action.payload;
     },
-    initializeData: (state, action) => {
-      const data = action.payload;
-
-      // Filtrer les formations par types
-      const formations = data.filter(item =>
-        ['options', 'techno', 'generale', 'pro'].includes(item.type)
-      );
-
-      // Filtrer les établissements
-      const etablissements = data.filter(item => item.type === 'etablissement');
-
-      // Mettre à jour le state
-      state.formations = formations;
-      state.etablissement = etablissements;
-
-      console.log(state.formations);
-      console.log(state.etablissement);
+    setFilteredEtablissements: (state, action) => {
+      console.log("Données filtrées des établissements : ", action.payload);
+      state.filteredEtablissements = action.payload;
     },
     moveContent: (state, action) => {
       const { formationId, indexFrom, indexTo } = action.payload;
@@ -101,6 +89,34 @@ const formationSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(loadInfos.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(loadInfos.fulfilled, (state, action) => {
+      const data = action.payload;
+
+      // Filtrer les formations par types
+      const formations = data.filter(item =>
+        ['options', 'techno', 'generale', 'pro'].includes(item.type)
+      );
+
+      // Filtrer les établissements
+      const etablissements = data.filter(item => item.type === 'etablissement');
+      console.log(formations)
+      console.log(etablissements)
+      // Mettre à jour le state
+      state.formations = formations;
+      state.etablissement = etablissements;
+
+      console.log(state.formations);
+      console.log(state.etablissement);
+      state.loading = false;
+    })
+    .addCase(loadInfos.rejected, (state, action) => {
+      state.loading = false;
+    })
+  }
 });
 
 // Exporter les actions
@@ -111,6 +127,7 @@ export const {
   moveContent,
   editContent,
   deleteContent,
+  setFilteredEtablissements
 } = formationSlice.actions;
 
 // Exporter le reducer
