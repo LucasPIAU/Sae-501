@@ -4,7 +4,6 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 const FilterFiliere = () => {
     const navigate = useNavigate();
-    const [filieres, setFlieres] = useState([]);
     const [searchTerm, setSearchTerm] = useState(''); 
     const [selectedType, setSelectedType] = useState('g&t');
 
@@ -20,17 +19,6 @@ const FilterFiliere = () => {
             navigate("/")
         }
     };
-
-    const filteredFilieres = filieres.filter(filiere => 
-        filiere.nom.toLowerCase().includes(searchTerm) &&((selectedType === 'g&t' && (filiere.type === 'generale' || filiere.type === 'techno')) || (selectedType === 'pro' && filiere.type === 'pro'))
-    );
-    // Les résultats de la recherche par filtres (mot clé et bouton radio) sont dans la variable filteredFilieres
-
-    useEffect(() => {
-        fetch('/assets/json/data.json')
-          .then(response => response.json())
-          .then(data => {setFlieres(data)});
-    }, []);
 
     return (
         <>

@@ -2,15 +2,11 @@ import React, { useState, useEffect } from 'react';
 import style from "./techno.module.css";
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectError } from '../../store/formation/formationSelector';
 
 function Techno() {
-  const [formations, setFormations] = useState([]);
-
-  useEffect(() => {
-    fetch('/assets/json/data.json')
-      .then(response => response.json())
-      .then(data => {setFormations(data)});
-  }, []);
+  const formations = useSelector(selectError);
 
   const navigate = useNavigate();
 

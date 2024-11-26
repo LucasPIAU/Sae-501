@@ -3,16 +3,11 @@ import style from "./spePremiere.module.css";
 import Map from '../../components/map';
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectFormations } from '../../store/formation/formationSelector';
 
 function SpePremiere() {
-  const [formations, setFormations] = useState([]);
-
-  // Récupération des données depuis data.json
-  useEffect(() => {
-    fetch('/assets/json/data.json')
-      .then(response => response.json())
-      .then(data => {setFormations(data)}); // Sauvegarde les données récupérées
-  }, []);
+const formations = useSelector(selectFormations);
 
   const navigate = useNavigate();
 
