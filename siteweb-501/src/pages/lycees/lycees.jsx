@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { selectEtablissements } from '../../store/formation/formationSelector.js';
 import FilterCarte from '../../components/FilterCarte/FilterCarte';
 import { selectEtablissement } from '../../store/formation/formationSelector';
-import { useSelector } from 'react-redux';
 
 function Lycees() {
     const etablissements = useSelector(selectEtablissements);
