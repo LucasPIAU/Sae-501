@@ -8,14 +8,14 @@ function Techno() {
 
   useEffect(() => {
     fetch('/assets/json/data.json')
-      .then(response => response.json())
-      .then(data => {setFormations(data)});
+    .then(response => response.json())
+    .then(data => {setFormations(data)});
   }, []);
 
   const navigate = useNavigate();
 
   const navigateTo = () => {
-      navigate(-1);
+    navigate(-1);
   }
 
   //console.log(formations)

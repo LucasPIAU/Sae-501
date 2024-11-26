@@ -5,6 +5,7 @@ const formationSlice = createSlice({
   initialState: {
     formations: [], // Stocke les formations (options, techno, generale, pro)
     etablissement: [], // Stocke les établissements
+    filtredFormations: [],
     loading: false,
     errors: null,
   },

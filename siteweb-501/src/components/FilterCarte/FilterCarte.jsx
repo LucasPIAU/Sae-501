@@ -82,11 +82,6 @@ const FilterCarte = () => {
         dispatch(setEtablissements(uniqueEstablishments));
     }, [city, range, establishments]);
 
-    // Affiche `filteredEstablishments` après chaque mise à jour
-    useEffect(() => {
-        //console.log('Établissements après filtrage final:', filteredEstablishments);
-    }, [filteredEstablishments]);
-
     return (
         <>
             <div className={style.filtreCarte}>
