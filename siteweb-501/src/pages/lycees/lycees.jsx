@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { selectFilteredEtablissements } from '../../store/formation/formationSelector.js';
 import FilterCarte from '../../components/FilterCarte/FilterCarte';
 import { selectEtablissement } from '../../store/formation/formationSelector';
-
 function Lycees() {
     const etablissements = useSelector(selectFilteredEtablissements);
     console.log("etablissement page lycée : ", etablissements)
@@ -22,7 +21,7 @@ function Lycees() {
         <>
             <FilterCarte/>
             <div className={style.AppA}>
-                <button className={style.backButton} onClick={navigateTo}>Back</button>
+                <button className={style.backButton} onClick={navigateTo}></button>
                 <div className={style.containerMapFormation}>
                     <div className={style.containerMap}>
                     <Map />
