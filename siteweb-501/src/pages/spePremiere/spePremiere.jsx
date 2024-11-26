@@ -11,7 +11,7 @@ function SpePremiere() {
   useEffect(() => {
     fetch('/assets/json/data.json')
       .then(response => response.json())
-      .then(data => {setFormations(data);console.log(data)}); // Sauvegarde les données récupérées
+      .then(data => {setFormations(data)}); // Sauvegarde les données récupérées
   }, []);
 
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function SpePremiere() {
       navigate(-1);
   }
 
-  console.log(formations)
+  //console.log(formations)
 
   return (
     <>

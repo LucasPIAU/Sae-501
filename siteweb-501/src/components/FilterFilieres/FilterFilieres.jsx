@@ -24,13 +24,13 @@ const FilterFiliere = () => {
     const filteredFilieres = filieres.filter(filiere => 
         filiere.nom.toLowerCase().includes(searchTerm) &&((selectedType === 'g&t' && (filiere.type === 'generale' || filiere.type === 'techno')) || (selectedType === 'pro' && filiere.type === 'pro'))
     );
-    console.log("=============>", filteredFilieres)
+    //console.log("=============>", filteredFilieres)
     // Les résultats de la recherche par filtres (mot clé et bouton radio) sont dans la variable filteredFilieres
 
     useEffect(() => {
         fetch('/assets/json/data.json')
           .then(response => response.json())
-          .then(data => {setFlieres(data);console.log(data)});
+          .then(data => {setFlieres(data)});
     }, []);
 
     return (

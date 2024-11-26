@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import style from "./lycees.module.css";
 import ListCard from '../../components/listCard/listCard';
 import Map from '../../components/map';
 import { useNavigate } from 'react-router-dom';
+import { selectEtablissements } from '../../store/formation/formationSelector.js';
 import FilterCarte from '../../components/FilterCarte/FilterCarte';
 
 function Lycees() {
-    const [lycees, setLycees] = useState([]);
-
-    useEffect(() => {
-        fetch('/assets/json/data.json')
-          .then(response => response.json())
-          .then(data => {setLycees(data);console.log(data)});
-    }, []);
+    const etablissements = useSelector(selectEtablissements);
+    console.log("Cela fonctionne-t-il ?", etablissements)
 
     const navigate = useNavigate();
 
@@ -29,7 +26,7 @@ function Lycees() {
                     <div className={style.containerMap}>
                     <Map />
                     </div>
-                    <ListCard items={lycees} type="etablissement"/>
+                    <ListCard items={etablissements} type="etablissement"/>
                 </div>
             </div>
         </>

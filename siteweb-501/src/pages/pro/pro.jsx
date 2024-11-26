@@ -9,7 +9,7 @@ function Techno() {
   useEffect(() => {
     fetch('/assets/json/data.json')
       .then(response => response.json())
-      .then(data => {setFormations(data);console.log(data)});
+      .then(data => {setFormations(data)});
   }, []);
 
   return (
