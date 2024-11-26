@@ -2,6 +2,27 @@ const express = require('express');
 
 const formationRoutes = express();
 
+
+// Exemple de format JSON d'une formation dans la base de donnée
+{
+    id: "String"
+    name: "String"
+    filière: "String" // Générale et technologique ou professionel
+    data: "Object" // Le format de la data dépend de la filière 
+}
+
+// Exemple de data pour une formation pro
+{
+    categorie: "String"
+    options: "Array" // Liste des options possible si il y en as sinon null
+    etablissement: "Array" // Liste d'id des établissement qui propose cette formation
+    metierExercer: "Array" // Liste de je sais pas quoi j'ai rien compris
+    lieuxExercices: "Array" // Liste des métier possible suite à cette formation
+    poursuitesEtude: "Array" // Liste des poursuites d'études possible avec cette formation
+}
+
+
+
 // Routes GET
 
 formationRoutes.get('/:id', async (req, res) => {
