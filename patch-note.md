@@ -23,10 +23,12 @@
    Il faut install react redux + toolkit react-redux + react  dnd
 
    npm i --save @fortawesome/fontawesome-svg-core
+   
    npm i --save @fortawesome/free-solid-svg-icons
+   
    npm i --save @fortawesome/react-fontawesome@latest
 
-### Compnents site 
+### Components site 
   - Card -> une carte avec nom formation ou nom categorie
   - listCard -> ensemble de cartes
   - Description -> bloc description dans le détail d'une formation
