@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import style from './FilterCarte.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import {selectEtablissement} from "../../store/formation/formationSelector"
+import { useDispatch } from 'react-redux';
+import { setEtablissements } from '../../store/formation/formationSlice.js';
 
 const FilterCarte = () => {
     const [range, setRange] = useState(50);
@@ -49,8 +49,6 @@ const FilterCarte = () => {
             est.nom.toLowerCase().includes(city.toLowerCase())
         );
 
-        // console.log('Établissements correspondant au nom:', nameMatchingEstablishments);
-
         // Filtrer par distance (établissements dans le rayon spécifié)
         const distanceMatchingEstablishments = establishments.filter(est => {
             if (!est.coordinates) {
@@ -74,13 +72,13 @@ const FilterCarte = () => {
             new Set(combinedEstablishments.map(est => est.nom))
         ).map(name => combinedEstablishments.find(est => est.nom === name));
 
-        console.log('Établissements après fusion et suppression des doublons:', uniqueEstablishments);
         setFilteredEstablishments(uniqueEstablishments);
+        dispatch(setEtablissements(uniqueEstablishments));
     }, [city, range, establishments]);
 
     // Affiche `filteredEstablishments` après chaque mise à jour
     useEffect(() => {
-        console.log('Établissements après filtrage final:', filteredEstablishments);
+        //console.log('Établissements après filtrage final:', filteredEstablishments);
     }, [filteredEstablishments]);
 
     return (

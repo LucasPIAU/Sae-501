@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import style from "./lycees.module.css";
 import ListCard from '../../components/listCard/listCard';
 import Map from '../../components/map';
 import { useNavigate } from 'react-router-dom';
+import { selectEtablissements } from '../../store/formation/formationSelector.js';
 import FilterCarte from '../../components/FilterCarte/FilterCarte';
 import { selectEtablissement } from '../../store/formation/formationSelector';
 import { useSelector } from 'react-redux';
 
 function Lycees() {
-    const storeEtablissement = useSelector(selectEtablissement);
-    console.log("log etablissement", storeEtablissement);
+    const etablissements = useSelector(selectEtablissements);
+    console.log("Cela fonctionne-t-il ?", etablissements)
 
     const navigate = useNavigate();
 
@@ -26,7 +28,7 @@ function Lycees() {
                     <div className={style.containerMap}>
                     <Map />
                     </div>
-                    <ListCard items={storeEtablissement} type="etablissement"/>
+                    <ListCard items={etablissements} type="etablissement"/>
                 </div>
             </div>
         </>
