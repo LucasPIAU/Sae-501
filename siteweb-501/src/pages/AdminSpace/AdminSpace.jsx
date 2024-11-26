@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { setFormations, moveContent } from '../../store/formation/formationSlice';
+import { moveContent, editContent, deleteContent } from '../../store/formation/formationSlice';
 import { selectFormations } from '../../store/formation/formationSelector.js';
 import style from "./AdminSpace.module.css";
 import Map from "../../components/map";
@@ -17,35 +17,59 @@ import bgCardImage from '../../assets/images/test.jpg';
 
 function AdminSpace() {
   const location = useLocation();
-  const { itemId } = location.state || {};  // Récupérer l'id depuis les paramètres de la route
+  const { itemId } = location.state || {}; // Récupérer l'id depuis les paramètres de la route
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const formations = useSelector(selectFormations);  // Récupérer toutes les formations depuis Redux
-  const item = formations.find(formation => formation.id === itemId);  // Trouver la formation par son id
+  const formations = useSelector(selectFormations); // Récupérer toutes les formations depuis Redux
+  const item = formations.find(formation => formation.id === itemId); // Trouver la formation par son id
 
-  console.log("Formation récupérée depuis le store : ", item);
+  const [editingElement, setEditingElement] = useState(null); // Gérer l'élément en cours d'édition
+  const [editValue, setEditValue] = useState(''); // Valeur temporaire d'édition
 
   const navigateTo = () => {
     navigate(-1);
   };
 
-  // Fonction pour réorganiser les éléments du contenu et mettre à jour l'ordre local
   const handleMoveContent = (fromIndex, toIndex) => {
     dispatch(moveContent({ formationId: item.id, indexFrom: fromIndex, indexTo: toIndex }));
+  };
+
+  const handleEdit = (index, element) => {
+    setEditingElement({ index, element });
+    setEditValue(element); // Pré-remplir avec les données actuelles
+  };
+
+  const handleEditSave = () => {
+    if (editingElement) {
+      dispatch(editContent({ 
+        formationId: item.id, 
+        index: editingElement.index, 
+        newValue: editValue 
+      }));
+      setEditingElement(null); // Fermer l'interface d'édition
+      setEditValue('');
+    }
+  };
+
+  const handleDelete = (index) => {
+    dispatch(deleteContent({ formationId: item.id, index }));
   };
 
   const getContent = (content) => {
     if (!content || content.length === 0) return null;
 
     return content.map((element, index) => (
-      <DraggableContent
-        key={index}
-        index={index}
-        element={element}
-        moveContent={handleMoveContent}
-        item={item}
-      />
+      <div key={index} className={style.contentItem}>
+        <button onClick={() => handleEdit(index, element)}>Edit</button>
+        <button onClick={() => handleDelete(index)}>Delete</button>
+        <DraggableContent
+          index={index}
+          element={element}
+          moveContent={handleMoveContent}
+          item={item}
+        />
+      </div>
     ));
   };
 
@@ -69,6 +93,24 @@ function AdminSpace() {
                 </div>
               </div>
             </div>
+            {editingElement && (
+              <>
+                {/* Overlay sombre */}
+                <div className={style.modalOverlay} onClick={() => setEditingElement(null)}></div>
+                <div className={style.editModal}>
+                  <h3>Modifier l'Élément</h3>
+                  <input
+                    type="text"
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                  />
+                  <div>
+                    <button onClick={handleEditSave}>Sauvegarder</button>
+                    <button onClick={() => setEditingElement(null)}>Annuler</button>
+                  </div>
+                </div>
+              </>
+            )}
           </>
         ) : (
           <p>Pas de data trouvée</p>
@@ -89,7 +131,7 @@ const DraggableContent = ({ index, element, moveContent, item }) => {
     hover: (draggedItem) => {
       if (draggedItem.index !== index) {
         moveContent(draggedItem.index, index);
-        draggedItem.index = index;  // Met à jour l'index du drag
+        draggedItem.index = index; // Met à jour l'index du drag
       }
     },
   });
