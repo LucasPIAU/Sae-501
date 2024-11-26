@@ -33,7 +33,6 @@ function Detail() {
   // }, [dispatch, formations]);
 
   const item = formations?.find(formation => formation.id === itemId);  // Trouver la formation par son id
-  console.log("Formation récupérée depuis le store : ", item);
 
   // Fonction pour rendre le contenu en fonction du type
   const getContent = (content) => {

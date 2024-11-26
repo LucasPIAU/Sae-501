@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import style from './FilterCarte.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {selectEtablissement} from "../../store/formation/formationSelector"
 
 const FilterCarte = () => {
     const [range, setRange] = useState(50);
@@ -21,7 +22,6 @@ const FilterCarte = () => {
             .then(response => response.json())
             .then(data => {
                 setEstablishments(data);
-                //console.log('Établissements chargés:', data);
             })
             .catch(error => console.error("Erreur lors du chargement des établissements:", error));
     }, []);
@@ -43,15 +43,13 @@ const FilterCarte = () => {
 
     // Filtrer les établissements en fonction de `city` et `range`
     useEffect(() => {
-        //console.log('Ville saisie pour recherche partielle:', city);
-        //console.log('Rayon sélectionné pour recherche:', range);
 
         // Filtrer par nom partiellement correspondant
         const nameMatchingEstablishments = establishments.filter(est => 
             est.nom.toLowerCase().includes(city.toLowerCase())
         );
 
-        console.log('Établissements correspondant au nom:', nameMatchingEstablishments);
+        // console.log('Établissements correspondant au nom:', nameMatchingEstablishments);
 
         // Filtrer par distance (établissements dans le rayon spécifié)
         const distanceMatchingEstablishments = establishments.filter(est => {
@@ -76,7 +74,7 @@ const FilterCarte = () => {
             new Set(combinedEstablishments.map(est => est.nom))
         ).map(name => combinedEstablishments.find(est => est.nom === name));
 
-        //console.log('Établissements après fusion et suppression des doublons:', uniqueEstablishments);
+        console.log('Établissements après fusion et suppression des doublons:', uniqueEstablishments);
         setFilteredEstablishments(uniqueEstablishments);
     }, [city, range, establishments]);
 

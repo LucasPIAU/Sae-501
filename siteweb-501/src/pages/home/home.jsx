@@ -16,9 +16,7 @@ function Home() {
     if (formations.length === 0) {
       fetch('/assets/json/data.json')
         .then(response => response.json())
-        .then((data) => {
-          console.log("Données chargées depuis le fichier : ", data);
-  
+        .then((data) => {  
           // Appeler l'action Redux `initializeData` pour trier et mettre à jour le store
           dispatch(initializeData(data));
         })
@@ -33,7 +31,7 @@ function Home() {
   useEffect(() => {
     fetch('/assets/json/data.json')
       .then(response => response.json())
-      .then(data => {setFormationsV1(data);console.log(data)}); // Sauvegarde les données récupérées
+      .then(data => {setFormationsV1(data)}); // Sauvegarde les données récupérées
   }, []);
 
   console.log(formationsV1)
