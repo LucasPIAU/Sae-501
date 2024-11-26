@@ -10,7 +10,7 @@ function Techno() {
 
   return (
     <div className={style.AppA}>
-      <button className={style.backButton} onClick={handleBackClick}>Back</button>
+      {/* <button className={style.backButton} onClick={handleBackClick}>Back</button> */}
       <div className={style.containerMapFormation}>
         {/* Conditionally render the ListCard with only techno-type formations */}
         <ListCard items={formations} type="pro"/>
