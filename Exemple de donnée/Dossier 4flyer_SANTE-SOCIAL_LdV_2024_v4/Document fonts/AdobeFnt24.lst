@@ -1,0 +1,298 @@
+%!Adobe-FontList 1.24
+%Locale:0x409
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:/Users/isabelledeniau/Documents/DDFPT_LDV/1:Administratif/DDFPT53/3:flyers/1Flyers_2024/dossier sans titre/Dossier 4flyer_SANTE-SOCIAL_LdV_2024_v4/Document fonts/AdobeFnt24.lst
+FileLength:7639
+FileModTime:754172797
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:DINPro-Black
+FamilyName:DIN Pro
+StyleName:Black
+MenuName:DIN Pro Black
+StyleBits:0
+WeightClass:900
+WidthClass:5
+AngleClass:0
+FullName:DIN Pro Black
+WritingScript:Roman
+OutlineFileName:/Users/isabelledeniau/Documents/DDFPT_LDV/1:Administratif/DDFPT53/3:flyers/1Flyers_2024/dossier sans titre/Dossier 4flyer_SANTE-SOCIAL_LdV_2024_v4/Document fonts/DINPro-Black.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:144904
+FileModTime:719343340
+NameArray:0,Mac,18,DIN Pro Black
+NameArray:0,Mac,4,DIN Pro Black
+NameArray:0,Win,1,DIN Pro Black
+NameArray:0,Win,16,DIN Pro
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:DINPro-BlackItalic
+FamilyName:DIN Pro
+StyleName:Black Italic
+MenuName:DIN Pro Black
+StyleBits:1
+WeightClass:900
+WidthClass:5
+AngleClass:1
+FullName:DIN Pro Black Italic
+WritingScript:Roman
+OutlineFileName:/Users/isabelledeniau/Documents/DDFPT_LDV/1:Administratif/DDFPT53/3:flyers/1Flyers_2024/dossier sans titre/Dossier 4flyer_SANTE-SOCIAL_LdV_2024_v4/Document fonts/DINPro-BlackItalic.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:133572
+FileModTime:450625378
+NameArray:0,Mac,18,DIN Pro Black Italic
+NameArray:0,Mac,4,DIN Pro Black Italic
+NameArray:0,Win,1,DIN Pro Black
+NameArray:0,Win,16,DIN Pro
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:DINPro-Bold
+FamilyName:DIN Pro
+StyleName:Bold
+MenuName:DIN Pro Bold
+StyleBits:2
+WeightClass:700
+WidthClass:5
+AngleClass:0
+FullName:DIN Pro Bold
+WritingScript:Roman
+OutlineFileName:/Users/isabelledeniau/Documents/DDFPT_LDV/1:Administratif/DDFPT53/3:flyers/1Flyers_2024/dossier sans titre/Dossier 4flyer_SANTE-SOCIAL_LdV_2024_v4/Document fonts/DINPro-Bold.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:143848
+FileModTime:450625378
+NameArray:0,Mac,18,DIN Pro Bold
+NameArray:0,Mac,4,DIN Pro Bold
+NameArray:0,Win,1,DIN Pro Bold
+NameArray:0,Win,16,DIN Pro
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:DINPro-CondensedRegular
+FamilyName:DIN Pro
+StyleName:Condensed Regular
+MenuName:DIN Pro Cond
+StyleBits:0
+WeightClass:400
+WidthClass:3
+AngleClass:0
+FullName:DIN Pro Condensed Regular
+WritingScript:Roman
+OutlineFileName:/Users/isabelledeniau/Documents/DDFPT_LDV/1:Administratif/DDFPT53/3:flyers/1Flyers_2024/dossier sans titre/Dossier 4flyer_SANTE-SOCIAL_LdV_2024_v4/Document fonts/DINPro-Cond.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:127972
+FileModTime:719343340
+NameArray:0,Mac,18,DIN Pro Condensed Regular
+NameArray:0,Mac,4,DIN Pro Condensed Regular
+NameArray:0,Win,1,DIN Pro Cond
+NameArray:0,Win,16,DIN Pro
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:DINPro-CondensedBold
+FamilyName:DIN Pro
+StyleName:Condensed Bold
+MenuName:DIN Pro Cond Bold
+StyleBits:2
+WeightClass:700
+WidthClass:3
+AngleClass:0
+FullName:DIN Pro Condensed Bold
+WritingScript:Roman
+OutlineFileName:/Users/isabelledeniau/Documents/DDFPT_LDV/1:Administratif/DDFPT53/3:flyers/1Flyers_2024/dossier sans titre/Dossier 4flyer_SANTE-SOCIAL_LdV_2024_v4/Document fonts/DINPro-CondBold.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:130296
+FileModTime:719343340
+NameArray:0,Mac,18,DIN Pro Condensed Bold
+NameArray:0,Mac,4,DIN Pro Condensed Bold
+NameArray:0,Win,1,DIN Pro Cond Bold
+NameArray:0,Win,16,DIN Pro
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:DINPro-CondensedItalic
+FamilyName:DIN Pro
+StyleName:Condensed Italic
+MenuName:DIN Pro Cond
+StyleBits:1
+WeightClass:400
+WidthClass:3
+AngleClass:1
+FullName:DIN Pro Condensed Italic
+WritingScript:Roman
+OutlineFileName:/Users/isabelledeniau/Documents/DDFPT_LDV/1:Administratif/DDFPT53/3:flyers/1Flyers_2024/dossier sans titre/Dossier 4flyer_SANTE-SOCIAL_LdV_2024_v4/Document fonts/DINPro-CondIta.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:140084
+FileModTime:450625378
+NameArray:0,Mac,18,DIN Pro Condensed Italic
+NameArray:0,Mac,4,DIN Pro Condensed Italic
+NameArray:0,Win,1,DIN Pro Cond
+NameArray:0,Win,16,DIN Pro
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:DINPro-CondensedLight
+FamilyName:DIN Pro
+StyleName:Condensed Light
+MenuName:DIN Pro Cond Light
+StyleBits:0
+WeightClass:300
+WidthClass:3
+AngleClass:0
+FullName:DIN Pro Condensed Light
+WritingScript:Roman
+OutlineFileName:/Users/isabelledeniau/Documents/DDFPT_LDV/1:Administratif/DDFPT53/3:flyers/1Flyers_2024/dossier sans titre/Dossier 4flyer_SANTE-SOCIAL_LdV_2024_v4/Document fonts/DINPro-CondLight.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:126752
+FileModTime:719343340
+NameArray:0,Mac,18,DIN Pro Condensed Light
+NameArray:0,Mac,4,DIN Pro Condensed Light
+NameArray:0,Win,1,DIN Pro Cond Light
+NameArray:0,Win,16,DIN Pro
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:DINPro-CondensedMedium
+FamilyName:DIN Pro
+StyleName:Condensed Medium
+MenuName:DIN Pro Cond Medium
+StyleBits:0
+WeightClass:500
+WidthClass:3
+AngleClass:0
+FullName:DIN Pro Condensed Medium
+WritingScript:Roman
+OutlineFileName:/Users/isabelledeniau/Documents/DDFPT_LDV/1:Administratif/DDFPT53/3:flyers/1Flyers_2024/dossier sans titre/Dossier 4flyer_SANTE-SOCIAL_LdV_2024_v4/Document fonts/DINPro-CondMedium.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:130456
+FileModTime:450625378
+NameArray:0,Mac,18,DIN Pro Condensed Medium
+NameArray:0,Mac,4,DIN Pro Condensed Medium
+NameArray:0,Win,1,DIN Pro Cond Medium
+NameArray:0,Win,16,DIN Pro
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:HelveticaNeueLTStd-XBlkCn
+FamilyName:Helvetica Neue LT Std
+StyleName:107 Extra Black Condensed
+MenuName:HelveticaNeueLT Std ExtBlk Cn
+StyleBits:0
+WeightClass:950
+WidthClass:3
+AngleClass:0
+FullName:Helvetica Neue LT Std 107 Extra Black Condensed
+WritingScript:Roman
+OutlineFileName:/Users/isabelledeniau/Documents/DDFPT_LDV/1:Administratif/DDFPT53/3:flyers/1Flyers_2024/dossier sans titre/Dossier 4flyer_SANTE-SOCIAL_LdV_2024_v4/Document fonts/HelveticaNeueLTStd-XBlkCn.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:32200
+FileModTime:209470421
+DesignSize:120
+NameArray:0,Mac,18,HelveticaNeueLT Std ExtBlk Cn
+NameArray:0,Mac,4,Helvetica Neue LT Std 107 Extra Black Condensed
+NameArray:0,Win,1,HelveticaNeueLT Std ExtBlk Cn
+NameArray:0,Win,16,Helvetica Neue LT Std
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:Wingdings-Regular
+FamilyName:Wingdings
+StyleName:Regular
+MenuName:Wingdings
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Wingdings
+WritingScript:Roman
+OutlineFileName:/Users/isabelledeniau/Documents/DDFPT_LDV/1:Administratif/DDFPT53/3:flyers/1Flyers_2024/dossier sans titre/Dossier 4flyer_SANTE-SOCIAL_LdV_2024_v4/Document fonts/Wingdings.ttf
+DataFormat:sfntData
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:86384
+FileModTime:719343340
+NameArray:0,Mac,4,Wingdings
+NameArray:0,Win,1,Wingdings
+%EndFont
+
