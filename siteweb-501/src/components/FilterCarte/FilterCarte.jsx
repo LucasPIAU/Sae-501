@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import style from './FilterCarte.module.css';
+import { useDispatch } from 'react-redux';
 
 const FilterCarte = () => {
     const [range, setRange] = useState(50);
     const [city, setCity] = useState('');
     const [establishments, setEstablishments] = useState([]);
     const [filteredEstablishments, setFilteredEstablishments] = useState([]); 
+    const dispatch = useDispatch();
 
     const handleRangeChange = (event) => {
         const newRange = event.target.value;
@@ -19,7 +21,7 @@ const FilterCarte = () => {
             .then(response => response.json())
             .then(data => {
                 setEstablishments(data);
-                console.log('Établissements chargés:', data);
+                //console.log('Établissements chargés:', data);
             })
             .catch(error => console.error("Erreur lors du chargement des établissements:", error));
     }, []);
@@ -41,8 +43,8 @@ const FilterCarte = () => {
 
     // Filtrer les établissements en fonction de `city` et `range`
     useEffect(() => {
-        console.log('Ville saisie pour recherche partielle:', city);
-        console.log('Rayon sélectionné pour recherche:', range);
+        //console.log('Ville saisie pour recherche partielle:', city);
+        //console.log('Rayon sélectionné pour recherche:', range);
 
         // Filtrer par nom partiellement correspondant
         const nameMatchingEstablishments = establishments.filter(est => 
@@ -54,14 +56,14 @@ const FilterCarte = () => {
         // Filtrer par distance (établissements dans le rayon spécifié)
         const distanceMatchingEstablishments = establishments.filter(est => {
             if (!est.coordinates) {
-                console.warn('Coordonnées manquantes pour:', est.nom);
+                //console.warn('Coordonnées manquantes pour:', est.nom);
                 return false;
             }
             const distance = calculateDistance(establishments[0].coordinates, est.coordinates);
             return distance <= range;
         });
 
-        console.log('Établissements dans le rayon:', distanceMatchingEstablishments);
+        //console.log('Établissements dans le rayon:', distanceMatchingEstablishments);
 
         // Fusionner les deux listes et supprimer les doublons
         const combinedEstablishments = [
@@ -74,7 +76,7 @@ const FilterCarte = () => {
             new Set(combinedEstablishments.map(est => est.nom))
         ).map(name => combinedEstablishments.find(est => est.nom === name));
 
-        console.log('Établissements après fusion et suppression des doublons:', uniqueEstablishments);
+        //console.log('Établissements après fusion et suppression des doublons:', uniqueEstablishments);
         setFilteredEstablishments(uniqueEstablishments);
     }, [city, range, establishments]);
 
