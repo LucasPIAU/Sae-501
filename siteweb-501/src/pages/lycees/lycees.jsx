@@ -4,12 +4,12 @@ import style from "./lycees.module.css";
 import ListCard from '../../components/listCard/listCard';
 import Map from '../../components/map';
 import { useNavigate } from 'react-router-dom';
-import { selectEtablissements } from '../../store/formation/formationSelector.js';
+import { selectFilteredEtablissements } from '../../store/formation/formationSelector.js';
 import FilterCarte from '../../components/FilterCarte/FilterCarte';
-
+import { selectEtablissement } from '../../store/formation/formationSelector';
 function Lycees() {
-    const etablissements = useSelector(selectEtablissements);
-    console.log("Cela fonctionne-t-il ?", etablissements)
+    const etablissements = useSelector(selectFilteredEtablissements);
+    console.log("etablissement page lycée : ", etablissements)
 
     const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ function Lycees() {
         <>
             <FilterCarte/>
             <div className={style.AppA}>
-                <button className={style.backButton} onClick={navigateTo}>Back</button>
+                <button className={style.backButton} onClick={navigateTo}></button>
                 <div className={style.containerMapFormation}>
                     <div className={style.containerMap}>
                     <Map />

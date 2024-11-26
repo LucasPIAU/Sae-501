@@ -21,19 +21,7 @@ function Detail() {
 
   const formations = useSelector(selectFormations);
 
-  // useEffect(() => {
-  //   if (formations.length === 0) {
-  //     fetch('/assets/json/data.json')
-  //       .then(response => response.json())
-  //       .then((data) => {
-  //         console.log("Données chargées depuis le fichier JSON : ", data);
-  //         dispatch(setFormations(data));  // Mettre à jour le store Redux
-  //       });
-  //   }
-  // }, [dispatch, formations]);
-
   const item = formations?.find(formation => formation.id === itemId);  // Trouver la formation par son id
-  //console.log("Formation récupérée depuis le store : ", item);
 
   // Fonction pour rendre le contenu en fonction du type
   const getContent = (content) => {

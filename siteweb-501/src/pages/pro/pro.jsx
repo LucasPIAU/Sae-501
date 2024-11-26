@@ -2,26 +2,11 @@ import React, { useState, useEffect } from 'react';
 import style from "./pro.module.css"; // Assumes you have styles specific to this component
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectFormations } from '../../store/formation/formationSelector';
 
 function Techno() {
-  const [formations, setFormations] = useState([]);
-  const navigate = useNavigate();
-
-  // Fetch and filter formations for "techno" type
-  useEffect(() => {
-    fetch('/assets/json/data.json')
-      .then(response => response.json())
-      .then(data => {
-        // Filter formations of type "techno"
-        const technoFormations = data.filter(f => f.type === 'pro');
-        setFormations(technoFormations);
-      });
-  }, []);
-
-  // Navigate to a previous page or home
-  const handleBackClick = () => {
-    navigate(-1); // Goes back to the previous page
-  };
+  const formations = useSelector(selectFormations);
 
   return (
     <div className={style.AppA}>

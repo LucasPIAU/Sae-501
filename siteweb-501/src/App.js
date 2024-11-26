@@ -13,6 +13,9 @@ import Pro from "./pages/pro/pro.jsx";
 import Detail from "./pages/detail/detail.jsx"
 import AdminSpace from './pages/AdminSpace/AdminSpace.jsx';
 import Lycees from "./pages/lycees/lycees";
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { loadInfos } from './store/formation/formationAsyncAction.js';
 
 function App({ item }) {
   return (
@@ -25,6 +28,11 @@ function App({ item }) {
 
 function MainContent() {
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadInfos());
+  }, [dispatch]);
 
   return (
     <>

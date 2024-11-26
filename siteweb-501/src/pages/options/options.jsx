@@ -3,16 +3,12 @@ import style from "./options.module.css";
 import Map from '../../components/map';
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectFormations } from '../../store/formation/formationSelector';
 
 function Options() {
-  const [formations, setFormations] = useState([]);
 
-  // Récupération des données depuis data.json
-  useEffect(() => {
-    fetch('/assets/json/data.json')
-      .then(response => response.json())
-      .then(data => {setFormations(data)}); // Sauvegarde les données récupérées
-  }, []);
+  const formations = useSelector(selectFormations);
 
   const navigate = useNavigate();
 
@@ -20,7 +16,6 @@ function Options() {
       navigate(-1);
   }
 
-  //console.log(formations)
 
   return (
     <>
