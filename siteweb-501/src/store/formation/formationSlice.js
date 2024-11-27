@@ -6,6 +6,7 @@ const formationSlice = createSlice({
   initialState: {
     formations: [], // Stocke les formations (options, techno, generale, pro)
     etablissement: [], // Stocke les établissements
+    filteredFormations: [],
     filteredEtablissements: [], // Contient les établissements filtrés
     loading: false,
     errors: null,
@@ -22,6 +23,10 @@ const formationSlice = createSlice({
     setFilteredEtablissements: (state, action) => {
       console.log("Données filtrées des établissements : ", action.payload);
       state.filteredEtablissements = action.payload;
+    },
+    setFilteredFormations: (state, action) => {
+      console.log("Données filtrées des formations : ", action.payload);
+      state.filteredFormations = action.payload;
     },
     moveContent: (state, action) => {
       const { formationId, indexFrom, indexTo } = action.payload;
@@ -127,7 +132,8 @@ export const {
   moveContent,
   editContent,
   deleteContent,
-  setFilteredEtablissements
+  setFilteredEtablissements,
+  setFilteredFormations
 } = formationSlice.actions;
 
 // Exporter le reducer
