@@ -7,6 +7,7 @@ const formationSlice = createSlice({
     formations: [], // Stocke les formations (options, techno, generale, pro)
     etablissement: [], // Stocke les établissements
     filteredEtablissements: [], // Contient les établissements filtrés
+    selectedFormations: [],
     loading: false,
     errors: null,
   },
@@ -108,6 +109,35 @@ const formationSlice = createSlice({
         console.error("Erreur: L'élément à supprimer est manquant ou invalide.");
       }
     },
+    addFormationToFilter: (state, action) => {
+      const formation = action.payload;
+      const selectedFormations = [...state.selectedFormations];
+
+      // Si la formation est déjà sélectionnée, la retirer
+      const formationIndex = selectedFormations.findIndex(f => f.id === formation.id);
+      if (formationIndex === -1) {
+        selectedFormations.push(formation);  // Ajouter la formation
+      } else {
+        selectedFormations.splice(formationIndex, 1);  // Retirer la formation
+      }
+
+      // Mettre à jour la liste des formations sélectionnées dans le state
+      state.selectedFormations = selectedFormations;
+
+      // Filtrer les établissements en fonction des formations sélectionnées
+      console.log(selectedFormations);
+      console.log(state.etablissement)
+      if (selectedFormations.length === 0) {
+        state.filteredEtablissements = state.etablissement;  // Si aucune formation sélectionnée, vider la liste
+      } else {
+        // Filtrer les établissements qui contiennent toutes les formations sélectionnées
+        state.filteredEtablissements = state.etablissement.filter(etablissement =>
+          selectedFormations.every(formation =>
+            formation.etablissements.includes(etablissement.nom)
+          )
+        );
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(loadInfos.pending, (state) => {
@@ -148,7 +178,8 @@ export const {
   editContent,
   deleteContent,
   setFilteredEtablissements,
-  addContent
+  addContent,
+  addFormationToFilter
 } = formationSlice.actions;
 
 // Exporter le reducer

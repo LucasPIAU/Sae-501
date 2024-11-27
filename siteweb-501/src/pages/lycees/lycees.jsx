@@ -6,7 +6,8 @@ import Map from '../../components/map';
 import { useNavigate } from 'react-router-dom';
 import { selectFilteredEtablissements } from '../../store/formation/formationSelector.js';
 import FilterCarte from '../../components/FilterCarte/FilterCarte';
-import { selectEtablissement } from '../../store/formation/formationSelector';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 function Lycees() {
     const etablissements = useSelector(selectFilteredEtablissements);
     console.log("etablissement page lycée : ", etablissements)
@@ -20,13 +21,15 @@ function Lycees() {
     return (
         <>
             <FilterCarte/>
-            <div className={style.AppA}>
-                <button className={style.backButton} onClick={navigateTo}></button>
+            <div className={style.containerLycee}>
+                <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
                 <div className={style.containerMapFormation}>
                     <div className={style.containerMap}>
                     <Map />
                     </div>
+                    <div className={style.containerListCard}>
                     <ListCard items={etablissements} type="etablissement"/>
+                    </div>
                 </div>
             </div>
         </>

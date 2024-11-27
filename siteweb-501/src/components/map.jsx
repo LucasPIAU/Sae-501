@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import * as echarts from 'echarts';
+import { useSelector } from 'react-redux';
+import { selectFilteredEtablissements } from '../store/formation/formationSelector';
 
 const Map = () => {
+
+  const etablissementsData = useSelector(selectFilteredEtablissements);
+  console.log('établissement de la map : ', etablissementsData);
   useEffect(() => {
     async function loadMapData() {
       try {
@@ -17,8 +22,8 @@ const Map = () => {
         const villesData = await responseVilles.json();
 
         // Charger les données des établissements
-        const responseEtablissements = await fetch('/assets/json/data.json');
-        const etablissementsData = await responseEtablissements.json();
+        // const responseEtablissements = await fetch('/assets/json/data.json');
+        // const etablissementsData = await responseEtablissements.json();
 
         function createOptionForMayenne() {
           const routes = citiesAndRoutes.features || [];
@@ -147,7 +152,7 @@ const Map = () => {
     }
 
     loadMapData();
-  }, []);
+  }, [etablissementsData]);
 
   return (
     <div id="map" className="map" style={{width: '600px', height: '400px', background: "#FECFFF", borderRadius: "15px", boxShadow: "0px 0px 16px 3px rgba(0,0,0,0.15)" }}></div>

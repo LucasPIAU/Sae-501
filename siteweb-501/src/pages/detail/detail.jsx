@@ -11,6 +11,8 @@ import Hr from "../../components/Hr/Hr";
 import Video from "../../components/Video/Video"
 import ListCard from '../../components/listCard/listCard';
 import bgCardImage from '../../assets/images/test.jpg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 // import { setFormations } from '../../store/formation/formationSlice';
 
 function Detail() {
@@ -59,8 +61,8 @@ function Detail() {
     <div className={style.detail}>
       {item ? (
         <>
-          <button className={style.backButton} onClick={navigateTo}>Back</button>
-          <button className={style.backButton} onClick={navigateToAdmin}>Admin</button>
+        <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
+        <button className={style.backButton} onClick={navigateToAdmin}>Admin</button>
           <div className={style.containerDetail}>
             <div className={style.containerContentTitle}>
               <h1 className={style.titleDetail}>{item.nom}</h1>

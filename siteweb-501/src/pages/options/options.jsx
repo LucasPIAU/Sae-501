@@ -21,7 +21,7 @@ function Options() {
 
   return (
     <>
-      <div className={style.AppA}>
+      <div className={style.containerOptions}>
       <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
         <div className={style.containerMapFormation}>
           {/* <div className={style.containerMap}>

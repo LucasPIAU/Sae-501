@@ -14,6 +14,8 @@ import Hr from "../../components/Hr/Hr";
 import Video from "../../components/Video/Video";
 import ListCard from '../../components/listCard/listCard';
 import bgCardImage from '../../assets/images/test.jpg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 function AdminSpace() {
 
@@ -96,8 +98,8 @@ function AdminSpace() {
       <div className={style.detail}>
         {item ? (
           <>
-            <button className={style.backButton} onClick={navigateTo}>Back</button>
-            <div className={style.containerDetail}>
+        <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
+          <div className={style.containerDetail}>
               <div className={style.containerContentTitle}>
                 <h1 className={style.titleDetail}>{item.nom}</h1>
                 <div className={style.containerContent}>
