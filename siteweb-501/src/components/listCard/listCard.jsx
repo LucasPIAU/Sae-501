@@ -2,8 +2,9 @@ import React from 'react';
 import Card from '../card/card';
 import style from './listCard.module.css'
 
-function ListCard({ items, type}) {
+function ListCard({ items, type }) {
   // Filtrer les items en fonction du type
+  console.log(items);
   const filteredItems = items.filter(item => item.type === type);
 
   return (

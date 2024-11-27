@@ -14,7 +14,6 @@ function Techno() {
     navigate(-1);
   }
 
-
   return (
     <>
       <div className={style.AppA}>
