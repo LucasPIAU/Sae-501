@@ -1,3 +1,7 @@
+.containerPro {
+  margin: 0 25px;
+}
+
 .containerMapFormation {
     display: flex;
     flex-direction: row;
@@ -13,8 +17,15 @@
   }
 
   .backButton {
-    border-radius: 15px;
+    border-radius: 50%;
     background-color: #B059B1;
-    padding: 10px 15px;
     cursor: pointer;
+    border: none;
+    font-size: 20px;
+    color: white;
+    padding: 0;
+  }
+
+  .backButton svg {
+    margin: 10px 12px;
   }

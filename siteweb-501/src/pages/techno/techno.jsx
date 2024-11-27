@@ -3,10 +3,12 @@ import style from "./techno.module.css";
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectError } from '../../store/formation/formationSelector';
+import { selectFormations } from '../../store/formation/formationSelector';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 function Techno() {
-  const formations = useSelector(selectError);
+  const formations = useSelector(selectFormations);
 
   const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ function Techno() {
   return (
     <>
       <div className={style.AppA}>
-        <button className={style.backButton} onClick={navigateTo}>Back</button>
+      <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
         <div className={style.containerMapFormation}>
           {/* <div className={style.containerMap}>
           <Map />

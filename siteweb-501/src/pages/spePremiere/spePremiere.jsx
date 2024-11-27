@@ -5,6 +5,8 @@ import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectFormations } from '../../store/formation/formationSelector';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 function SpePremiere() {
 const formations = useSelector(selectFormations);
@@ -18,7 +20,7 @@ const formations = useSelector(selectFormations);
   return (
     <>
       <div className={style.AppA}>
-        <button className={style.backButton} onClick={navigateTo}>Back</button>
+      <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
         <div className={style.containerMapFormation}>
           <div className={style.containerMap}>
           <Map />
