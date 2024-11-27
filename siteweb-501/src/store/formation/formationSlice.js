@@ -23,6 +23,26 @@ const formationSlice = createSlice({
       console.log("Données filtrées des établissements : ", action.payload);
       state.filteredEtablissements = action.payload;
     },
+    addContent: (state, action) => {
+      const { formationId, newElement } = action.payload;
+    
+      const formationIndex = state.formations.findIndex(f => f.id === formationId);
+    
+      if (formationIndex === -1) {
+        console.error(`Formation avec l'ID "${formationId}" introuvable`);
+        return;
+      }
+    
+      const formation = state.formations[formationIndex];
+      const formationCopy = JSON.parse(JSON.stringify(formation));
+    
+      if (formationCopy?.content) {
+        formationCopy.content.push(newElement);
+        state.formations[formationIndex] = formationCopy;
+      } else {
+        console.error("Erreur : Le contenu de la formation est manquant ou invalide.");
+      }
+    },
     moveContent: (state, action) => {
       const { formationId, indexFrom, indexTo } = action.payload;
 
@@ -127,7 +147,8 @@ export const {
   moveContent,
   editContent,
   deleteContent,
-  setFilteredEtablissements
+  setFilteredEtablissements,
+  addContent
 } = formationSlice.actions;
 
 // Exporter le reducer
