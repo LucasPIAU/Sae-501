@@ -1,86 +1,103 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as echarts from 'echarts';
 import { useSelector } from 'react-redux';
 import { selectFilteredEtablissements } from '../store/formation/formationSelector';
 
 const Map = () => {
 
-  const etablissementsData = useSelector(selectFilteredEtablissements);
-  console.log('établissement de la map : ', etablissementsData);
+  const [etablissementsData, setEtablissementsData] = useState([]);
+  const storeData = useSelector(selectFilteredEtablissements);
+  console.log('storeData : ', storeData);
+
+  useEffect(()=>{
+    setEtablissementsData(storeData);
+    console.log('établissement de la map : ', storeData);
+  },[storeData])
+
+  function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+  }
+  
+
+
   useEffect(() => {
     async function loadMapData() {
       try {
-        // Charger les données de la Mayenne depuis le fichier GeoJSON
         const responseMayenne = await fetch('/assets/json/mayenneV2.geojson');
         const mayenneData = await responseMayenne.json();
-        // Charger les données des routes
+  
         const responseCitiesAndRoutes = await fetch('/assets/json/routeMayenne.geojson');
         const citiesAndRoutes = await responseCitiesAndRoutes.json();
-
-        // Charger les données des villes
+  
         const responseVilles = await fetch('/assets/json/BigVilleMayenne.geojson');
         const villesData = await responseVilles.json();
-
-        // Charger les données des établissements
-        // const responseEtablissements = await fetch('/assets/json/data.json');
-        // const etablissementsData = await responseEtablissements.json();
-
-        function createOptionForMayenne() {
+  
+        const chartDom = document.getElementById('map');
+        const myChart = echarts.init(chartDom);
+  
+        myChart.showLoading();
+        echarts.registerMap('Mayenne', mayenneData);
+        myChart.hideLoading();
+  
+        // Fonction pour créer l'option
+        const createOption = (zoomLevel, center) => {
           const routes = citiesAndRoutes.features || [];
           const villes = villesData.features || [];
-
+  
           // Formater les données des routes
-          const routeData = routes
-            .filter(route => route.geometry && route.geometry.coordinates)
-            .map(route => ({
-              name: route.properties.name || "Route sans nom",
-              coords: route.geometry.coordinates.map(coord => coord)
-            }));
-
-          // Formater les données des villes
-          const villesPoints = villes.map(ville => ({
-            name: ville.properties.name || "Ville sans nom",
-            value: ville.geometry.coordinates,
+          const routeData = routes.map(route => ({
+            name: route.properties.name || 'Route sans nom',
+            coords: route.geometry.coordinates,
           }));
-
+  
+          // Grouper les établissements par ville
+          const villesPoints = villes.map(ville => {
+            const villeCoords = ville.geometry.coordinates;
+            const etablissementsInVille = etablissementsData.filter(etab => {
+              const [etabLon, etabLat] = etab.coordinates;
+              return (
+                Math.abs(etabLon - villeCoords[0]) < 0.1 &&
+                Math.abs(etabLat - villeCoords[1]) < 0.1
+              );
+            });
+            return {
+              name: `${ville.properties.name || 'Ville'} (${etablissementsInVille.length})`,
+              value: villeCoords,
+            };
+          });
+  
           // Formater les données des établissements
-          const etablissementsPoints = etablissementsData.map(etablissement => ({
-            name: etablissement.nom,
-            value: etablissement.coordinates,
+          const etablissementsPoints = etablissementsData.map(etab => ({
+            name: etab.nom,
+            value: etab.coordinates,
           }));
-
+  
           return {
             geo: {
-              nameProperty: 'name',
               map: 'Mayenne',
               roam: true,
-              zoom: 95,
-              center: [-0.6200, 48.100],
+              label: false,
+              zoom: zoomLevel,
+              center: center || [-0.6200, 48.100], // Utiliser le center si défini, sinon une valeur par défaut
               scaleLimit: {
                 min: 50,
               },
               itemStyle: {
                 areaColor: '#fff',
               },
-              emphasis: {
-                label: {
-                  show: false,
-                  color: 'white',
-                  fontFamily: 'Barlow, Arial, sans-serif',
-                },
-                itemStyle: {
-                  areaColor: '#FFFFFF',
-                },
-              },
             },
             series: [
-              // Série pour les routes principales
+              // Routes principales
               {
                 name: 'Routes principales',
                 type: 'lines',
                 coordinateSystem: 'geo',
-                polyline: true,
                 data: routeData,
+                polyline: true,
                 lineStyle: {
                   color: '#000000',
                   width: 2,
@@ -89,73 +106,82 @@ const Map = () => {
                 },
                 smooth: true,
               },
-              // Série pour les villes
-              {
-                name: 'Villes',
-                type: 'scatter',
-                coordinateSystem: 'geo',
-                data: villesPoints,
-                symbolSize: 8,
-                itemStyle: {
-                  color: '#ff0000',
-                },
-                label: {
-                  show: true,
-                  formatter: '{b}',
-                  position: 'right',
-                  fontSize: 15,
-                  color: '#000000',
-                  fontFamily: 'Barlow, Arial, sans-serif',
-                },
-              },
-              // Série pour les établissements
-              {
-                name: 'Établissements',
-                type: 'scatter',
-                coordinateSystem: 'geo',
-                data: etablissementsPoints,
-                symbol: 'diamond', // Vous pouvez changer ce symbole selon votre besoin
-                symbolSize: 10,
-                itemStyle: {
-                  color: '#0000ff',
-                },
-                label: {
-                  show: false,
-                  formatter: '{b}',
-                  position: 'right',
-                  fontSize: 12,
-                  color: '#0000ff',
-                  fontFamily: 'Barlow, Arial, sans-serif',
-                },
-              },
+              // Villes ou établissements en fonction du zoom
+              ...(zoomLevel < 200
+                ? [
+                    {
+                      name: 'Villes',
+                      type: 'scatter',
+                      coordinateSystem: 'geo',
+                      data: villesPoints,
+                      symbolSize: 10,
+                      itemStyle: {
+                        color: '#ff0000',
+                      },
+                      label: {
+                        show: true,
+                        formatter: '{b}',
+                        position: 'right',
+                        fontSize: 15,
+                      },
+                    },
+                  ]
+                : [
+                    {
+                      name: 'Établissements',
+                      type: 'scatter',
+                      coordinateSystem: 'geo',
+                      data: etablissementsPoints,
+                      symbol: 'diamond',
+                      symbolSize: 10,
+                      itemStyle: {
+                        color: '#0000ff',
+                      },
+                      label: {
+                        show: true,
+                        formatter: '{b}',
+                        position: 'right',
+                        fontSize: 12,
+                      },
+                    },
+                  ]),
             ],
-            tooltip: {
-              show: false,
-              formatter: '{b}',
-            },
           };
-        }
-
-        const chartDom = document.getElementById('map');
-        const myChart = echarts.init(chartDom);
-
-        myChart.showLoading();
-
-        // Enregistrer la carte de la Mayenne avec les données de mayenneV2.geojson
-        echarts.registerMap('Mayenne', mayenneData);
-
-        myChart.hideLoading();
-        myChart.setOption(createOptionForMayenne());
+        };
+  
+        // Initialiser la carte avec le niveau de zoom par défaut
+        let currentZoom = 95;
+        let currentCenter = [-0.6200, 48.100]; // Initial center
+        myChart.setOption(createOption(currentZoom, currentCenter));
+  
+        // Mettre à jour la carte lors des zooms
+        myChart.on(
+          'geoRoam',
+          debounce((params) => {
+            if (params.zoom !== undefined) {
+              const newZoom = myChart.getModel().option.geo[0].zoom;
+              const newCenter = myChart.getModel().option.geo[0].center; // Récupérer le center actuel
+              if (Math.abs(newZoom - currentZoom) > 10) {
+                currentZoom = newZoom;
+                currentCenter = newCenter; // Mettre à jour le center courant
+                myChart.setOption(createOption(currentZoom, currentCenter));
+              }
+            }
+          }, 200)
+        );
       } catch (error) {
-        console.error("Erreur lors du chargement des données :", error);
+        console.error('Erreur lors du chargement des données :', error);
       }
     }
-
+  
     loadMapData();
   }, [etablissementsData]);
+  
+  
+
 
   return (
-    <div id="map" className="map" style={{width: '600px', height: '400px', background: "#FECFFF", borderRadius: "15px", boxShadow: "0px 0px 16px 3px rgba(0,0,0,0.15)" }}></div>
+    <div id="map" className="map" style={{width: '600px', height: '450px', background: "#FECFFF", borderRadius: "15px", boxShadow: "0px 0px 16px 3px rgba(0,0,0,0.15)" }}></div>
   );
 };
 

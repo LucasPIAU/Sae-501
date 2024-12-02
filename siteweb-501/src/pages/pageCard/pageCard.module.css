@@ -1,3 +1,7 @@
+.containerPro {
+  margin: 0 25px;
+}
+
 .containerMapFormation {
     display: flex;
     flex-direction: row;
@@ -13,13 +17,6 @@
   }
 
   .backButton {
-    border-radius: 15px;
-    background-color: #B059B1;
-    padding: 10px 15px;
-    cursor: pointer;
-  }
-
-  .backButton {
     border-radius: 50%;
     background-color: #B059B1;
     cursor: pointer;
@@ -31,14 +28,4 @@
 
   .backButton svg {
     margin: 10px 12px;
-  }
-
-  .containerSpe {
-    margin: 0 25px;
-  }
-
-  .containerListCard {
-    padding: 20px;
-    max-height: 450px;
-    overflow: scroll;
   }

@@ -3,6 +3,7 @@ import style from './card.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addFormationToFilter } from '../../store/formation/formationSlice';
+import { setCurrentPage } from '../../store/formation/formationSlice';
 
 function Card({ item }) {
   const navigate = useNavigate();
@@ -12,8 +13,10 @@ function Card({ item }) {
   const navigateTo = () => {
     if (item.link) {
       navigate(item.link);
+      setCurrentPage(item.link);
     } else {
       navigate('/detail', { state: { itemId: item.id } });
+      setCurrentPage("detail");
     }
   };
 

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loadInfos } from './formationAsyncAction';
+import { selectCurrentPage } from './formationSelector';
 
 const formationSlice = createSlice({
   name: 'formations',
@@ -10,6 +11,7 @@ const formationSlice = createSlice({
     selectedFormations: [],
     loading: false,
     errors: null,
+    currentPage: null,
   },
   reducers: {
     setFormations: (state, action) => {
@@ -19,6 +21,9 @@ const formationSlice = createSlice({
     setEtablissements: (state, action) => {
       console.log("Données des établissements envoyées au state : ", action.payload);
       state.etablissement = action.payload;
+    },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
     },
     setFilteredEtablissements: (state, action) => {
       console.log("Données filtrées des établissements : ", action.payload);
@@ -113,6 +118,8 @@ const formationSlice = createSlice({
       const formation = action.payload;
       const selectedFormations = [...state.selectedFormations];
 
+      console.log(selectedFormations);
+
       // Si la formation est déjà sélectionnée, la retirer
       const formationIndex = selectedFormations.findIndex(f => f.id === formation.id);
       if (formationIndex === -1) {
@@ -158,9 +165,10 @@ const formationSlice = createSlice({
       // Mettre à jour le state
       state.formations = formations;
       state.etablissement = etablissements;
+      state.filteredEtablissements  =etablissements;
 
-      console.log(state.formations);
-      console.log(state.etablissement);
+      console.log("load formation : ", state.formations);
+      console.log("load etablissement", state.etablissement);
       state.loading = false;
     })
     .addCase(loadInfos.rejected, (state, action) => {
@@ -179,7 +187,8 @@ export const {
   deleteContent,
   setFilteredEtablissements,
   addContent,
-  addFormationToFilter
+  addFormationToFilter,
+  setCurrentPage
 } = formationSlice.actions;
 
 // Exporter le reducer
