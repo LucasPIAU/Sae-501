@@ -15,12 +15,6 @@ function Pro() {
   const navigate = useNavigate();
 
   const navigateTo = () => {
-    navigate(-1);
-  }
-
-  const navigate = useNavigate();
-
-  const navigateTo = () => {
       navigate(-1);
   }
 
@@ -33,6 +27,7 @@ function Pro() {
         <ListCard items={formations} type="pro"/>
       </div>
     </div>
+    </>
   );
 }
 
