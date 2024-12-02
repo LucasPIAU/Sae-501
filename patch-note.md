@@ -5,7 +5,7 @@
 ## Note du 19/11/2024
 
 ### routes/formation.js
-- **GET /formation/:id** : Récupère une formation en fonction de l'id (En cours)
+- **GET /formation/:id** : Récupère une formation en fonction de l'id
 - **GET /formation** : Récupère la liste des formations (En cours)
 - **PUT /formation/:id** : Modifie une formation en fonction de l'id avec les donnée passer dans le body (En cours)
 - **POST /formation/add** : Ajoute une nouvelle formation avec les donnée passer dans le body (En cours)

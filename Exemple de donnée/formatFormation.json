@@ -2,86 +2,94 @@
     {
         "name": "CAP Carrossier automobile",
         "filiere": "Professionel",
-        "etablissement": ["6746dd1b41d9672c5f52cc03"],
-        "poursuiteEtudes": "",
-        "lieuxExercice": "",
+        "etablissement": ["674dc3aa4a3aa1faa36741a3"],
         "data": {
-            "attributs": "Scolaire, Apprentissage, Formation continue"
+            "categorie": "industriel",
+            "attributs": "Scolaire, Apprentissage, Formation continue",
+            "poursuiteEtudes": "",
+            "lieuxExercice": ""
         }
     },
     {
         "name": "CAP Peintre automobile",
         "filiere": "Professionel",
-        "etablissement": ["6746dd1b41d9672c5f52cc03"],
-        "poursuiteEtudes": "",
-        "lieuxExercice": "",
+        "etablissement": ["674dc3aa4a3aa1faa36741a3"],
         "data": {
+            "categorie": "industriel",
             "conditions": "en 1 an après le CAP CA",
-            "attributs": ["Apprentissage", "Formation continue"]
+            "attributs": ["Apprentissage", "Formation continue"],
+            "poursuiteEtudes": "",
+            "lieuxExercice": ""
         }
     },
     {
         "name": "BAC PRO MV maintenance des véhicules",
         "filiere": "Professionel",
-        "etablissement": ["6746dd1b41d9672c5f52cc03", "6746deeb33ea683ca735feaf"],
-        "poursuiteEtudes": "",
-        "lieuxExercice": "",
+        "etablissement": ["674dc3aa4a3aa1faa36741a3", "674dc3aa4a3aa1faa36741a4"],
         "data": {
+            "categorie": "industriel",
             "attributs": ["Scolaire", "Apprentissage", "Formation continue"],
-            "options": ["Voitures particulières", "véhicules de transport routier", "Motocycles"]
+            "options": ["Voitures particulières", "véhicules de transport routier", "Motocycles"],
+            "poursuiteEtudes": "",
+            "lieuxExercice": ""
         }
     },
     {
         "name": "BAC PRO AMA-CV Artisanat et métiers d'art",
         "filiere": "Professionel",
-        "etablissement": ["6746dd1b41d9672c5f52cc03"],
-        "poursuiteEtudes": "",
-        "lieuxExercice": "",
+        "etablissement": ["674dc3aa4a3aa1faa36741a3"],
         "data": {
+            "categorie": "industriel",
             "attributs": ["Scolaire"],
-            "options": ["Communication visuelle plurimédia"]
+            "options": ["Communication visuelle plurimédia"],
+            "poursuiteEtudes": "",
+            "lieuxExercice": ""
         }
     },
     {
         "name": "BAC PRO RPIP Réalisation de produits imprimés et plurimédia",
         "filiere": "Professionel",
-        "etablissement": ["6746dd1b41d9672c5f52cc03"],
-        "poursuiteEtudes": "",
-        "lieuxExercice": "",
+        "etablissement": ["674dc3aa4a3aa1faa36741a3"],
         "data": {
+            "categorie": "industriel",
             "attributs": ["Scolaire", "Apprentissage (option B)", "Formation continue"],
-            "options": ["Productions graphiques", "Productions imprimés"]
+            "options": ["Productions graphiques", "Productions imprimés"],
+            "poursuiteEtudes": "",
+            "lieuxExercice": ""
         }
     },
     {
         "name": "BTS ERPC Etudes de réalisation d'un projet de communication",
         "filiere": "Professionel",
-        "etablissement": ["6746dd1b41d9672c5f52cc03"],
-        "poursuiteEtudes": "",
-        "lieuxExercice": "",
+        "etablissement": ["674dc3aa4a3aa1faa36741a3"],
         "data": {
+            "categorie": "industriel",
             "attributs": ["Scolaire", "Apprentissage", "Formation continue"],
-            "options": ["Etudes de réalisation des produits plurimédia (ERPP)", "Etudes de réalisation de produits imprimés (ERPI)"]
+            "options": ["Etudes de réalisation des produits plurimédia (ERPP)", "Etudes de réalisation de produits imprimés (ERPI)"],
+            "poursuiteEtudes": "",
+            "lieuxExercice": ""
         }
     },
     {
         "name": "BAC PRO TCI Technicien en chaudronnerie industrielle",
         "filiere": "Professionel",
-        "etablissement": ["6746dd1b41d9672c5f52cc03"],
-        "poursuiteEtudes": "",
-        "lieuxExercice": "",
+        "etablissement": ["674dc3aa4a3aa1faa36741a3"],
         "data": {
-            "attributs": ["Scolaire", "Apprentissage", "Formation continue"]
+            "categorie": "industriel",
+            "attributs": ["Scolaire", "Apprentissage", "Formation continue"],
+            "poursuiteEtudes": "",
+            "lieuxExercice": ""
         }
     },
     {
         "name": "CQPM Soudeur industriel",
         "filiere": "Professionel",
-        "etablissement": ["6746deeb33ea683ca735feaf"],
-        "poursuiteEtudes": "",
-        "lieuxExercice": "",
+        "etablissement": ["674dc3aa4a3aa1faa36741a4"],
         "data": {
-            "attributs": ["Formation continue"]
+            "categorie": "industriel",
+            "attributs": ["Formation continue"],
+            "poursuiteEtudes": "",
+            "lieuxExercice": ""
         }
     }
 ]

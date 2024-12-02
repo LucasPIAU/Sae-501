@@ -1,5 +1,5 @@
 import express from 'express';
-
+import connectToDB from '../functions/connectDb.js';
 const lyceeRoutes = express();
 
 // Routes GET
@@ -16,6 +16,18 @@ lyceeRoutes.get('/:id', async (req, res) => {
 
 lyceeRoutes.get('', async (req, res) => {
     try {
+        // On se connect à la base de donnée et on récupère la collection établissements
+        const db = await connectToDB();
+        const collectionEtablissements = db.collection('Etablissements');
+
+        // On fait la requête pour récupérer la liste de toute les établissements
+        const cursor = collectionEtablissements.find();
+        const etablissements = await cursor.toArray();
+
+        // Une fois qu'on as tout récupérer on renvoie les données
+        if(etablissements.length > 0) res.status(200).json(etablissements);
+        else res.status(404).json({message: "Aucun établissement trouvé"});
+
         // Récupération de la liste de tout les lycées
         res.status(200).json('OK');
     } catch (err) {
