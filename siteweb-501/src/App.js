@@ -17,6 +17,7 @@ import PageCard from './pages/pageCard/pageCard.jsx';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { loadInfos } from './store/formation/formationAsyncAction.js';
+import 'leaflet/dist/leaflet.css';
 
 function App({ item }) {
   return (
