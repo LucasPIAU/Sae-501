@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import connectToDB from '../functions/connectDb.js';
+import { ObjectId } from 'mongodb';
 
 const formationRoutes = express();
-
 
 // Exemple de format JSON d'une formation dans la base de donnée
 {
@@ -11,7 +12,6 @@ const formationRoutes = express();
     data: "Array<Object>" // Le format de la data dépend de la filière
     etablissement: "Array<String>" // List d'ids des établissement
     flyerLink: "String" // Id du flyer correspondant
-    
 }
 
 // Routes GET
@@ -19,8 +19,18 @@ const formationRoutes = express();
 formationRoutes.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
-        // Récupération d'une formation
-        res.status(200).json('OK');
+        // On se connect à la base de donnée et on récupère la collection formations
+        const db = await connectToDB();
+        const collectionFormations = db.collection('Formations');
+        
+        // On fait la requêtes pour récupérer la formation qui correspond à l'id passer en paramètre
+        if(id){
+            const query = { '_id': new ObjectId(id) };
+            console.log(query);
+            const formation = await collectionFormations.findOne(query);
+            if(formation) res.status(200).json(formation);   
+            else res.status(404).json({message: "Aucune formation trouvé pour cette id"});
+        }else throw "L'id de la formations est obligatoire";
     } catch (err) {
         res.status(500).json({message: `Une erreur interne est survenue dans la récupération d'une formation : ${err}`});
     }
@@ -28,8 +38,20 @@ formationRoutes.get('/:id', async (req, res) => {
 
 formationRoutes.get('', async (req, res) => {
     try {
-        // récupération de la liste de toutes les formations
-        res.status(200).json('OK');
+        // On se connect à la base de donnée et on récupère la collection formation
+        const db = await connectToDB();
+        const collectionFormations = db.collection('Formations');
+        
+        // On fait la requête pour récupérer la liste de toute les formations
+        const cursor = collectionFormations.find();
+        const formations = await cursor.toArray();
+
+        // Ensuite on calcule le nombre de page en sachant qu'il y a maximum 20 élément par page
+        if(formations.length > 0){
+            const nbrPage = Math.ceil(formations.length / 20); // On arrondie à l'entier superieur pour avoir le nbr de page
+            const formationsSlice = formations.slice(0, 20); // On ne garde les 20 éléments correspondant à la page
+        }else res.status(404).json({message: "Aucune formations trouvée"});
+
     } catch (err) {
         res.status(500).json({message: `Une erreur interne est survenue dans la récupération des formations : ${err}`});
     }
@@ -70,4 +92,4 @@ formationRoutes.delete('/:id', async (req, res) => {
     }
 });
 
-module.exports = formationRoutes;
+export default formationRoutes;

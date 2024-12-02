@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 
 const lyceeRoutes = express();
 
@@ -57,4 +57,4 @@ lyceeRoutes.delete('/:id', async (req, res) => {
     }
 });
 
-module.exports = lyceeRoutes;
+export default lyceeRoutes;
