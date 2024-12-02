@@ -13,9 +13,8 @@ function Techno() {
   const navigate = useNavigate();
 
   const navigateTo = () => {
-      navigate(-1);
+    navigate(-1);
   }
-
 
   return (
     <>

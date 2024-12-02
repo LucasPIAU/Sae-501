@@ -5,8 +5,17 @@ import Map from '../../components/map';
 import ListCard from '../../components/listCard/listCard';
 import { initializeData } from '../../store/formation/formationSlice';
 import { selectFormations } from '../../store/formation/formationSelector.js';
+import { selectFilteredFormations } from '../../store/formation/formationSelector';
 
 function Home() {
+  const formations = useSelector(selectFilteredFormations);
+  console.log('oscour', formations)
+
+  var recherche = false;
+
+  if (formations.length === 14) {
+    recherche = true;
+  }
 
   const sectionItem = [
     {
@@ -27,9 +36,17 @@ function Home() {
     <>
       <div className={style.AppA}>
         <div className={style.containerMapFormation}>
-          {/* <Map /> */}
           {/* <ListCard items={formations} type="formation" /> */}
-          <ListCard items={sectionItem} />
+          {recherche ? (
+            <ListCard items={sectionItem} />
+          ) : (
+            <>
+              <ListCard items={formations} type="techno" />
+              <ListCard items={formations} type="options" />
+              <ListCard items={formations} type="generale" />
+            </>
+          )}
+          {/* <ListCard items={sectionItem} /> */}
         </div>
       </div>
     </>

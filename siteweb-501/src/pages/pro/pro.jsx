@@ -6,9 +6,17 @@ import { useSelector } from 'react-redux';
 import { selectFormations } from '../../store/formation/formationSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { selectFilteredFormations } from '../../store/formation/formationSelector';
 
-function Techno() {
-  const formations = useSelector(selectFormations);
+function Pro() {
+  const formations = useSelector(selectFilteredFormations);
+  console.log("formations page pro : ", formations);
+
+  const navigate = useNavigate();
+
+  const navigateTo = () => {
+    navigate(-1);
+  }
 
   const navigate = useNavigate();
 
@@ -21,14 +29,11 @@ function Techno() {
     <div className={style.containerPro}>
       <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
       <div className={style.containerMapFormation}>
-        {/* <div className={style.containerMap}>
-        <Map />
-        </div> */}
+        {/* Conditionally render the ListCard with only techno-type formations */}
         <ListCard items={formations} type="pro"/>
       </div>
     </div>
-    </>
   );
 }
 
-export default Techno;
+export default Pro;
