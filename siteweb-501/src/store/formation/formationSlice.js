@@ -49,6 +49,7 @@ const formationSlice = createSlice({
       } else {
         console.error("Erreur : Le contenu de la formation est manquant ou invalide.");
       }
+    },
     setFilteredFormations: (state, action) => {
       console.log("Données filtrées des formations : ", action.payload);
       state.filteredFormations = action.payload;
