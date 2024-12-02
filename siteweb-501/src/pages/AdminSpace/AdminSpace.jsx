@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { moveContent, editContent, deleteContent } from '../../store/formation/formationSlice';
+import { moveContent, editContent, deleteContent, addContent } from '../../store/formation/formationSlice';
 import { selectFormations } from '../../store/formation/formationSelector.js';
 import style from "./AdminSpace.module.css";
 import Map from "../../components/map";
@@ -14,8 +14,16 @@ import Hr from "../../components/Hr/Hr";
 import Video from "../../components/Video/Video";
 import ListCard from '../../components/listCard/listCard';
 import bgCardImage from '../../assets/images/test.jpg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 function AdminSpace() {
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [newElementType, setNewElementType] = useState('');
+
+
+
   const location = useLocation();
   const { itemId } = location.state || {}; // Récupérer l'id depuis les paramètres de la route
   const navigate = useNavigate();
@@ -42,10 +50,10 @@ function AdminSpace() {
 
   const handleEditSave = () => {
     if (editingElement) {
-      dispatch(editContent({ 
-        formationId: item.id, 
-        index: editingElement.index, 
-        newValue: editValue 
+      dispatch(editContent({
+        formationId: item.id,
+        index: editingElement.index,
+        newValue: editValue
       }));
       setEditingElement(null); // Fermer l'interface d'édition
       setEditValue('');
@@ -73,17 +81,30 @@ function AdminSpace() {
     ));
   };
 
+  const handleAddElement = () => {
+    if (newElementType) {
+      dispatch(addContent({
+        formationId: item.id,
+        newElement: newElementType, // Ajoutez ici d'autres données si nécessaire
+      }));
+      setShowPopup(false); // Fermez la popup
+      setNewElementType(''); // Réinitialisez le choix
+    }
+  };
+
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={style.detail}>
         {item ? (
           <>
-            <button className={style.backButton} onClick={navigateTo}>Back</button>
-            <div className={style.containerDetail}>
+        <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
+          <div className={style.containerDetail}>
               <div className={style.containerContentTitle}>
                 <h1 className={style.titleDetail}>{item.nom}</h1>
                 <div className={style.containerContent}>
                   {getContent(item.content)}
+                  <button onClick={() => setShowPopup(true)}>PLUS</button>
                 </div>
               </div>
               <div className={style.containerContent}>
@@ -111,6 +132,31 @@ function AdminSpace() {
                 </div>
               </>
             )}
+            {showPopup && (
+              <>
+                {/* Overlay sombre */}
+                <div className={style.modalOverlay} onClick={() => setShowPopup(false)}></div>
+                <div className={style.editModal}>
+                  <h3>Ajouter un Élement</h3>
+                  <select
+                    value={newElementType}
+                    onChange={(e) => setNewElementType(e.target.value)}
+                  >
+                    <option value="">-- Choisissez un type --</option>
+                    <option value="Title">Titre</option>
+                    <option value="desc">Description</option>
+                    <option value="images">Image</option>
+                    <option value="hr">Séparateur</option>
+                    <option value="video">Vidéo</option>
+                  </select>
+                  <div>
+                    <button onClick={handleAddElement}>Ajouter</button>
+                    <button onClick={() => setShowPopup(false)}>Annuler</button>
+                  </div>
+                </div>
+              </>
+            )}
+
           </>
         ) : (
           <p>Pas de data trouvée</p>

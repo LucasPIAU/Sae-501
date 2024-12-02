@@ -1,5 +1,5 @@
 .detail {
-  margin: 1rem;
+  margin: 0 25px;
 }
 
 .containerMapFormation {
@@ -113,5 +113,26 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
   }
+
   
   
+  .backButton {
+    border-radius: 15px;
+    background-color: #B059B1;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+  .backButton {
+    border-radius: 50%;
+    background-color: #B059B1;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+    color: white;
+    padding: 0;
+  }
+
+  .backButton svg {
+    margin: 10px 12px;
+  }

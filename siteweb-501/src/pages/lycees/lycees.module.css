@@ -9,15 +9,36 @@
 }
 
 .containerMap {
-    margin: 25px;
+    margin: 30px 25px 25px 25px;
 }
 
 .backButton {
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
+    border-radius: 15px;
+    background-color: #B059B1;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+  .backButton {
     border-radius: 50%;
-    padding: 20px;
     background-color: #B059B1;
     cursor: pointer;
-}
+    border: none;
+    font-size: 20px;
+    color: white;
+    padding: 0;
+  }
+
+  .backButton svg {
+    margin: 10px 12px;
+  }
+
+  .containerLycee {
+    margin: 0 25px;
+  }
+
+  .containerListCard {
+    height: 550px;
+    padding: 25px;
+    overflow-y: scroll;
+  }
