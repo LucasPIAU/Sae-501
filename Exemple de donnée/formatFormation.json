@@ -1,10 +1,87 @@
 [
     {
-        "id": "6746d91a1825c42495ab4f81",
         "name": "CAP Carrossier automobile",
         "filiere": "Professionel",
         "etablissement": ["6746dd1b41d9672c5f52cc03"],
         "poursuiteEtudes": "",
-        "lieuxExercice": ""
+        "lieuxExercice": "",
+        "data": {
+            "attributs": "Scolaire, Apprentissage, Formation continue"
+        }
+    },
+    {
+        "name": "CAP Peintre automobile",
+        "filiere": "Professionel",
+        "etablissement": ["6746dd1b41d9672c5f52cc03"],
+        "poursuiteEtudes": "",
+        "lieuxExercice": "",
+        "data": {
+            "conditions": "en 1 an après le CAP CA",
+            "attributs": ["Apprentissage", "Formation continue"]
+        }
+    },
+    {
+        "name": "BAC PRO MV maintenance des véhicules",
+        "filiere": "Professionel",
+        "etablissement": ["6746dd1b41d9672c5f52cc03", "6746deeb33ea683ca735feaf"],
+        "poursuiteEtudes": "",
+        "lieuxExercice": "",
+        "data": {
+            "attributs": ["Scolaire", "Apprentissage", "Formation continue"],
+            "options": ["Voitures particulières", "véhicules de transport routier", "Motocycles"]
+        }
+    },
+    {
+        "name": "BAC PRO AMA-CV Artisanat et métiers d'art",
+        "filiere": "Professionel",
+        "etablissement": ["6746dd1b41d9672c5f52cc03"],
+        "poursuiteEtudes": "",
+        "lieuxExercice": "",
+        "data": {
+            "attributs": ["Scolaire"],
+            "options": ["Communication visuelle plurimédia"]
+        }
+    },
+    {
+        "name": "BAC PRO RPIP Réalisation de produits imprimés et plurimédia",
+        "filiere": "Professionel",
+        "etablissement": ["6746dd1b41d9672c5f52cc03"],
+        "poursuiteEtudes": "",
+        "lieuxExercice": "",
+        "data": {
+            "attributs": ["Scolaire", "Apprentissage (option B)", "Formation continue"],
+            "options": ["Productions graphiques", "Productions imprimés"]
+        }
+    },
+    {
+        "name": "BTS ERPC Etudes de réalisation d'un projet de communication",
+        "filiere": "Professionel",
+        "etablissement": ["6746dd1b41d9672c5f52cc03"],
+        "poursuiteEtudes": "",
+        "lieuxExercice": "",
+        "data": {
+            "attributs": ["Scolaire", "Apprentissage", "Formation continue"],
+            "options": ["Etudes de réalisation des produits plurimédia (ERPP)", "Etudes de réalisation de produits imprimés (ERPI)"]
+        }
+    },
+    {
+        "name": "BAC PRO TCI Technicien en chaudronnerie industrielle",
+        "filiere": "Professionel",
+        "etablissement": ["6746dd1b41d9672c5f52cc03"],
+        "poursuiteEtudes": "",
+        "lieuxExercice": "",
+        "data": {
+            "attributs": ["Scolaire", "Apprentissage", "Formation continue"]
+        }
+    },
+    {
+        "name": "CQPM Soudeur industriel",
+        "filiere": "Professionel",
+        "etablissement": ["6746deeb33ea683ca735feaf"],
+        "poursuiteEtudes": "",
+        "lieuxExercice": "",
+        "data": {
+            "attributs": ["Formation continue"]
+        }
     }
 ]
