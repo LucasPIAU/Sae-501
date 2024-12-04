@@ -17,6 +17,7 @@ import PageCard from './pages/pageCard/pageCard.jsx';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { loadInfos } from './store/formation/formationAsyncAction.js';
+import Formation from './pages/formation/formation.jsx';
 
 function App({ item }) {
   return (
@@ -37,9 +38,9 @@ function MainContent() {
 
   return (
     <>
-      {location.pathname.includes('/lycees') ? null : <FiltrageFilieres />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/formations" element={<Formation />} />
         <Route path="/spePremiere" element={<SpePremiere />} />
         <Route path="/optionGenerale" element={<Options />} />
         <Route path="/filiereTechno" element={<Techno />} />
