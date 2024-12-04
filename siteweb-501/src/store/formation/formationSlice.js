@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loadInfos } from './formationAsyncAction';
-import { selectCurrentPage } from './formationSelector';
+import { loadEtablissement, loadFormation } from './formationAsyncAction';
 
 const formationSlice = createSlice({
   name: 'formations',
@@ -13,6 +12,7 @@ const formationSlice = createSlice({
     loading: false,
     errors: null,
     currentPage: null,
+    currentEtablissement: null,
   },
   reducers: {
     setFormations: (state, action) => {
@@ -25,6 +25,10 @@ const formationSlice = createSlice({
     },
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
+    },
+    setCurrentEtablissement: (state, action) => {
+      state.currentEtablissement = action.payload;
+      console.log(state.currentEtablissement);
     },
     setFilteredEtablissements: (state, action) => {
       console.log("Données filtrées des établissements : ", action.payload);
@@ -152,31 +156,32 @@ const formationSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(loadInfos.pending, (state) => {
+    builder.addCase(loadEtablissement.pending, (state) => {
       state.loading = true;
     })
-    .addCase(loadInfos.fulfilled, (state, action) => {
-      const data = action.payload;
-
-      // Filtrer les formations par types
-      const formations = data.filter(item =>
-        ['options', 'techno', 'generale', 'pro'].includes(item.type)
-      );
-
-      // Filtrer les établissements
-      const etablissements = data.filter(item => item.type === 'etablissement');
-      console.log(formations)
+    .addCase(loadEtablissement.fulfilled, (state, action) => {
+      const etablissements = action.payload;
       console.log(etablissements)
-      // Mettre à jour le state
-      state.formations = formations;
       state.etablissement = etablissements;
-      state.filteredEtablissements  =etablissements;
-
-      console.log("load formation : ", state.formations);
+      state.filteredEtablissements = etablissements;
       console.log("load etablissement", state.etablissement);
       state.loading = false;
     })
-    .addCase(loadInfos.rejected, (state, action) => {
+    .addCase(loadEtablissement.rejected, (state, action) => {
+      state.loading = false;
+    })
+    .addCase(loadFormation.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(loadFormation.fulfilled, (state, action) => {
+      const formations = action.payload;
+      console.log(formations)
+      state.formations = formations;
+      state.filteredFormations = formations;
+      console.log("load formation", state.filteredFormations);
+      state.loading = false;
+    })
+    .addCase(loadFormation.rejected, (state, action) => {
       state.loading = false;
     })
   }
@@ -194,7 +199,8 @@ export const {
   addContent,
   addFormationToFilter,
   setCurrentPage,
-  setFilteredFormations
+  setFilteredFormations,
+  setCurrentEtablissement
 } = formationSlice.actions;
 
 // Exporter le reducer

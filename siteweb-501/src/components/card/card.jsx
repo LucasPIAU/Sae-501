@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import style from './card.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addFormationToFilter } from '../../store/formation/formationSlice';
-import { setCurrentPage } from '../../store/formation/formationSlice';
+import { addFormationToFilter, setCurrentEtablissement, setCurrentPage } from '../../store/formation/formationSlice';
 
 function Card({ item }) {
   const navigate = useNavigate();
@@ -16,7 +15,7 @@ function Card({ item }) {
       setCurrentPage(item.link);
     } else {
       navigate('/detail', { state: { itemId: item.id } });
-      setCurrentPage("detail");
+      dispatch(setCurrentPage("detail"))
     }
   };
 
@@ -24,20 +23,34 @@ function Card({ item }) {
     const checked = event.target.checked;
     setIsChecked(checked);
     console.log(item);  
-    // Mettre à jour le state des établissements filtrés en fonction de la sélection/désélection de la formation
-    dispatch(addFormationToFilter(item)); // Cela ajoutera ou retirera la formation selon l'état du checkbox
+    dispatch(addFormationToFilter(item));
+  };
+
+  const handleMouseEnter = () => {
+    if (item.adresse) {
+        console.log('mouseEnter : ', item.name);
+        dispatch(setCurrentEtablissement(item.name))
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (item.adresse) { 
+      dispatch(setCurrentEtablissement(null))
+    }
   };
 
   return (
     <div
       className={`${style.card} ${isChecked ? style.greenBg : style.pinkBg}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className={style.containerTitleMotClef}>
-        <h3>{item.nom}</h3>
-        {item.motClef && <p>Mot clef : {item.motClef}</p>}
+        <h3>{item.name}</h3>
+        {item?.data?.attributs && <p className={style.motClef}>Mot clef : {item.data.attributs}</p>}
       </div>
       <div className={style.containerButtonCard}>
-        {item.type === 'etablissement' ? (
+        {item.adresse ? (
           <a href={item.link} target="_blank" rel="noopener noreferrer">
             Voir plus
           </a>
@@ -45,13 +58,13 @@ function Card({ item }) {
           <button onClick={navigateTo}>Voir plus</button>
         )}
       </div>
-      {item.type === 'generale' && (
+      {item.filiere === 'generale' && (
         <label className={style.checkboxContainer}>
           <input
             type="checkbox"
             className={style.checkbox}
-            checked={isChecked} // Lier l'état du checkbox à isChecked
-            onChange={handleCheckboxChange} // Gérer le changement de l'état
+            checked={isChecked}
+            onChange={handleCheckboxChange}
           />
           <span className={style.checkmark}></span>
         </label>

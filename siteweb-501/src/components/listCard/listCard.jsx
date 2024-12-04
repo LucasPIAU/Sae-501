@@ -5,7 +5,7 @@ import style from './listCard.module.css'
 function ListCard({ items, type }) {
   // Filtrer les items en fonction du type
   console.log(items);
-  const filteredItems = items.filter(item => item.type === type);
+  const filteredItems = items.filter(item => item.filiere === type);
 
   return (
     <div className={style.listCard}>

@@ -2,19 +2,43 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 // import axios from 'axios';
 // import { URL_API_FILMS } from '../../utils/config';
 
-// Actions asynchrones avec gestion des erreurs
-export const loadInfos = createAsyncThunk(
-    'film/loadFilms',
+// Actions asynchrones avec gestion des erreurs POUR LES DATA LOCAL
+// export const loadInfos = createAsyncThunk(
+//     'film/loadFilms',
+//     async (_, { rejectWithValue }) => {
+//       try {
+//         const response = await fetch('/assets/json/data.json');
+        
+//         if (!response.ok) {
+//           throw new Error(`Erreur HTTP: ${response.status}`);
+//         }
+  
+//         const data = await response.json(); // Conversion en JSON
+//         // console.log("Données chargées :", data);
+//         return data; // Retourne les données du fichier JSON
+//       } catch (error) {
+//         console.error("Erreur lors du chargement des données :", error);
+//         return rejectWithValue(
+//           "L'application est actuellement indisponible, veuillez réessayer ultérieurement."
+//         );
+//       }
+//     }
+//   );
+
+
+  // LOAD LYCEE 
+  export const loadEtablissement = createAsyncThunk(
+    'lycee/loadLycee',
     async (_, { rejectWithValue }) => {
       try {
-        const response = await fetch('/assets/json/data.json');
+        const response = await fetch('http://localhost:3001/api/lycee');
         
         if (!response.ok) {
           throw new Error(`Erreur HTTP: ${response.status}`);
         }
   
         const data = await response.json(); // Conversion en JSON
-        // console.log("Données chargées :", data);
+        console.log("Données chargées des lycées :", data);
         return data; // Retourne les données du fichier JSON
       } catch (error) {
         console.error("Erreur lors du chargement des données :", error);
@@ -24,6 +48,32 @@ export const loadInfos = createAsyncThunk(
       }
     }
   );
+
+    // LOAD LYCEE 
+    export const loadFormation = createAsyncThunk(
+      'lycee/loadFormation',
+      async (_, { rejectWithValue }) => {
+        try {
+          const response = await fetch('http://localhost:3001/api/formation');
+          
+          if (!response.ok) {
+            throw new Error(`Erreur HTTP: ${response.status}`);
+          }
+    
+          const data = await response.json(); // Conversion en JSON
+          console.log("Données chargées des formation :", data);
+          return data; // Retourne les données du fichier JSON
+        } catch (error) {
+          console.error("Erreur lors du chargement des données :", error);
+          return rejectWithValue(
+            "L'application est actuellement indisponible, veuillez réessayer ultérieurement."
+          );
+        }
+      }
+    );
+
+
+
 
 // export const addFilm = createAsyncThunk(
 //   'film/addFilm',

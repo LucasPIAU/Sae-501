@@ -9,7 +9,7 @@ import { selectFilteredFormations } from '../../store/formation/formationSelecto
 
 function Home() {
   const formations = useSelector(selectFilteredFormations);
-  console.log('oscour', formations)
+  console.log('formation home', formations)
 
   var recherche = false;
 
@@ -19,15 +19,15 @@ function Home() {
 
   const sectionItem = [
     {
-      nom: "seconde générale et technologique",
+      name: "seconde générale et technologique",
       link: "optionGenerale"
     },
     {
-      nom:"Première générale",
+      name:"Première générale",
       link: "spePremiere"
     },
     {
-      nom: "Première technologique",
+      name: "Première technologique",
       link: "filiereTechno"
     }
   ]
@@ -37,7 +37,7 @@ function Home() {
       <div className={style.AppA}>
         <div className={style.containerMapFormation}>
           {/* <ListCard items={formations} type="formation" /> */}
-          {recherche ? (
+          {!recherche ? (
             <ListCard items={sectionItem} />
           ) : (
             <>

@@ -16,7 +16,7 @@ import Lycees from "./pages/lycees/lycees";
 import PageCard from './pages/pageCard/pageCard.jsx';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { loadInfos } from './store/formation/formationAsyncAction.js';
+import { loadEtablissement, loadFormation } from './store/formation/formationAsyncAction.js';
 import 'leaflet/dist/leaflet.css';
 
 function App({ item }) {
@@ -33,7 +33,8 @@ function MainContent() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadInfos());
+    dispatch(loadEtablissement());
+    dispatch(loadFormation());
   }, [dispatch]);
 
   return (

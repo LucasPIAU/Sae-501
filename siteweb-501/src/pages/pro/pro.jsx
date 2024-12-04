@@ -24,7 +24,7 @@ function Pro() {
       <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
       <div className={style.containerMapFormation}>
         {/* Conditionally render the ListCard with only techno-type formations */}
-        <ListCard items={formations} type="pro"/>
+        <ListCard items={formations} type="Professionel"/>
       </div>
     </div>
     </>

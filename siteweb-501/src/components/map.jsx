@@ -1,162 +1,183 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import L from 'leaflet';
-import { selectFilteredEtablissements } from '../store/formation/formationSelector';
-import 'leaflet/dist/leaflet.css'; // Assurez-vous que le style CSS de Leaflet est inclus
+import 'leaflet/dist/leaflet.css'; // Importation des styles de Leaflet
+import { selectFilteredEtablissements, selectCurrentEtablissement } from '../store/formation/formationSelector';
 
 const Map = () => {
   const mapContainer = useRef(null); // Référence pour le conteneur de la carte
-  const mapRef = useRef(null); // Référence pour la carte elle-même
-  const etablissementsData = useSelector(selectFilteredEtablissements); // Récupérer les établissements depuis Redux
-  const [citiesData, setCitiesData] = useState(null); // État pour stocker les données GeoJSON des villes
-  const [departementData, setDepartementData] = useState(null); // État pour stocker les données GeoJSON des départements
+  const mapRef = useRef(null); // Référence pour l'objet Leaflet de la carte
+  const etablissementsData = useSelector(selectFilteredEtablissements); // Sélection des établissements via Redux
+  const currentEtablissement = useSelector(selectCurrentEtablissement); // Établissement actuellement sélectionné
+  const [citiesData, setCitiesData] = useState(null); // GeoJSON des villes
+  const [departementData, setDepartementData] = useState(null); // GeoJSON des départements
+
+  const initialCenter = [48.1, -0.62]; // Position initiale de la carte
+  const initialZoom = 8;
+  
+  console.log("map Current: ", currentEtablissement);
 
   // Initialisation de la carte
   useEffect(() => {
-    if (mapContainer.current && !mapRef.current) {
-      // Initialiser la carte si elle n'est pas déjà initialisée
-      mapRef.current = L.map(mapContainer.current).setView([48.100, -0.6200], 10); // Position initiale
+    if (!mapRef.current && mapContainer.current) {
+      mapRef.current = L.map(mapContainer.current).setView(initialCenter, initialZoom);
 
-      // Ajouter les tuiles OpenStreetMap
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        attribution: '&copy; OpenStreetMap contributors',
       }).addTo(mapRef.current);
     }
   }, []);
 
-  // Charger les données GeoJSON des départements (et éventuellement des villes)
+  // Charger les données GeoJSON
   useEffect(() => {
-    fetch('/assets/json/departements.geojson')  // Chemin vers ton fichier GeoJSON des départements
-      .then(response => response.json())
-      .then(data => {
-        setDepartementData(data);  // Mettre à jour l'état avec les données
-      })
-      .catch(error => console.error('Erreur lors du chargement du fichier GeoJSON des départements:', error));
+    const fetchGeoJSON = async () => {
+      try {
+        const [departementsRes, citiesRes] = await Promise.all([
+          fetch('/assets/json/departements.geojson'),
+          fetch('/assets/json/city.geojson'),
+        ]);
 
-    fetch('/assets/json/city.geojson')  // Chemin vers ton fichier GeoJSON des villes
-      .then(response => response.json())
-      .then(data => setCitiesData(data))  // Mettre à jour l'état avec les données des villes
-      .catch(error => console.error('Erreur lors du chargement du fichier GeoJSON des villes:', error));
+        setDepartementData(await departementsRes.json());
+        setCitiesData(await citiesRes.json());
+      } catch (error) {
+        console.error('Erreur lors du chargement des données GeoJSON:', error);
+      }
+    };
+
+    fetchGeoJSON();
   }, []);
 
-  // Ajouter le département de la Mayenne à la carte
+  // Afficher le département de la Mayenne
   useEffect(() => {
     if (mapRef.current && departementData) {
-      const mayenne = departementData.features.find(department => department.properties.code === '53');  // Filtrer pour Mayenne
-
+      const mayenne = departementData.features.find(d => d.properties.code === '53');
       if (mayenne) {
-        // Ajouter le contour du département de la Mayenne
         L.geoJSON(mayenne, {
           style: {
-            color: 'blue',  // Choisir la couleur du contour
-            weight: 2,  // Largeur du contour
-            opacity: 0.6,  // Opacité
-            fillColor: 'lightblue',  // Couleur de remplissage
-            fillOpacity: 0.2,  // Opacité du remplissage
+            color: 'blue',
+            weight: 2,
+            fillColor: 'lightblue',
+            fillOpacity: 0.3,
           },
         }).addTo(mapRef.current);
-
-        // Centrer la carte sur le département de la Mayenne
-        const bounds = L.geoJSON(mayenne).getBounds();
-        mapRef.current.fitBounds(bounds);  // Ajuster la vue pour que la Mayenne soit visible
+        mapRef.current.fitBounds(L.geoJSON(mayenne).getBounds());
       }
     }
   }, [departementData]);
 
-  // Ajouter un gestionnaire de zoom
-  useEffect(() => {
-    if (mapRef.current) {
-      mapRef.current.on('zoomend', () => {
-        const zoomLevel = mapRef.current.getZoom();
+// Gérer l'établissement sélectionné ou réinitialiser la vue
+useEffect(() => {
+  if (mapRef.current) {
+    // Nettoyer les marqueurs existants
+    mapRef.current.eachLayer(layer => {
+      if (layer instanceof L.Marker || layer instanceof L.Circle) {
+        mapRef.current.removeLayer(layer);
+      }
+    });
 
-        // Si on est proche (zoom élevé), afficher les établissements avec une icône personnalisée
+    console.log(currentEtablissement);
+
+    if (currentEtablissement) {
+      const etablissement = etablissementsData.find(e => e.name === currentEtablissement);
+      console.log(etablissement);
+      if (etablissement) {
+        const lon = etablissement.Longitude;
+        const lat = etablissement.Latitude;
+
+
+        const customIcon = L.icon({
+          iconUrl: '/assets/images/location.svg',
+          iconSize: [30, 30],
+          iconAnchor: [15, 30],
+        });
+
+        const marker = L.marker([lat, lon], { icon: customIcon }).addTo(mapRef.current);
+        marker.bindPopup(
+          `<b>${etablissement.name}</b><br/><a href="${etablissement.link}" target="_blank">Visiter</a>`
+        ).openPopup();
+        mapRef.current.setView([lat, lon], 12); // Zoomer sur l'établissement
+      }
+    } else {
+      // Réinitialiser la vue et le zoom
+      mapRef.current.setView(initialCenter, initialZoom);
+      displayCircles(); // Afficher les cercles après réinitialisation
+    }
+  }
+}, [currentEtablissement, etablissementsData]);
+  
+  // Afficher les cercles ou les établissements selon le niveau de zoom
+  useEffect(() => {
+    const updateDisplay = () => {
+      if (mapRef.current) {
+        const zoomLevel = mapRef.current.getZoom();
         if (zoomLevel >= 12) {
-          displayEtablissements(true); // Passer true pour appliquer l'icône personnalisée
+          displayEtablissements(true);
         } else {
-          // Si on est éloigné, afficher les cercles avec les points comptés
           displayCircles();
         }
-      });
+      }
+    };
+
+    if (mapRef.current) {
+      mapRef.current.on('zoomend', updateDisplay);
+      return () => mapRef.current.off('zoomend', updateDisplay);
     }
   }, [etablissementsData, citiesData]);
 
-  // Fonction pour afficher les cercles (rayons) avec le nombre d'établissements
   const displayCircles = () => {
     if (mapRef.current && citiesData) {
-      // On supprime les cercles précédents (si existants)
       mapRef.current.eachLayer(layer => {
         if (layer instanceof L.Circle || layer instanceof L.Marker) {
           mapRef.current.removeLayer(layer);
         }
       });
 
-      // Créer des cercles autour des villes
       citiesData.features.forEach(city => {
         const [lon, lat] = city.geometry.coordinates;
-        const center = L.latLng(lat, lon);  // Créer un objet latLng pour le centre de la ville
-        const radius = 5000; // Rayon du cercle (5 km)
+        const center = L.latLng(lat, lon);
+        const radius = 5000;
 
-        // Calculer les établissements dans la zone
-        const establishmentsInArea = etablissementsData.filter(etablissement => {
-          const etablissementLatLng = L.latLng(etablissement.coordinates[1], etablissement.coordinates[0]);
-          const distance = center.distanceTo(etablissementLatLng); // Calcul de la distance en mètres
-          return distance < radius; // Vérifier si l'établissement est dans le rayon de 5km
+        const establishmentsInArea = etablissementsData.filter(e => {
+          const etablissementLatLng = L.latLng(e.Latitude, e.Longitude);
+          return center.distanceTo(etablissementLatLng) < radius;
         });
 
-        // Ajouter le cercle à la carte
         const circle = L.circle([lat, lon], {
           color: 'blue',
           fillColor: '#30a3e0',
           fillOpacity: 0.4,
-          radius: radius,
+          radius,
         }).addTo(mapRef.current);
 
-        // Ajouter un label avec le nombre d'établissements au centre du cercle
-        const label = `${establishmentsInArea.length} établissement${establishmentsInArea.length > 1 ? 's' : ''}`;
         const divIcon = L.divIcon({
           className: 'leaflet-label',
-          html: `<div style="color: black; font-size: 13px; font-weight: bold; text-align: center; text-wrap: nowrap; position: relative; top: -10px">${label}</div>`,
-          iconSize: [50, 50], // Taille de l'icône, ajustable
-          iconAnchor: [25, 25], // Centrer l'icône sur le cercle
+          html: `<div style="text-align:center;font-size:13px;">${establishmentsInArea.length} établissement${establishmentsInArea.length > 1 ? 's' : ''}</div>`,
         });
 
-        // Placer l'icône au centre du cercle
         L.marker([lat, lon], { icon: divIcon }).addTo(mapRef.current);
       });
     }
   };
 
-  // Fonction pour afficher les établissements (points) sur la carte
-  const displayEtablissements = (zoomedIn = false) => {
+  const displayEtablissements = zoomedIn => {
     if (mapRef.current && etablissementsData) {
-      // On supprime les cercles précédents (si existants)
       mapRef.current.eachLayer(layer => {
-        if (layer instanceof L.Circle) {
-          mapRef.current.removeLayer(layer);
-        }
-        if (layer instanceof L.Marker) {
+        if (layer instanceof L.Marker || layer instanceof L.Circle) {
           mapRef.current.removeLayer(layer);
         }
       });
 
-      // Définir l'icône personnalisée (lorsque zoomé)
-      const customIcon = new L.Icon({
-        iconUrl: '/assets/images/location.svg', // Chemin vers votre icône personnalisée
-        iconSize: [30, 30], // Taille de l'icône (ajustez selon vos préférences)
-        iconAnchor: [15, 30], // Ancrage de l'icône
-        popupAnchor: [0, -30], // Position du popup
+      const customIcon = L.icon({
+        iconUrl: '/assets/images/location.svg',
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
       });
 
-      // Ajouter chaque établissement avec un marqueur
-      etablissementsData.forEach(etablissement => {
-        const [lon, lat] = etablissement.coordinates;
-        const markerOptions = zoomedIn ? { icon: customIcon } : {}; // Appliquer l'icône personnalisée si zoomé
-
-        const marker = L.marker([lat, lon], markerOptions).addTo(mapRef.current);
-
-        // Ajouter un popup avec le nom et le lien (si disponible)
-        const popupContent = `<b>${etablissement.nom}</b><br />${etablissement.link ? `<a href="${etablissement.link}" target="_blank">Visiter</a>` : ''}`;
-        marker.bindPopup(popupContent);
+      etablissementsData.forEach(e => {
+        const lon = e.Longitude;
+        const lat = e.Latitude;
+        L.marker([lat, lon], zoomedIn ? { icon: customIcon } : {}).addTo(mapRef.current)
+        .bindPopup(`<b>${e.nom}</b><br/><a href="${e.link}" target="_blank">Visiter</a>`);
       });
     }
   };
@@ -167,9 +188,8 @@ const Map = () => {
       style={{
         width: '600px',
         height: '450px',
-        background: '#FECFFF',
         borderRadius: '15px',
-        boxShadow: '0px 0px 16px 3px rgba(0,0,0,0.15)',
+        boxShadow: '0 0 16px rgba(0,0,0,0.15)',
       }}
     />
   );

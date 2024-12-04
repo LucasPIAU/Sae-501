@@ -1,14 +1,36 @@
-const express = require('express');
+import express from 'express';
+import connectToDB from '../functions/connectDb.js';
+import { ObjectId } from 'mongodb';
+import { checkFormation } from '../functions/formation.js';
 
 const formationRoutes = express();
 
-// Routes GET
+// Exemple de format JSON d'une formation dans la base de donnée
+{
+    id: "String"
+    name: "String"
+    filière: "String" // Générale et technologique ou professionel
+    data: "Array<Object>" // Le format de la data dépend de la filière
+    etablissement: "Array<String>" // List d'ids des établissement
+    flyerLink: "String" // Id du flyer correspondant
+}
 
+// Routes GET
 formationRoutes.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
-        // Récupération d'une formation
-        res.status(200).json('OK');
+        // On se connect à la base de donnée et on récupère la collection formations
+        const db = await connectToDB();
+        const collectionFormations = db.collection('Formations');
+        
+        // On fait la requêtes pour récupérer la formation qui correspond à l'id passer en paramètre
+        if(id){
+            const query = { '_id': new ObjectId(id) };
+            console.log(query);
+            const formation = await collectionFormations.findOne(query);
+            if(formation) res.status(200).json(formation);   
+            else res.status(404).json({message: "Aucune formation trouvé pour cette id"});
+        }else throw "L'id de la formations est obligatoire";
     } catch (err) {
         res.status(500).json({message: `Une erreur interne est survenue dans la récupération d'une formation : ${err}`});
     }
@@ -16,8 +38,18 @@ formationRoutes.get('/:id', async (req, res) => {
 
 formationRoutes.get('', async (req, res) => {
     try {
-        // récupération de la liste de toutes les formations
-        res.status(200).json('OK');
+        // On se connect à la base de donnée et on récupère la collection formation
+        const db = await connectToDB();
+        const collectionFormations = db.collection('Formations');
+        
+        // On fait la requête pour récupérer la liste de toute les formations
+        const cursor = collectionFormations.find();
+        const formations = await cursor.toArray();
+
+        // Une fois qu'on as tout récupérer on renvoie les données
+        if(formations.length > 0) res.status(200).json(formations);
+        else res.status(404).json({message: "Aucune formations trouvé"});
+
     } catch (err) {
         res.status(500).json({message: `Une erreur interne est survenue dans la récupération des formations : ${err}`});
     }
@@ -38,9 +70,18 @@ formationRoutes.put('/:id', async (req, res) => {
 // Routes POST
 
 formationRoutes.post('/add', async (req, res) => {
+    const { formation } = req.body;
     try {
-        // Création de la formation avec les données
-        res.status(200).json('OK');
+        // On se connect à la base de donnée et on récupère la collection formations
+        const db = await connectToDB();
+        const collectionFormations = db.collection('Formations');
+        const formationCheck = await checkFormation(formation);
+        // On vérifie que le format des données est le bon
+        if(formationCheck.valid){
+            // Si c'est ok on ajoute la nouvelle formation à la base de donnée
+            const result = await collectionFormations.insertOne(formation);
+            res.status(200).json(result.insertedId);
+        }else throw `Le format n'est pas celui attendu : ${formationCheck.error}`;
     } catch (err) {
         res.status(500).json({message: `Une erreur est survenue pendant la création d'une formation : ${err}`});
     }
@@ -58,4 +99,4 @@ formationRoutes.delete('/:id', async (req, res) => {
     }
 });
 
-module.exports = formationRoutes;
+export default formationRoutes;

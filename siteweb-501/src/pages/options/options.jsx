@@ -11,6 +11,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 function Options() {
 
   const formations = useSelector(selectFormations);
+  console.log(formations)
 
   const navigate = useNavigate();
 

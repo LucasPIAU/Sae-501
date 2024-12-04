@@ -1,5 +1,5 @@
-const express = require('express');
-
+import express from 'express';
+import connectToDB from '../functions/connectDb.js';
 const lyceeRoutes = express();
 
 // Routes GET
@@ -16,8 +16,20 @@ lyceeRoutes.get('/:id', async (req, res) => {
 
 lyceeRoutes.get('', async (req, res) => {
     try {
-        // Récupération de la liste de tout les lycées
-        res.status(200).json('OK');
+        // On se connect à la base de donnée et on récupère la collection établissements
+        const db = await connectToDB();
+        const collectionEtablissements = db.collection('Etablissements');
+
+        // On fait la requête pour récupérer la liste de toute les établissements
+        const cursor = collectionEtablissements.find();
+        const etablissements = await cursor.toArray();
+
+        // Une fois qu'on as tout récupérer on renvoie les données
+        if (etablissements.length > 0) {
+            return res.status(200).json(etablissements); // Utilisation de return pour éviter le code suivant
+        } else {
+            return res.status(404).json({ message: "Aucun établissement trouvé" }); // Utilisation de return pour éviter le code suivant
+        }
     } catch (err) {
         res.status(500).json({message: `Une erreur interne est survenue dans la récupération des lycées : ${err}`});
     }
@@ -57,4 +69,4 @@ lyceeRoutes.delete('/:id', async (req, res) => {
     }
 });
 
-module.exports = lyceeRoutes;
+export default lyceeRoutes;
