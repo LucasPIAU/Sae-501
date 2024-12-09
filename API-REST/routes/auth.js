@@ -13,7 +13,13 @@ authRoutes.post("/", async (req, res) => {
     }];
 
     // Find the user by email
-    const user = users.find(u => u.email === req.body.email);
+    try {
+        var email = req.body.email;
+    } catch (error) {
+        console.log(req.body ? req.body : 'Pas de body dans la requète');
+    }
+
+    const user = users.find(u => u.email === email);
     if (!user) {
         return res.status(404).send({
             ok: false,
