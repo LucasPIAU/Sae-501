@@ -16,9 +16,9 @@ const MainHeader = () => {
                     <h1>LES LYCEES PUBLICS MAYENNAIS VOUS FORMENT !</h1>
                 </div>
 
-                <div className={style.mainButton}>Trouve ta formation grâce au chatbot</div>
+                {/* <div className={style.mainButton}>Trouve ta formation grâce au chatbot</div> */}
                 <div className='divButtonHeader'>
-                    <div className={style.secondButton} onClick={() => navigateTo('/')}>Voir les formations</div>
+                    <div className={style.secondButton} onClick={() => navigateTo('/listeGT')}>Voir les formations</div>
                     <div className={style.secondButton} onClick={() => navigateTo('/lycees')}>Voir les lycées</div>
                 </div>
             </header>

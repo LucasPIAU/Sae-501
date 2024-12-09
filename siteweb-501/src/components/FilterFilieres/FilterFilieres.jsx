@@ -17,9 +17,9 @@ const FilterFiliere = () => {
         const type = event.target.value;
         setType(type);
         if (type === 'pro') {
-            navigate("/pro");
+            navigate("/listePro");
         } else {
-            navigate("/");
+            navigate("/listeGT");
         }
     };
 
