@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import style from "./listeG&T.module.css";
 import Map from '../../components/map';
+import FiltrageFilieres from '../../components/FilterFilieres/FilterFilieres.jsx';
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
 import { initializeData } from '../../store/formation/formationSlice';
@@ -43,6 +44,7 @@ function ListeGT() {
 
     return (
         <>
+            <FiltrageFilieres />
             <div className={style.AppA}>
                 <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>  
                 <div className={style.containerMapFormation}>

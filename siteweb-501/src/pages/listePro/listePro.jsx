@@ -3,6 +3,7 @@ import style from "./listePro.module.css";
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import FiltrageFilieres from '../../components/FilterFilieres/FilterFilieres.jsx';
 import { selectFormations } from '../../store/formation/formationSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
@@ -68,6 +69,7 @@ function ListePro() {
 
     return (
         <>
+            <FiltrageFilieres />
             <div className={style.containerPro}>
             <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
             <div className={style.containerMapFormation}>

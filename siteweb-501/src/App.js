@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import logo from './logo.svg';
 import Header from './components/MainHeader/MainHeader.jsx';
-import FiltrageFilieres from './components/FilterFilieres/FilterFilieres.jsx';
+
 import React from 'react';
 import './App.css';
 import Home from './pages/home/home.jsx';
@@ -30,7 +30,6 @@ function App({ item }) {
 }
 
 function MainContent() {
-  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,7 +38,6 @@ function MainContent() {
 
   return (
     <>
-      {location.pathname.includes('/lycees') ? null : <FiltrageFilieres />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/listeGT" element={<ListeGT />} />
