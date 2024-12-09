@@ -1,0 +1,69 @@
+[
+    {
+        "name": "BAC STL Sciences et Technologies de Laboratoire",
+        "type": "techno",
+        "etablissement": [
+            "lycee_reaumur"
+        ],
+        "data": {
+            "categorie": "scientifique",
+            "attributs": [
+                "Scolaire"
+            ],
+            "options": [
+                {
+                    "name": "Option Biotechnologies",
+                    "type": "option",
+                    "description": "Approfondissement des connaissances dans le domaine des biotechnologies."
+                }
+            ],
+            "descriptionCourt": "Formation scientifique axée sur les sciences expérimentales et biotechnologies.",
+            "poursuiteEtudes": [
+                "CPGE Technologies Biologie",
+                "BUT Génie Biologique",
+                "BUT Hygiène sécurité et environnement",
+                "BTS Analyses de biologie Médicale",
+                "BTS Bio analyses et contrôle",
+                "BTS Biotechnologies",
+                "BTS Diététiques",
+                "BTS Imagerie Médicale et radiothérapie",
+                "BTS Métiers de l’eau"
+            ],
+            "secteurs": [
+                "Agro-alimentaire",
+                "Pharmaceutique",
+                "Cosmétologie",
+                "Environnement",
+                "Biologie clinique ou vétérinaire"
+            ],
+            "lieuxExercice": [
+                "Laboratoires d’analyses et de contrôle",
+                "Ateliers de production (industries chimiques, pharmaceutiques, agroalimentaires, etc.)"
+            ]
+        }
+    },
+    {
+        "name": "BAC ST2S Sciences et Technologies de la Santé et du Social",
+        "type": "techno",
+        "etablissement": [
+            "lycee_reaumur"
+        ],
+        "data": {
+            "categorie": "santé et social",
+            "attributs": [
+                "Scolaire"
+            ],
+            "options": [],
+            "poursuiteEtudes": [
+                "BTS ESF - Economie Sociale Familiale",
+                "BTS SP3S - Services et Prestations des Secteurs Sanitaire et Social"
+            ],
+            "descriptionCourt": "Formation axée sur les métiers techniques des secteurs paramédical et social.",
+            "lieuxExercice": [
+                "Structures sociales",
+                "Hôpitaux",
+                "Laboratoires d'analyses"
+            ]
+        }
+    }
+]

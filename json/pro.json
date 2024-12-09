@@ -1,0 +1,62 @@
+[
+    {
+        "name": "CAP Carrossier automobile",
+        "type": "pro",
+        "etablissement": [
+            "674dc3aa4a3aa1faa36741a3"
+        ],
+        "data": {
+            "categorie": "industriel",
+            "attributs": "Scolaire, Apprentissage, Formation continue"
+        }
+    },
+    {
+        "name": "CAP Peintre automobile",
+        "type": "pro",
+        "etablissement": [
+            "674dc3aa4a3aa1faa36741a3"
+        ],
+        "data": {
+            "categorie": "industriel",
+            "conditions": "en 1 an après le CAP CA",
+            "attributs": [
+                "Apprentissage",
+                "Formation continue"
+            ]
+        }
+    },
+    {
+        "name": "BAC PRO MV maintenance des véhicules",
+        "type": "pro",
+        "etablissement": [
+            "674dc3aa4a3aa1faa36741a3",
+            "674dc3aa4a3aa1faa36741a4"
+        ],
+        "data": {
+            "categorie": "industriel",
+            "attributs": [
+                "Scolaire",
+                "Apprentissage",
+                "Formation continue"
+            ],
+            "options": [
+                "Voitures particulières",
+                "véhicules de transport routier",
+                "Motocycles"
+            ]
+        }
+    },
+    {
+        "name": "CQPM Soudeur industriel",
+        "type": "pro",
+        "etablissement": [
+            "674dc3aa4a3aa1faa36741a4"
+        ],
+        "data": {
+            "categorie": "industriel",
+            "attributs": [
+                "Formation continue"
+            ]
+        }
+    }
+]

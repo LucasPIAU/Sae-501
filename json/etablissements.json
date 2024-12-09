@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Lycée professionnel Léonard-de-Vinci",
+        "adresse": "129 Boulevard de l'Europe 53103 Mayenne Cedex",
+        "Latitude": 48.30023956298828,
+        "Longitude": -0.6216786503791809,
+        "tel": "02 43 04 20 98",
+        "website": "https://vinci-mayenne.paysdelaloire.e-lyco.fr"
+    },
+    {
+        "name": "Lycée professionnel Pierre et Marie Curie",
+        "adresse": "1 Rue Edouard Branly - BP 80408 - 53200 Château Gontier sur Mayenne",
+        "Latitude": 47.8326425,
+        "Longitude": -0.6987968,
+        "tel": "02 43 07 26 35",
+        "website": "https://curie.paysdelaloire.e-lyco.fr/"
+    },
+    {
+        "name": "Lycée Réaumur",
+        "adresse": "Laval",
+        "Latitude": null,
+        "Longitude": null,
+        "tel": "02.43.67.24.00",
+        "website": "http://reaumur-buron.paysdelaloire.e-lyco.fr",
+        "email": "ce.0530012A@ac-nantes.fr"
+    }
+]
