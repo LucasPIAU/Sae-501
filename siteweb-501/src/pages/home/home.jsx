@@ -1,25 +1,56 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectFilteredEtablissements } from '../../store/formation/formationSelector.js';
+import React, { useState, useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import style from "./home.module.css";
+import Map from '../../components/map';
+import ListCard from '../../components/listCard/listCard';
+import { initializeData } from '../../store/formation/formationSlice';
+import { selectFormations } from '../../store/formation/formationSelector.js';
+import { selectFilteredFormations } from '../../store/formation/formationSelector';
 
 function Home() {
-  const etablissements = useSelector(selectFilteredEtablissements);
-  console.log("Etablissements Home : ", etablissements);
+  const formations = useSelector(selectFilteredFormations);
+  console.log('oscour', formations)
+
+  var recherche = false;
+
+  if (formations.length === 14) {
+    recherche = true;
+  }
+
+  const sectionItem = [
+    {
+      nom: "seconde générale et technologique",
+      link: "optionGenerale"
+    },
+    {
+      nom:"Première générale",
+      link: "spePremiere"
+    },
+    {
+      nom: "Première technologique",
+      link: "filiereTechno"
+    }
+  ]
 
   return (
-    <div className={style.container}>
-      <h2>Retrouvez les 29 lycées de la Mayenne et découvrez leurs formations</h2>
-      <div className={style.logoGrid}>
-        {etablissements.map((etablissement, index) => (
-          <a href={etablissement.link} target='_blank'>
-            <div key={index} className={style.logoItem}>
-              <img src={etablissement.logo} alt={etablissement.nom} className={style.logoImage}/>
-            </div>
-          </a>
-        ))}
+    <>
+      <div className={style.AppA}>
+        <div className={style.containerMapFormation}>
+          {/* <ListCard items={formations} type="formation" /> */}
+          {recherche ? (
+            <ListCard items={sectionItem} />
+          ) : (
+            <>
+              <ListCard items={formations} type="techno" />
+              <ListCard items={formations} type="options" />
+              <ListCard items={formations} type="generale" />
+            </>
+          )}
+          {/* <ListCard items={sectionItem} /> */}
+        </div>
       </div>
-    </div>
+    </>
+    
   );
 }
 

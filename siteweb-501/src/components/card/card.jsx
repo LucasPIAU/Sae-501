@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { addFormationToFilter } from '../../store/formation/formationSlice';
 import { setCurrentPage } from '../../store/formation/formationSlice';
 
-function Card({ item, onCategorySelect }) {
+function Card({ item }) {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(item.isChecked || false); 
   const dispatch = useDispatch();
@@ -14,10 +14,7 @@ function Card({ item, onCategorySelect }) {
     if (item.link) {
       navigate(item.link);
       setCurrentPage(item.link);
-    } if (item.categorie) { 
-      onCategorySelect(item.categorie);
-      navigate('/pro'); 
-    }else {
+    } else {
       navigate('/detail', { state: { itemId: item.id } });
       setCurrentPage("detail");
     }
