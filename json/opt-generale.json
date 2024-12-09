@@ -1,3 +1,56 @@
 [
-    {}
+    {
+        "name": "Mathématiques",
+        "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale"
+    },
+    {
+        "name": "Art",
+        "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale"
+    },
+    {
+        "name": "Éducation physique, pratiques et culture sportives",
+        "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale"
+    },
+    {
+        "name": "Biologie-écologie",
+        "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale"
+    },
+    {
+        "name": "Histoire géographie, géopolitique et sciences politiques",
+        "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale"
+    },
+    {
+        "name": "Humanités, littérature et philosophie",
+        "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale"
+    },
+    {
+        "name": "LLCER - Langues, littératures et cultures étrangères et régionales",
+        "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale"
+    },
+    {
+        "name": "Littératures, langues et cultures de l'Antiquité",
+        "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale"
+    },
+    {
+        "name": "NSI - Numérique et sciences informatiques",
+        "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale"
+    },
+    {
+        "name": "SI - Sciences de l'ingénieur",
+        "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale"
+    },
+    {
+        "name": "Physique-chimie",
+        "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale"
+    },
+    {
+        "name": "SVT - Sciences de la vie et de la Terre",
+        "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale"
+    },
+    {
+        "name": "Sciences économiques et sociales",
+        "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale"
+    }
+
+
 ]
