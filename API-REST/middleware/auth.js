@@ -1,4 +1,7 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default (req, res, next) => {
     const token = req.header("x-auth-token");
@@ -8,7 +11,7 @@ export default (req, res, next) => {
     });
 
     try {
-        jwt.verify(token, "jwtPrivateKey");
+        jwt.verify(token, process.env.JWT_PRIVATE_KEY || "jwtPrivateKey");
         next();
     } catch (error) {
         return res.status(401).send({

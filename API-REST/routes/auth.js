@@ -1,6 +1,9 @@
 import jwt from 'jsonwebtoken';
 import express from 'express';
 import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const authRoutes = express();
 
@@ -8,26 +11,26 @@ const authRoutes = express();
 authRoutes.post("/", async (req, res) => {
     const users = [{ 
         id: 1, 
-        email: "formationMayenneAdmin", 
-        password: "$2b$15$aX0/Q/jZ6JVFia5Qe7IcY.YtAzkrw.9hj2vuKx0mEu9OVbP8DHrK2",
+        username: process.env.AUTH_USERNAME, 
+        password: process.env.AUTH_PASSWORD,
     }];
 
-    // Find the user by email
     try {
-        var email = req.body.email;
+        var username = req.body.username;
+        var password = req.body.password;
     } catch (error) {
-        console.log(req.body ? req.body : 'Pas de body dans la requète');
+        console.log("Vous devez spécifier un request body pour vous connecter");
     }
 
-    const user = users.find(u => u.email === email);
+    const user = users.find(u => u.username === username);
     if (!user) {
         return res.status(404).send({
             ok: false,
-            message: "Incorrect email"
+            message: "Incorrect username"
         });
     }
 
-    const valid = await bcrypt.compare(req.body.password, user.password);
+    const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
         return res.status(401).send({
             ok: false,
