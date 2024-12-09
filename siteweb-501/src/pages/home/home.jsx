@@ -1,21 +1,20 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectEtablissements } from '../../store/formation/formationSelector.js';
-import style from './home.module.css';
+import { selectFilteredEtablissements } from '../../store/formation/formationSelector.js';
+import style from "./home.module.css";
 
-const Home = () => {
-  const etablissements = useSelector(selectEtablissements);
+function Home() {
+  const etablissements = useSelector(selectFilteredEtablissements);
+  console.log("Etablissements Home : ", etablissements.length);
 
   return (
-    <div>
-      <h2 className={style.title}>
-        Retrouvez nos {etablissements.length} établissements
-      </h2>
-      <div className={style.logoContainer}>
+    <div className={style.container}>
+      <h2>Retrouvez les {etablissements.length} lycées de la Mayenne et découvrez leurs formations</h2>
+      <div className={style.logoGrid}>
         {etablissements.map((etablissement, index) => (
-          <a target="_blank" href={etablissement.link}>
-            <div key={index} className={style.logoCard}>
-              <img src={etablissement.logo} alt={`Logo de ${etablissement.nom}`} className={style.logoImage} />
+          <a href={etablissement.link} target='_blank'>
+            <div key={index} className={style.logoItem}>
+              <img src={etablissement.logo} alt={etablissement.nom} className={style.logoImage}/>
             </div>
           </a>
         ))}

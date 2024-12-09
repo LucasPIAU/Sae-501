@@ -10,6 +10,7 @@ const formationSlice = createSlice({
     filteredFormations: [],
     filteredEtablissements: [], // Contient les établissements filtrés
     selectedFormations: [],
+    selectedCategorie: null,
     loading: false,
     errors: null,
     currentPage: null,

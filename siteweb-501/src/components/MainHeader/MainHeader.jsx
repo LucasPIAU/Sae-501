@@ -18,7 +18,7 @@ const MainHeader = () => {
 
                 {/* <div className={style.mainButton}>Trouve ta formation grâce au chatbot</div> */}
                 <div className='divButtonHeader'>
-                    <div className={style.secondButton} onClick={() => navigateTo('/')}>Voir les formations</div>
+                    <div className={style.secondButton} onClick={() => navigateTo('/listeGT')}>Voir les formations</div>
                     <div className={style.secondButton} onClick={() => navigateTo('/lycees')}>Voir les lycées</div>
                 </div>
             </header>

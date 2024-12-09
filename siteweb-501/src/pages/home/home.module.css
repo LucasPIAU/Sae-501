@@ -1,28 +1,26 @@
-.title {
+.container {
   text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
+  margin-left: 4rem;
+  margin-right: 4rem;
 }
-
-.logoContainer {
-  display: flex;
-  flex-wrap: wrap;
+  
+.logoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 20px;
-  justify-content: center;
-  padding: 20px;
+  margin-top: 20px;
 }
-
-.logoCard {
+ 
+.logoItem {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  width: 150px;
   height: 150px;
+  width: 150px;
 }
-
+  
 .logoImage {
   max-width: 100%;
   max-height: 100%;
+  object-fit: contain;
 }

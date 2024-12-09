@@ -28,7 +28,7 @@
   .App-link {
     color: #61dafb;
   }
-  
+
   @keyframes App-logo-spin {
     from {
       transform: rotate(0deg);
@@ -48,4 +48,19 @@
   .containerListCard {
     display: flex;
     flex-wrap: wrap;
+  }
+
+  .backButton {
+    border-radius: 50%;
+    margin: 0 25px;
+    background-color: #B059B1;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+    color: white;
+    padding: 0;
+  }
+
+  .backButton svg {
+    margin: 10px 12px;
   }
