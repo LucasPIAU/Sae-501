@@ -1,0 +1,13 @@
+.containerDescription {
+    display: flex;
+    justify-content: center;
+}
+
+.description {
+    font-size: 16px;
+    color: #666; /* Couleur du texte */
+    line-height: 1.5; /* Hauteur de ligne pour la lisibilité */
+    margin-bottom: 16px; /* Espacement sous la description */
+    text-align: left; /* Alignement du texte */
+  }
+  

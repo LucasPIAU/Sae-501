@@ -1,0 +1,64 @@
+.detail {
+  margin: 0 25px;
+}
+
+.containerMapFormation {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .containerListCard {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .containerMap {
+    margin: 25px;
+  }
+
+  .titleDetail {
+    font-size: 30px;
+    color: black;
+  }
+
+  .containerContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .containerDetail {
+    display: flex;
+  }
+
+  .containerListCard {
+    overflow-y: scroll;
+    max-height: 350px;
+  }
+
+  .containerContentTitle {
+    flex: 1;
+  }
+
+  .backButton {
+    border-radius: 15px;
+    background-color: #B059B1;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+  .backButton {
+    border-radius: 50%;
+    background-color: #B059B1;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+    color: white;
+    padding: 0;
+  }
+
+  .backButton svg {
+    margin: 10px 12px;
+  }

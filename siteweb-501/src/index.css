@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+  font-family: 'DINPro-CondLight', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2 {
+  font-family: 'DINPro-black', 'DINPro-Bold.otf', sans-serif;
+  font-weight: bold;
+}
+
+h3 {
+  font-family: 'DINPro-CondBold', sans-serif;
+}
+
+h4 {
+  font-family: 'DINPro-Cond', sans-serif;
+}
+
+small {
+  font-family: 'DINPro-CondLight', sans-serif;
+}
+
+p {
+  font-family: 'DINPro-CondMedium', sans-serif;
+  font-size: 16px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+@font-face {
+  font-family: 'DINPro-black';
+  src: url('./assets/font/DINPro-Black.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DINPro-blackItalic';
+  src: url('./assets/font/DINPro-BlackItalic.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DINPro-Bold.otf';
+  src: url('./assets/font/DINPro-Bold.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DINPro-Cond';
+  src: url('./assets/font/DINPro-Cond.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DINPro-CondBold';
+  src: url('./assets/font/DINPro-CondBold.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DINPro-CondLight';
+  src: url('./assets/font/DINPro-CondLight.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DINPro-CondMedium';
+  src: url('./assets/font/DINPro-CondMedium.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}

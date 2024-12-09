@@ -1,0 +1,138 @@
+.detail {
+  margin: 0 25px;
+}
+
+.containerMapFormation {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .containerListCard {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .containerMap {
+    margin: 25px;
+  }
+
+  .backButton {
+    border-radius: 15px;
+    background-color: #B059B1;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+  .titleDetail {
+    font-size: 30px;
+    color: black;
+  }
+
+  .containerContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .containerDetail {
+    display: flex;
+  }
+
+  .containerListCard {
+    overflow-y: scroll;
+    max-height: 350px;
+  }
+
+  .backButton {
+    border-radius: 15px;
+    background-color: #B059B1;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+  .containerContentTitle {
+    flex: 1;
+  }
+
+
+  .draggableItem {
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin-bottom: 8px;
+    background-color: white;
+    cursor: grab;
+  }
+
+
+
+  .editModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .editModal input {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .editModal button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .editModal button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  
+  
+  .backButton {
+    border-radius: 15px;
+    background-color: #B059B1;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+  .backButton {
+    border-radius: 50%;
+    background-color: #B059B1;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+    color: white;
+    padding: 0;
+  }
+
+  .backButton svg {
+    margin: 10px 12px;
+  }

@@ -1,0 +1,8 @@
+.hr {
+    border: none; /* Pas de bordure par défaut */
+    border-top: 1px solid #ddd; /* Ligne horizontale fine */
+    margin: 24px 0; /* Espacement vertical autour de la ligne */
+    width: 90%; /* Largeur de la ligne */
+    margin: 20px auto;
+  }
+  

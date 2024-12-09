@@ -1,0 +1,132 @@
+.card {
+  position: relative;
+  border-radius: 13px;
+  padding: 20px 10px 10px 20px;
+  margin: 10px;
+  box-shadow: 0px 0px 16px 3px rgba(0,0,0,0.25);
+  width: 350px;
+  height:120px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.greenBg {
+  background-image: url("../../assets/images/bgGreenCard.svg");
+}
+
+.pinkBg {
+  background-image: url("../../assets/images/bgCard.svg");
+}
+
+  
+.card h3 {
+  margin: 0;
+  font-size: 1rem;
+  text-align: start;
+  font-size: 19px;
+  font-weight: 600;
+}
+  
+.card p {
+  margin: 10px 0;
+  font-size: 1rem;
+  width: fit-content;
+}
+
+.containerTitleMotClef {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 80%;
+}
+
+.containerButtonCard {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.containerButtonCard button, .containerButtonCard a {
+  background-color: black;
+  padding: 10px 20px;
+  border-radius: 0 0 12px 0;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0px 0px 16px 3px rgba(0,0,0,0.15);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.containerButtonCard a {
+  background-image: url("../../assets/images/sortieSite.png");
+  background-repeat: no-repeat;
+  background-position: 7px 9px;
+  background-size: 20px 20px; 
+  padding-left: 35px;
+}
+
+/* Container du checkbox */
+.checkboxContainer {
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Cache la case native du checkbox */
+.checkboxContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Crée une case personnalisée */
+.checkmark {
+  position: absolute;
+  top: 10px;
+  left: -30px;
+  height: 20px;
+  width: 20px;
+  background-color: transparent;
+  border-radius: 4px; /* Coins arrondis pour correspondre au style de la carte */
+  border: 2px solid black; /* Bordure de la case */
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Quand la case est cochée */
+.checkboxContainer input:checked ~ .checkmark {
+  background-color: black; /* Fond noir quand coché */
+  border-color: black; /* Bordure noire */
+}
+
+/* Crée le symbole de coche (icône) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Affiche le symbole de coche quand la case est cochée */
+.checkboxContainer input:checked ~ .checkmark:after {
+  display: block;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
