@@ -17,8 +17,7 @@ function Options() {
   const navigateTo = () => {
       navigate(-1);
   }
-
-
+  
   return (
     <>
       <div className={style.containerOptions}>

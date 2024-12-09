@@ -19,7 +19,7 @@ const FilterFiliere = () => {
         if (type === 'pro') {
             navigate("/pro");
         } else {
-            navigate("/");
+            navigate("/listeg&t");
         }
     };
 
