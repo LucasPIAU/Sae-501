@@ -20,7 +20,6 @@ function ListeGT() {
   const navigateTo = () => {
     navigate(-1);
   }
-
   var recherche = false;
 
   if (formations.length === 14) {

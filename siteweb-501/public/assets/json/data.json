@@ -9,7 +9,6 @@
   { "type": "etablissement", "nom": "Espace Mayenne", "coordinates": [-0.8040, 48.0760], "logo": "https://www.espace-mayenne.fr/wp-content/uploads/2024/01/logo-espace-mayenne-laval.svg" },
   { "type": "etablissement", "nom": "Hôtel de Ville de Laval", "coordinates": [-0.7708, 48.0665], "logo": "https://www.laval.fr/fileadmin/_processed_/d/d/csm_ville-logo_e53ef62706.png" },
   { "type": "etablissement", "nom": "Clinique du Maine", "coordinates": [-0.7728, 48.0610], "logo": "https://www.polyclinique-maine.fr/wp-content/uploads/2023/11/logo-clinique-maine.png" },
-
   { "id": 1, "type": "options", "nom": "Sciences et Technologies de l'Industrie et du Développement Durable (STI2D)", "niveau": "pré-Bac", "etablissements": ["Lycée Douanier Rousseau"], "content": ["Title", "images", "desc"] },
   { "id": 2,"type": "options", "nom": "Sciences et Technologies de Laboratoire (STL)", "niveau": "pré-Bac", "etablissements": ["Lycée de l'Immaculée Conception"], "content": ["Title", "desc", "images", "hr", "video"] },
   { "id": 3, "type": "options", "nom": "Sciences et Technologies de la Santé et du Social (ST2S)", "niveau": "pré-Bac", "etablissements": ["Lycée Ambroise Paré"] , "content": ["Title", "desc", "images", "hr", "video"]},
