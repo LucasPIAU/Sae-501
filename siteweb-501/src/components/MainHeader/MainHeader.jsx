@@ -12,11 +12,13 @@ const MainHeader = () => {
     return (
         <>
             <header className={style.AppHeader}>
-                <div className={style.divTitle}>
-                    <h1>LES LYCEES PUBLICS MAYENNAIS VOUS FORMENT !</h1>
-                </div>
+                <a onClick={() => navigateTo('/')}>
+                    <div className={style.divTitle}>
+                        <h1>LES LYCEES PUBLICS MAYENNAIS VOUS FORMENT !</h1>
+                    </div>
+                </a>
 
-                <div className={style.mainButton}>Trouve ta formation grâce au chatbot</div>
+                {/* <div className={style.mainButton}>Trouve ta formation grâce au chatbot</div> */}
                 <div className='divButtonHeader'>
                     <div className={style.secondButton} onClick={() => navigateTo('/')}>Voir les formations</div>
                     <div className={style.secondButton} onClick={() => navigateTo('/lycees')}>Voir les lycées</div>
