@@ -13,7 +13,7 @@ import Image from '../../components/Image/Image';
 import Hr from "../../components/Hr/Hr";
 import Video from "../../components/Video/Video";
 import ListCard from '../../components/listCard/listCard';
-import bgCardImage from '../../assets/images/test.jpg';
+import bgCardImage from '../../assets/images/stmg.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 

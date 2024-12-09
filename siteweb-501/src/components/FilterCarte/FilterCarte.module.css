@@ -30,6 +30,23 @@ input[type="range"] {
     transition: opacity .2s;
 }
 
+input[type="range"]:disabled {
+    background: #e0e0e0; /* Couleur grise pour le fond */
+    opacity: 0.5;       /* Rendre le slider semi-transparent */
+    cursor: not-allowed; /* Indiquer que le slider n'est pas cliquable */
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+    background: #c0c0c0; /* Griser le pouce */
+    cursor: not-allowed; /* Indiquer que le pouce n'est pas cliquable */
+}
+
+input[type="range"]:disabled::-moz-range-thumb {
+    background: #c0c0c0; /* Griser le pouce pour Firefox */
+    cursor: not-allowed; /* Indiquer que le pouce n'est pas cliquable */
+}
+
+
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;

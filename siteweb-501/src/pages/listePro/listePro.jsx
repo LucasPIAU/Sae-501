@@ -69,7 +69,7 @@ function ListePro() {
 
     return (
         <>
-            <FiltrageFilieres />
+            <FiltrageFilieres type='pro'/>
             <div className={style.containerPro}>
             <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
             <div className={style.containerMapFormation}>

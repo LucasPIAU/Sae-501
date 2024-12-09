@@ -28,7 +28,7 @@ function ListeGT() {
 
   const sectionItem = [
     {
-      nom: "seconde générale et technologique",
+      nom: "Options de seconde générale et technologique",
       link: "/optionGenerale"
     },
     {
@@ -43,7 +43,7 @@ function ListeGT() {
 
     return (
         <>
-            <FiltrageFilieres />
+            <FiltrageFilieres type="g&t"/>
             <div className={style.AppA}>
                 <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>  
                 <div className={style.containerMapFormation}>

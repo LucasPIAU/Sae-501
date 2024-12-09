@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import style from './FilterCarte.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectEtablissements } from '../../store/formation/formationSelector.js';
-import { setFilteredEtablissements} from '../../store/formation/formationSlice.js'
+import { setFilteredEtablissements } from '../../store/formation/formationSlice.js';
 
 const FilterCarte = () => {
   const [range, setRange] = useState(50);
@@ -34,7 +34,7 @@ const FilterCarte = () => {
       est.nom.toLowerCase().includes(city.toLowerCase())
     );
 
-    console.log('Établissements correspondant critere name:', nameMatchingEstablishments);
+    console.log('Établissements correspondant critère name:', nameMatchingEstablishments);
 
     // Filtrer par distance (établissements dans le rayon spécifié)
     const distanceMatchingEstablishments = allEtablissements.filter(est => {
@@ -43,8 +43,7 @@ const FilterCarte = () => {
       return distance <= range;
     });
 
-    console.log('Établissements correspondant critere localisation:', distanceMatchingEstablishments);
-
+    console.log('Établissements correspondant critère localisation:', distanceMatchingEstablishments);
 
     // Trouver les éléments présents dans les deux listes
     const matchingEstablishments = nameMatchingEstablishments.filter(est =>
@@ -76,6 +75,7 @@ const FilterCarte = () => {
           max="100"
           value={range}
           onChange={handleRangeChange}
+          disabled={!city.trim()} // Désactiver si le champ 'city' est vide
         />
         <span id="rangeValue">{range} km</span>
       </div>

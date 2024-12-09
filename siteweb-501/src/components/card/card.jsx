@@ -11,12 +11,20 @@ function Card({ item, onCategorySelect }) {
   const dispatch = useDispatch();
 
   const navigateTo = () => {
+    console.log('ICIICICCI');
+    console.log(item.link);
     if (item.link) {
       navigate(item.link);
-      setCurrentPage(item.link);
-    } if (item.categorie) { 
-      onCategorySelect(item.categorie);
-      navigate('/pro'); 
+      // setCurrentPage(item.link);
+    }else if (item.categorie) { 
+      if(onCategorySelect){
+
+        onCategorySelect(item.categorie);
+        navigate('/pro'); 
+      }else{
+        navigate('/detail', { state: { itemId: item.id } });
+      setCurrentPage("detail");
+      }
     } else {
       navigate('/detail', { state: { itemId: item.id } });
       setCurrentPage("detail");

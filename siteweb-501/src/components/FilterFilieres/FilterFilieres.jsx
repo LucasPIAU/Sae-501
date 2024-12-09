@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectFormations } from '../../store/formation/formationSelector.js';
 import { setFilteredFormations} from '../../store/formation/formationSlice.js'
 
-const FilterFiliere = () => {
-    const [type, setType] = useState('g&t');
+const FilterFiliere = ({ type: initialType = 'g&t' }) => {
+    const [type, setType] = useState(initialType);
     const [motCle, setMotCle] = useState('');
     const allFormations = useSelector(selectFormations);
     const navigate = useNavigate();

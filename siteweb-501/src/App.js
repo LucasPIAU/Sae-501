@@ -16,8 +16,6 @@ import Detail from "./pages/detail/detail.jsx"
 import AdminSpace from './pages/AdminSpace/AdminSpace.jsx';
 import Lycees from "./pages/lycees/lycees";
 import PageCard from './pages/pageCard/pageCard.jsx';
-import ListeGT from './pages/listeG&T/listeG&T.jsx';
-import ListePro from './pages/listePro/listePro.jsx';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { loadInfos } from './store/formation/formationAsyncAction.js';
