@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loadInfos } from './formationAsyncAction';
-import { selectCurrentPage } from './formationSelector';
 
 const formationSlice = createSlice({
   name: 'formations',
@@ -10,6 +9,7 @@ const formationSlice = createSlice({
     filteredFormations: [],
     filteredEtablissements: [], // Contient les établissements filtrés
     selectedFormations: [],
+    selectedCategorie: null,
     loading: false,
     errors: null,
     currentPage: null,
@@ -29,6 +29,9 @@ const formationSlice = createSlice({
     setFilteredEtablissements: (state, action) => {
       console.log("Données filtrées des établissements : ", action.payload);
       state.filteredEtablissements = action.payload;
+    },
+    setSelectedCategorie: (state, action) => {
+      state.selectedCategorie = action.payload;
     },
     addContent: (state, action) => {
       const { formationId, newElement } = action.payload;

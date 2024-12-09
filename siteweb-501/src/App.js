@@ -10,6 +10,8 @@ import SpePremiere from "./pages/spePremiere/spePremiere"
 import Options from './pages/options/options';
 import Techno from "./pages/techno/techno"
 import Pro from "./pages/pro/pro.jsx";
+import ListePro from "./pages/listePro/listePro.jsx";
+import ListeGeneralTechno from "./pages/listeGeneralTechno/listeGeneralTechno.jsx";
 import Detail from "./pages/detail/detail.jsx"
 import AdminSpace from './pages/AdminSpace/AdminSpace.jsx';
 import Lycees from "./pages/lycees/lycees";
@@ -40,10 +42,12 @@ function MainContent() {
       {location.pathname.includes('/lycees') ? null : <FiltrageFilieres />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/listeg&t" element={<ListeGeneralTechno />} />
         <Route path="/spePremiere" element={<SpePremiere />} />
         <Route path="/optionGenerale" element={<Options />} />
         <Route path="/filiereTechno" element={<Techno />} />
         <Route path="/lycees" element={<Lycees />} />
+        <Route path="/listePro" element={<ListePro />} />
         <Route path="/pro" element={<Pro />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/pageCard" element={<PageCard />} />
