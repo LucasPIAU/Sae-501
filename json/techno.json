@@ -3,7 +3,7 @@
         "name": "BAC STL Sciences et Technologies de Laboratoire",
         "type": "techno",
         "etablissement": [
-            "lycee_reaumur"
+            {"$oid": "5fdb8c9b8b2d4d1f8c1f16e2"}
         ],
         "data": {
             "categorie": "scientifique",
@@ -46,7 +46,7 @@
         "name": "BAC ST2S Sciences et Technologies de la Santé et du Social",
         "type": "techno",
         "etablissement": [
-            "lycee_reaumur"
+            {"$oid": "5fdb8c9b8b2d4d1f8c1f16e2"}
         ],
         "data": {
             "categorie": "santé et social",
