@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const fs = require('fs');
 
 const url = 'mongodb://localhost:27017';
@@ -31,6 +31,9 @@ async function importData() {
 
         for (const { name, file } of collections) {
             const data = await loadJSONData(file);
+            data.forEach(e => {
+                e._id = new ObjectId(toString(e._id));
+            });
             const collection = db.collection(name);
             await collection.deleteMany({});
             const result = await collection.insertMany(data);
