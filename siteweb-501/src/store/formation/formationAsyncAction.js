@@ -1,5 +1,8 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-// import axios from 'axios';
+import {
+  createAsyncThunk
+} from '@reduxjs/toolkit';
+import axios from 'axios';
+
 // import { URL_API_FILMS } from '../../utils/config';
 
 // Actions asynchrones avec gestion des erreurs POUR LES DATA LOCAL
@@ -8,11 +11,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 //     async (_, { rejectWithValue }) => {
 //       try {
 //         const response = await fetch('/assets/json/data.json');
-        
+
 //         if (!response.ok) {
 //           throw new Error(`Erreur HTTP: ${response.status}`);
 //         }
-  
+
 //         const data = await response.json(); // Conversion en JSON
 //         // console.log("Données chargées :", data);
 //         return data; // Retourne les données du fichier JSON
@@ -26,51 +29,61 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 //   );
 
 
-  // LOAD LYCEE 
-  export const loadEtablissement = createAsyncThunk(
-    'lycee/loadLycee',
-    async (_, { rejectWithValue }) => {
-      try {
-        const response = await fetch('http://localhost:3001/api/lycee');
-        
-        if (!response.ok) {
-          throw new Error(`Erreur HTTP: ${response.status}`);
-        }
-  
-        const data = await response.json(); // Conversion en JSON
-        console.log("Données chargées des lycées :", data);
-        return data; // Retourne les données du fichier JSON
-      } catch (error) {
-        console.error("Erreur lors du chargement des données :", error);
-        return rejectWithValue(
-          "L'application est actuellement indisponible, veuillez réessayer ultérieurement."
-        );
-      }
+// LOAD LYCEE 
+export const loadEtablissement = createAsyncThunk(
+  'lycee/loadLycee',
+  async (_, {
+    rejectWithValue
+  }) => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/lycee');
+      console.log("Données chargées des lycées :", response.data);
+      return response.data; // Conversion en JSON
+    } catch (error) {
+      console.error("Erreur lors du chargement des données :", error);
+      return rejectWithValue(
+        "L'application est actuellement indisponible, veuillez réessayer ultérieurement."
+      );
     }
-  );
+  }
+);
 
-    // LOAD LYCEE 
-    export const loadFormation = createAsyncThunk(
-      'lycee/loadFormation',
-      async (_, { rejectWithValue }) => {
-        try {
-          const response = await fetch('http://localhost:3001/api/formation');
-          
-          if (!response.ok) {
-            throw new Error(`Erreur HTTP: ${response.status}`);
-          }
-    
-          const data = await response.json(); // Conversion en JSON
-          console.log("Données chargées des formation :", data);
-          return data; // Retourne les données du fichier JSON
-        } catch (error) {
-          console.error("Erreur lors du chargement des données :", error);
-          return rejectWithValue(
-            "L'application est actuellement indisponible, veuillez réessayer ultérieurement."
-          );
+// LOAD LYCEE 
+export const loadFormation = createAsyncThunk(
+  'formation/loadFormation',
+  async (_, {
+    rejectWithValue
+  }) => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/formation');
+      console.log("Données chargées des formation :", response.data);
+      return response.data; // Conversion en JSON
+    } catch (error) {
+      console.error("Erreur lors du chargement des données :", error);
+      return rejectWithValue(
+        "L'application est actuellement indisponible, veuillez réessayer ultérieurement."
+      );
+    }
+  }
+);
+
+// add formation
+export const addFormation = createAsyncThunk(
+  'formation/addFormation',
+  async (data, { rejectWithValue }) => {
+    console.log('Données envoyées à l\'API:', data); // Ajoutez ce log pour vous assurer que data est bien formaté
+    try {
+      const response = await axios.post('http://localhost:3001/api/formation/add', data, {
+        headers: {
+          'Content-Type': 'application/json'
         }
-      }
-    );
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue("le add ne fonctionne pas");
+    }
+  }
+);
 
 
 
@@ -120,6 +133,3 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 //       return dispatch(addFilm(filmData));
 //     }
 //   });
-
-
-    

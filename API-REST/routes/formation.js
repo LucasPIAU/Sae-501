@@ -4,6 +4,7 @@ import { ObjectId } from 'mongodb';
 import { checkFormation } from '../functions/formation.js';
 
 const formationRoutes = express();
+formationRoutes.use(express.json());
 
 // Exemple de format JSON d'une formation dans la base de donnée
 {
@@ -68,24 +69,29 @@ formationRoutes.put('/:id', async (req, res) => {
 });
 
 // Routes POST
-
-formationRoutes.post('/add', async (req, res) => {
-    const { formation } = req.body;
-    try {
-        // On se connect à la base de donnée et on récupère la collection formations
-        const db = await connectToDB();
-        const collectionFormations = db.collection('Formations');
-        const formationCheck = await checkFormation(formation);
-        // On vérifie que le format des données est le bon
-        if(formationCheck.valid){
-            // Si c'est ok on ajoute la nouvelle formation à la base de donnée
-            const result = await collectionFormations.insertOne(formation);
-            res.status(200).json(result.insertedId);
-        }else throw `Le format n'est pas celui attendu : ${formationCheck.error}`;
-    } catch (err) {
-        res.status(500).json({message: `Une erreur est survenue pendant la création d'une formation : ${err}`});
-    }
-});
+    formationRoutes.post('/add', async (req, res) => {
+        const formation = req.body;
+        console.log("formation : ", formation)
+        if(!formation){
+            res.status(500).json({message: `pas de data ! `});
+        }
+        try {
+            // const formation = req.body;
+            // console.log(formation);
+            // On se connect à la base de donnée et on récupère la collection formations
+            const db = await connectToDB();
+            const collectionFormations = db.collection('Formations');
+            const formationCheck = await checkFormation(formation);
+            // On vérifie que le format des données est le bon
+            if(formationCheck.valid){
+                // Si c'est ok on ajoute la nouvelle formation à la base de donnée
+                const result = await collectionFormations.insertOne(formation);
+                res.status(200).json(result.insertedId);
+            } else throw `Le format n'est pas celui attendu : ${formationCheck.error}`;
+        } catch (err) {
+            res.status(500).json({message: `Une erreur est survenue pendant la création d'une formation : ${err}`});
+        }
+    });
 
 // Routes DELETE
 

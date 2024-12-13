@@ -42,7 +42,7 @@ function Home() {
           ) : (
             <>
               <ListCard items={formations} type="techno" />
-              <ListCard items={formations} type="options" />
+              <ListCard items={formations} type="option" />
               <ListCard items={formations} type="generale" />
             </>
           )}

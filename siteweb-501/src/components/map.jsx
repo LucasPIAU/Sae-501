@@ -12,8 +12,8 @@ const Map = () => {
   const [citiesData, setCitiesData] = useState(null); // GeoJSON des villes
   const [departementData, setDepartementData] = useState(null); // GeoJSON des départements
 
-  const initialCenter = [48.1, -0.62]; // Position initiale de la carte
-  const initialZoom = 8;
+  const initialCenter = [48.1, -0.52]; // Position initiale de la carte
+  const initialZoom = 9;
   
   console.log("map Current: ", currentEtablissement);
 
@@ -56,7 +56,7 @@ const Map = () => {
           style: {
             color: 'blue',
             weight: 2,
-            fillColor: 'lightblue',
+            fillColor: 'transparent',
             fillOpacity: 0.3,
           },
         }).addTo(mapRef.current);
@@ -91,10 +91,6 @@ useEffect(() => {
           iconAnchor: [15, 30],
         });
 
-        const marker = L.marker([lat, lon], { icon: customIcon }).addTo(mapRef.current);
-        marker.bindPopup(
-          `<b>${etablissement.name}</b><br/><a href="${etablissement.link}" target="_blank">Visiter</a>`
-        ).openPopup();
         mapRef.current.setView([lat, lon], 12); // Zoomer sur l'établissement
       }
     } else {
@@ -103,7 +99,7 @@ useEffect(() => {
       displayCircles(); // Afficher les cercles après réinitialisation
     }
   }
-}, [currentEtablissement, etablissementsData]);
+}, [currentEtablissement, etablissementsData, citiesData]);
   
   // Afficher les cercles ou les établissements selon le niveau de zoom
   useEffect(() => {
@@ -145,7 +141,7 @@ useEffect(() => {
         const circle = L.circle([lat, lon], {
           color: 'blue',
           fillColor: '#30a3e0',
-          fillOpacity: 0.4,
+          fillOpacity: 0.3,
           radius,
         }).addTo(mapRef.current);
 
