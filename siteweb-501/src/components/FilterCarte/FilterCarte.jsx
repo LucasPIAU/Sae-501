@@ -29,34 +29,21 @@ const FilterCarte = () => {
   };
 
   useEffect(() => {
-    console.log("all etablissement : ", allEtablissements);
-
     // Filtrer par nom partiellement correspondant
     const nameMatchingEstablishments = allEtablissements.filter(est =>
-      est.name.toLowerCase().includes(city.toLowerCase())
+      est.nom.toLowerCase().includes(city.toLowerCase())
     );
 
     console.log('Établissements correspondant critère name:', nameMatchingEstablishments);
 
-    // Si une ville est spécifiée, appliquer le filtre de distance
-    let distanceMatchingEstablishments = allEtablissements;
+    // Filtrer par distance (établissements dans le rayon spécifié)
+    const distanceMatchingEstablishments = allEtablissements.filter(est => {
+      if (!est.coordinates) return false;
+      const distance = calculateDistance(allEtablissements[0].coordinates, est.coordinates);
+      return distance <= range;
+    });
 
-    if (city.trim() !== '') {
-      // Filtrer par distance (établissements dans le rayon spécifié)
-      distanceMatchingEstablishments = allEtablissements.filter(est => {
-        let firstCoordinate = [allEtablissements[0].Longitude, allEtablissements[0].Latitude];
-        let coordinates = [est.Longitude, est.Latitude];
-        console.log(firstCoordinate);
-        console.log(coordinates);
-        console.log(est);
-        if (!est.coordinates) return false;
-        const distance = calculateDistance(firstCoordinate, coordinates);
-        return distance <= range;
-      });
-    }
-
-    console.log('Établissements correspondant critere localisation:', distanceMatchingEstablishments);
-
+    console.log('Établissements correspondant critère localisation:', distanceMatchingEstablishments);
 
     // Trouver les éléments présents dans les deux listes
     const matchingEstablishments = nameMatchingEstablishments.filter(est =>

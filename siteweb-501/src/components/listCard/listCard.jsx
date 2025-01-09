@@ -2,11 +2,14 @@ import React from 'react';
 import Card from '../card/card';
 import style from './listCard.module.css';
 
-function ListCard({ items, type }) {
-  // Filtrer les items en fonction du type
-  console.log(type);
-  console.log(items);
-  const filteredItems = items.filter(item => item.filiere === type);
+function ListCard({ items, type, onCategorySelect, selectedCategorie }) {
+  const filteredItems = items.filter(
+    item => item.type === type && (!selectedCategorie || item.categorie === selectedCategorie)
+  );
+
+  console.log('Items:', items);
+  console.log('Selected Category:', selectedCategorie);
+  console.log('Filtered Items:', filteredItems);
 
   return (
     <div className={style.listCard}>
