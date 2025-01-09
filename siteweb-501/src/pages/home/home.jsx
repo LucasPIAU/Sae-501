@@ -4,6 +4,7 @@ import { selectFilteredEtablissements } from '../../store/formation/formationSel
 import style from "./home.module.css";
 
 function Home() {
+
   const etablissements = useSelector(selectFilteredEtablissements);
   console.log("Etablissements Home : ", etablissements.length);
 
@@ -25,6 +26,7 @@ function Home() {
               </div>
             </a>
           ))}
+
         </div>
       </div>
     </>

@@ -4,12 +4,15 @@
   "description": "API REST de la sae 501",
   "type": "module",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lucas PIAU",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",

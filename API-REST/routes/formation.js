@@ -1,9 +1,12 @@
 import express from 'express';
 import connectToDB from '../functions/connectDb.js';
+import { ObjectId } from 'mongodb';
+import { checkFormation } from '../functions/formation.js';
 import auth from '../middleware/auth.js';
 import { ObjectId } from 'mongodb';
 
 const formationRoutes = express();
+formationRoutes.use(express.json());
 
 // Exemple de format JSON d'une formation dans la base de donnée
 {
@@ -16,14 +19,12 @@ const formationRoutes = express();
 }
 
 // Routes GET
-
 formationRoutes.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         // On se connect à la base de donnée et on récupère la collection formations
         const db = await connectToDB();
         const collectionFormations = db.collection('Formations');
-
         // On fait la requêtes pour récupérer la formation qui correspond à l'id passer en paramètre
         if (id) {
             const query = { '_id': new ObjectId(id) };
@@ -42,16 +43,13 @@ formationRoutes.get('', async (req, res) => {
         // On se connect à la base de donnée et on récupère la collection formation
         const db = await connectToDB();
         const collectionFormations = db.collection('Formations');
-
         // On fait la requête pour récupérer la liste de toute les formations
         const cursor = collectionFormations.find();
         const formations = await cursor.toArray();
 
-        // Ensuite on calcule le nombre de page en sachant qu'il y a maximum 20 élément par page
-        if (formations.length > 0) {
-            const nbrPage = Math.ceil(formations.length / 20); // On arrondie à l'entier superieur pour avoir le nbr de page
-            const formationsSlice = formations.slice(0, 20); // On ne garde les 20 éléments correspondant à la page
-        } else res.status(404).json({ message: "Aucune formations trouvée" });
+        // Une fois qu'on as tout récupérer on renvoie les données
+        if(formations.length > 0) res.status(200).json(formations);
+        else res.status(404).json({message: "Aucune formations trouvé"});
 
     } catch (err) {
         res.status(500).json({ message: `Une erreur interne est survenue dans la récupération des formations : ${err}` });
@@ -71,15 +69,30 @@ formationRoutes.put('/:id', [auth], async (req, res) => {
 });
 
 // Routes POST
+    formationRoutes.post('/add', async (req, res) => {
+        const formation = req.body;
+        console.log("formation : ", formation)
+        if(!formation){
+            res.status(500).json({message: `pas de data ! `});
+        }
+        try {
+            // const formation = req.body;
+            // console.log(formation);
+            // On se connect à la base de donnée et on récupère la collection formations
+            const db = await connectToDB();
+            const collectionFormations = db.collection('Formations');
+            const formationCheck = await checkFormation(formation);
+            // On vérifie que le format des données est le bon
+            if(formationCheck.valid){
+                // Si c'est ok on ajoute la nouvelle formation à la base de donnée
+                const result = await collectionFormations.insertOne(formation);
+                res.status(200).json(result.insertedId);
+            } else throw `Le format n'est pas celui attendu : ${formationCheck.error}`;
+        } catch (err) {
+            res.status(500).json({message: `Une erreur est survenue pendant la création d'une formation : ${err}`});
+        }
+    });
 
-formationRoutes.post('/add', [auth], async (req, res) => {
-    try {
-        // Création de la formation avec les données
-        res.status(200).json('OK');
-    } catch (err) {
-        res.status(500).json({ message: `Une erreur est survenue pendant la création d'une formation : ${err}` });
-    }
-});
 
 // Routes DELETE
 

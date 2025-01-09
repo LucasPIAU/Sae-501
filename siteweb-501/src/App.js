@@ -1,47 +1,84 @@
-import { useLocation } from 'react-router-dom';
-import logo from './logo.svg';
-import Header from './components/MainHeader/MainHeader.jsx';
-
-import React from 'react';
-import './App.css';
-import Home from './pages/home/home.jsx';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ListeGT from './pages/listeG&T/listeG&T.jsx';
-import ListePro from './pages/listePro/listePro.jsx';
-import SpePremiere from "./pages/spePremiere/spePremiere"
-import Options from './pages/options/options';
-import Techno from "./pages/techno/techno"
+import React, { useState, createContext, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import BreadCrumb from "./components/breadCrumb/breadCrumb.jsx";
+import Header from "./components/MainHeader/MainHeader.jsx";
+import FiltrageFilieres from "./components/FilterFilieres/FilterFilieres.jsx";
+import Home from "./pages/home/home.jsx";
+import SpePremiere from "./pages/spePremiere/spePremiere";
+import Options from "./pages/options/options";
+import Techno from "./pages/techno/techno";
 import Pro from "./pages/pro/pro.jsx";
-import Detail from "./pages/detail/detail.jsx"
-import AdminSpace from './pages/AdminSpace/AdminSpace.jsx';
+import Detail from "./pages/detail/detail.jsx";
+import AdminSpace from "./pages/AdminSpace/AdminSpace.jsx";
 import Lycees from "./pages/lycees/lycees";
-import PageCard from './pages/pageCard/pageCard.jsx';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { loadInfos } from './store/formation/formationAsyncAction.js';
+import PageCard from "./pages/pageCard/pageCard.jsx";
+import { useDispatch } from "react-redux";
+import { loadEtablissement, loadFormation } from "./store/formation/formationAsyncAction.js";
 
-function App({ item }) {
+export const BreadcrumbContext = createContext();
+
+function App() {
+  const [breadcrumbs, setBreadcrumbs] = useState([{ path: "/", label: "Accueil" }]);
+
   return (
-    <Router>
-      <Header />
-      <MainContent />
-    </Router>
+    <BreadcrumbContext.Provider value={{ breadcrumbs, setBreadcrumbs }}>
+      <Router>
+        <Header />
+        <BreadCrumb />
+        <MainContent />
+      </Router>
+    </BreadcrumbContext.Provider>
   );
 }
 
 function MainContent() {
+  const location = useLocation();
   const dispatch = useDispatch();
+  const { setBreadcrumbs } = React.useContext(BreadcrumbContext);
 
   useEffect(() => {
-    dispatch(loadInfos());
+    dispatch(loadEtablissement());
+    dispatch(loadFormation());
   }, [dispatch]);
+
+  useEffect(() => {
+    const labelMap = {
+      "/": "Accueil",
+      "/spePremiere": "Spécialités Première",
+      "/optionGenerale": "Options Générales",
+      "/filiereTechno": "Filières Technologiques",
+      "/lycees": "Lycées",
+      "/pro": "Filières Professionnelles",
+      "/detail": "Détail",
+      "/pageCard": "Page Card",
+      "/adminspace": "Espace Administrateur",
+    };
+
+    setBreadcrumbs((prev) => {
+      // Vérifier si la page actuelle existe déjà dans le fil d'Ariane
+      const existingPageIndex = prev.findIndex((crumb) => crumb.path === location.pathname);
+
+      if (existingPageIndex >= 0) {
+        // Si elle existe, garder les étapes jusqu'à cette page et supprimer celles après
+        return prev.slice(0, existingPageIndex + 1);
+      }
+
+      // Sinon, ajouter la nouvelle page à la fin
+      const newBreadcrumb = {
+        path: location.pathname,
+        label: labelMap[location.pathname] || "Page",
+      };
+
+      return [...prev, newBreadcrumb];
+    });
+  }, [location, setBreadcrumbs]);
 
   return (
     <>
+      {location.pathname.includes("/lycees") ? null : <FiltrageFilieres />}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/listeGT" element={<ListeGT />} />
-        <Route path="/listePro" element={<ListePro />} />
         <Route path="/spePremiere" element={<SpePremiere />} />
         <Route path="/optionGenerale" element={<Options />} />
         <Route path="/filiereTechno" element={<Techno />} />
@@ -54,6 +91,5 @@ function MainContent() {
     </>
   );
 }
-
 
 export default App;

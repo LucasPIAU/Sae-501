@@ -28,7 +28,7 @@ function Lycees() {
                     <Map />
                     </div>
                     <div className={style.containerListCard}>
-                    <ListCard items={etablissements} type="etablissement"/>
+                    <ListCard items={etablissements}/>
                     </div>
                 </div>
             </div>
