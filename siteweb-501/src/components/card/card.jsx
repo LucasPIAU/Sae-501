@@ -4,15 +4,26 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addFormationToFilter, setCurrentEtablissement, setCurrentPage } from '../../store/formation/formationSlice';
 
-function Card({ item }) {
+function Card({ item, onCategorySelect }) {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(item.isChecked || false); 
   const dispatch = useDispatch();
 
   const navigateTo = () => {
+    console.log('ICIICICCI');
+    console.log(item.link);
     if (item.link) {
       navigate(item.link);
-      setCurrentPage(item.link);
+      // setCurrentPage(item.link);
+    }else if (item.categorie) { 
+      if(onCategorySelect){
+
+        onCategorySelect(item.categorie);
+        navigate('/pro'); 
+      }else{
+        navigate('/detail', { state: { itemId: item.id } });
+      setCurrentPage("detail");
+      }
     } else {
       navigate('/detail', { state: { itemId: item.id } });
       dispatch(setCurrentPage("detail"))

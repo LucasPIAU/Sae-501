@@ -36,7 +36,7 @@ const FilterCarte = () => {
       est.name.toLowerCase().includes(city.toLowerCase())
     );
 
-    console.log('Établissements correspondant critere name:', nameMatchingEstablishments);
+    console.log('Établissements correspondant critère name:', nameMatchingEstablishments);
 
     // Si une ville est spécifiée, appliquer le filtre de distance
     let distanceMatchingEstablishments = allEtablissements;
@@ -56,6 +56,7 @@ const FilterCarte = () => {
     }
 
     console.log('Établissements correspondant critere localisation:', distanceMatchingEstablishments);
+
 
     // Trouver les éléments présents dans les deux listes
     const matchingEstablishments = nameMatchingEstablishments.filter(est =>
@@ -87,6 +88,7 @@ const FilterCarte = () => {
           max="100"
           value={range}
           onChange={handleRangeChange}
+          disabled={!city.trim()} // Désactiver si le champ 'city' est vide
         />
         <span id="rangeValue">{range} km</span>
       </div>

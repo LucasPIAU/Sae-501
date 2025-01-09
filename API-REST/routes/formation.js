@@ -2,6 +2,8 @@ import express from 'express';
 import connectToDB from '../functions/connectDb.js';
 import { ObjectId } from 'mongodb';
 import { checkFormation } from '../functions/formation.js';
+import auth from '../middleware/auth.js';
+import { ObjectId } from 'mongodb';
 
 const formationRoutes = express();
 formationRoutes.use(express.json());
@@ -23,17 +25,16 @@ formationRoutes.get('/:id', async (req, res) => {
         // On se connect à la base de donnée et on récupère la collection formations
         const db = await connectToDB();
         const collectionFormations = db.collection('Formations');
-        
         // On fait la requêtes pour récupérer la formation qui correspond à l'id passer en paramètre
-        if(id){
+        if (id) {
             const query = { '_id': new ObjectId(id) };
             console.log(query);
             const formation = await collectionFormations.findOne(query);
-            if(formation) res.status(200).json(formation);   
-            else res.status(404).json({message: "Aucune formation trouvé pour cette id"});
-        }else throw "L'id de la formations est obligatoire";
+            if (formation) res.status(200).json(formation);
+            else res.status(404).json({ message: "Aucune formation trouvé pour cet id" });
+        } else throw "L'id de la formations est obligatoire";
     } catch (err) {
-        res.status(500).json({message: `Une erreur interne est survenue dans la récupération d'une formation : ${err}`});
+        res.status(500).json({ message: `Une erreur interne est survenue dans la récupération d'une formation : ${err}` });
     }
 });
 
@@ -42,7 +43,6 @@ formationRoutes.get('', async (req, res) => {
         // On se connect à la base de donnée et on récupère la collection formation
         const db = await connectToDB();
         const collectionFormations = db.collection('Formations');
-        
         // On fait la requête pour récupérer la liste de toute les formations
         const cursor = collectionFormations.find();
         const formations = await cursor.toArray();
@@ -52,19 +52,19 @@ formationRoutes.get('', async (req, res) => {
         else res.status(404).json({message: "Aucune formations trouvé"});
 
     } catch (err) {
-        res.status(500).json({message: `Une erreur interne est survenue dans la récupération des formations : ${err}`});
+        res.status(500).json({ message: `Une erreur interne est survenue dans la récupération des formations : ${err}` });
     }
 });
 
 // Routes PUT
 
-formationRoutes.put('/:id', async (req, res) => {
+formationRoutes.put('/:id', [auth], async (req, res) => {
     const { id } = req.params;
     try {
         // Modification de la formation avec les nouvelles données
         res.status(200).json('OK');
     } catch (err) {
-        res.status(500).json({message: `Une erreur est survenue pendant la modification d'une formation : ${err}`});
+        res.status(500).json({ message: `Une erreur est survenue pendant la modification d'une formation : ${err}` });
     }
 });
 
@@ -93,15 +93,16 @@ formationRoutes.put('/:id', async (req, res) => {
         }
     });
 
+
 // Routes DELETE
 
-formationRoutes.delete('/:id', async (req, res) => {
+formationRoutes.delete('/:id', [auth], async (req, res) => {
     const { id } = req.params;
     try {
         // Suppression de la formation avec les nouvelles données
         res.status(200).json('OK');
     } catch (err) {
-        res.status(500).json({message: `Une erreur est survenue pendant la suppression d'une formation : ${err}`});
+        res.status(500).json({ message: `Une erreur est survenue pendant la suppression d'une formation : ${err}` });
     }
 });
 

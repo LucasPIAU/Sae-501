@@ -64,6 +64,7 @@ function Options() {
     }
   };
 
+
   return (
     <div className={style.containerOptions}>
       <button className={style.backButton} onClick={navigateTo}>

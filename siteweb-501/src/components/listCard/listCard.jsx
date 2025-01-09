@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '../card/card';
-import style from './listCard.module.css'
+import style from './listCard.module.css';
 
 function ListCard({ items, type }) {
   // Filtrer les items en fonction du type
@@ -13,7 +13,7 @@ function ListCard({ items, type }) {
       <div className={style.cardContainer}>
         {/* Parcours les items filtrés et affiche chaque Card */}
         {filteredItems.map((item, index) => (
-          <Card key={index} item={item} />
+          <Card key={index} item={item} onCategorySelect={onCategorySelect} />
         ))}
       </div>
     </div>
