@@ -1,193 +1,187 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import * as echarts from 'echarts';
 import { useSelector } from 'react-redux';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css'; // Importation des styles de Leaflet
-import { selectFilteredEtablissements, selectCurrentEtablissement } from '../store/formation/formationSelector';
+import { selectFilteredEtablissements } from '../store/formation/formationSelector';
 
 const Map = () => {
-  const mapContainer = useRef(null); // Référence pour le conteneur de la carte
-  const mapRef = useRef(null); // Référence pour l'objet Leaflet de la carte
-  const etablissementsData = useSelector(selectFilteredEtablissements); // Sélection des établissements via Redux
-  const currentEtablissement = useSelector(selectCurrentEtablissement); // Établissement actuellement sélectionné
-  const [citiesData, setCitiesData] = useState(null); // GeoJSON des villes
-  const [departementData, setDepartementData] = useState(null); // GeoJSON des départements
 
-  const initialCenter = [48.1, -0.52]; // Position initiale de la carte
-  const initialZoom = 9;
-  
-  console.log("map Current: ", currentEtablissement);
+  const [etablissementsData, setEtablissementsData] = useState([]);
+  const storeData = useSelector(selectFilteredEtablissements);
+  console.log('storeData : ', storeData);
 
-  // Initialisation de la carte
-  useEffect(() => {
-    if (!mapRef.current && mapContainer.current) {
-      mapRef.current = L.map(mapContainer.current).setView(initialCenter, initialZoom);
+  useEffect(()=>{
+    setEtablissementsData(storeData);
+    console.log('établissement de la map : ', storeData);
+  },[storeData])
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors',
-      }).addTo(mapRef.current);
-    }
-  }, []);
-
-  // Charger les données GeoJSON
-  useEffect(() => {
-    const fetchGeoJSON = async () => {
-      try {
-        const [departementsRes, citiesRes] = await Promise.all([
-          fetch('/assets/json/departements.geojson'),
-          fetch('/assets/json/city.geojson'),
-        ]);
-
-        setDepartementData(await departementsRes.json());
-        setCitiesData(await citiesRes.json());
-      } catch (error) {
-        console.error('Erreur lors du chargement des données GeoJSON:', error);
-      }
+  function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
     };
-
-    fetchGeoJSON();
-  }, []);
-
-  // Afficher le département de la Mayenne
-  useEffect(() => {
-    if (mapRef.current && departementData) {
-      const mayenne = departementData.features.find(d => d.properties.code === '53');
-      if (mayenne) {
-        L.geoJSON(mayenne, {
-          style: {
-            color: 'blue',
-            weight: 2,
-            fillColor: 'transparent',
-            fillOpacity: 0.3,
-          },
-        }).addTo(mapRef.current);
-        mapRef.current.fitBounds(L.geoJSON(mayenne).getBounds());
-      }
-    }
-  }, [departementData]);
-
-// Gérer l'établissement sélectionné ou réinitialiser la vue
-useEffect(() => {
-  if (mapRef.current) {
-    // Nettoyer les marqueurs existants
-    mapRef.current.eachLayer(layer => {
-      if (layer instanceof L.Marker || layer instanceof L.Circle) {
-        mapRef.current.removeLayer(layer);
-      }
-    });
-
-    console.log(currentEtablissement);
-
-    if (currentEtablissement) {
-      const etablissement = etablissementsData.find(e => e.name === currentEtablissement);
-      console.log(etablissement);
-      if (etablissement) {
-        const lon = etablissement.Longitude;
-        const lat = etablissement.Latitude;
-
-
-        const customIcon = L.icon({
-          iconUrl: '/assets/images/location.svg',
-          iconSize: [30, 30],
-          iconAnchor: [15, 30],
-        });
-
-        mapRef.current.setView([lat, lon], 12); // Zoomer sur l'établissement
-      }
-    } else {
-      // Réinitialiser la vue et le zoom
-      mapRef.current.setView(initialCenter, initialZoom);
-      displayCircles(); // Afficher les cercles après réinitialisation
-    }
   }
-}, [currentEtablissement, etablissementsData, citiesData]);
   
-  // Afficher les cercles ou les établissements selon le niveau de zoom
+
+
   useEffect(() => {
-    const updateDisplay = () => {
-      if (mapRef.current) {
-        const zoomLevel = mapRef.current.getZoom();
-        if (zoomLevel >= 12) {
-          displayEtablissements(true);
-        } else {
-          displayCircles();
-        }
+    async function loadMapData() {
+      try {
+        const responseMayenne = await fetch('/assets/json/mayenneV2.geojson');
+        const mayenneData = await responseMayenne.json();
+  
+        const responseCitiesAndRoutes = await fetch('/assets/json/routeMayenne.geojson');
+        const citiesAndRoutes = await responseCitiesAndRoutes.json();
+  
+        const responseVilles = await fetch('/assets/json/BigVilleMayenne.geojson');
+        const villesData = await responseVilles.json();
+  
+        const chartDom = document.getElementById('map');
+        const myChart = echarts.init(chartDom);
+  
+        myChart.showLoading();
+        echarts.registerMap('Mayenne', mayenneData);
+        myChart.hideLoading();
+  
+        // Fonction pour créer l'option
+        const createOption = (zoomLevel, center) => {
+          const routes = citiesAndRoutes.features || [];
+          const villes = villesData.features || [];
+  
+          // Formater les données des routes
+          const routeData = routes.map(route => ({
+            name: route.properties.name || 'Route sans nom',
+            coords: route.geometry.coordinates,
+          }));
+  
+          // Grouper les établissements par ville
+          const villesPoints = villes.map(ville => {
+            const villeCoords = ville.geometry.coordinates;
+            const etablissementsInVille = etablissementsData.filter(etab => {
+              const [etabLon, etabLat] = etab.coordinates;
+              return (
+                Math.abs(etabLon - villeCoords[0]) < 0.1 &&
+                Math.abs(etabLat - villeCoords[1]) < 0.1
+              );
+            });
+            return {
+              name: `${ville.properties.name || 'Ville'} (${etablissementsInVille.length})`,
+              value: villeCoords,
+            };
+          });
+  
+          // Formater les données des établissements
+          const etablissementsPoints = etablissementsData.map(etab => ({
+            name: etab.nom,
+            value: etab.coordinates,
+          }));
+  
+          return {
+            geo: {
+              map: 'Mayenne',
+              roam: true,
+              label: false,
+              zoom: zoomLevel,
+              center: center || [-0.6200, 48.100], // Utiliser le center si défini, sinon une valeur par défaut
+              scaleLimit: {
+                min: 50,
+              },
+              itemStyle: {
+                areaColor: '#fff',
+              },
+            },
+            series: [
+              // Routes principales
+              {
+                name: 'Routes principales',
+                type: 'lines',
+                coordinateSystem: 'geo',
+                data: routeData,
+                polyline: true,
+                lineStyle: {
+                  color: '#000000',
+                  width: 2,
+                  opacity: 0.1,
+                  type: 'solid',
+                },
+                smooth: true,
+              },
+              // Villes ou établissements en fonction du zoom
+              ...(zoomLevel < 200
+                ? [
+                    {
+                      name: 'Villes',
+                      type: 'scatter',
+                      coordinateSystem: 'geo',
+                      data: villesPoints,
+                      symbolSize: 10,
+                      itemStyle: {
+                        color: '#ff0000',
+                      },
+                      label: {
+                        show: true,
+                        formatter: '{b}',
+                        position: 'right',
+                        fontSize: 15,
+                      },
+                    },
+                  ]
+                : [
+                    {
+                      name: 'Établissements',
+                      type: 'scatter',
+                      coordinateSystem: 'geo',
+                      data: etablissementsPoints,
+                      symbol: 'diamond',
+                      symbolSize: 10,
+                      itemStyle: {
+                        color: '#0000ff',
+                      },
+                      label: {
+                        show: true,
+                        formatter: '{b}',
+                        position: 'right',
+                        fontSize: 12,
+                      },
+                    },
+                  ]),
+            ],
+          };
+        };
+  
+        // Initialiser la carte avec le niveau de zoom par défaut
+        let currentZoom = 95;
+        let currentCenter = [-0.6200, 48.100]; // Initial center
+        myChart.setOption(createOption(currentZoom, currentCenter));
+  
+        // Mettre à jour la carte lors des zooms
+        myChart.on(
+          'geoRoam',
+          debounce((params) => {
+            if (params.zoom !== undefined) {
+              const newZoom = myChart.getModel().option.geo[0].zoom;
+              const newCenter = myChart.getModel().option.geo[0].center; // Récupérer le center actuel
+              if (Math.abs(newZoom - currentZoom) > 10) {
+                currentZoom = newZoom;
+                currentCenter = newCenter; // Mettre à jour le center courant
+                myChart.setOption(createOption(currentZoom, currentCenter));
+              }
+            }
+          }, 200)
+        );
+      } catch (error) {
+        console.error('Erreur lors du chargement des données :', error);
       }
-    };
-
-    if (mapRef.current) {
-      mapRef.current.on('zoomend', updateDisplay);
-      return () => mapRef.current.off('zoomend', updateDisplay);
     }
-  }, [etablissementsData, citiesData]);
+  
+    loadMapData();
+  }, [etablissementsData]);
+  
+  
 
-  const displayCircles = () => {
-    if (mapRef.current && citiesData) {
-      mapRef.current.eachLayer(layer => {
-        if (layer instanceof L.Circle || layer instanceof L.Marker) {
-          mapRef.current.removeLayer(layer);
-        }
-      });
-
-      citiesData.features.forEach(city => {
-        const [lon, lat] = city.geometry.coordinates;
-        const center = L.latLng(lat, lon);
-        const radius = 5000;
-
-        const establishmentsInArea = etablissementsData.filter(e => {
-          const etablissementLatLng = L.latLng(e.Latitude, e.Longitude);
-          return center.distanceTo(etablissementLatLng) < radius;
-        });
-
-        const circle = L.circle([lat, lon], {
-          color: 'blue',
-          fillColor: '#30a3e0',
-          fillOpacity: 0.3,
-          radius,
-        }).addTo(mapRef.current);
-
-        const divIcon = L.divIcon({
-          className: 'leaflet-label',
-          html: `<div style="text-align:center;font-size:13px;">${establishmentsInArea.length} établissement${establishmentsInArea.length > 1 ? 's' : ''}</div>`,
-        });
-
-        L.marker([lat, lon], { icon: divIcon }).addTo(mapRef.current);
-      });
-    }
-  };
-
-  const displayEtablissements = zoomedIn => {
-    if (mapRef.current && etablissementsData) {
-      mapRef.current.eachLayer(layer => {
-        if (layer instanceof L.Marker || layer instanceof L.Circle) {
-          mapRef.current.removeLayer(layer);
-        }
-      });
-
-      const customIcon = L.icon({
-        iconUrl: '/assets/images/location.svg',
-        iconSize: [30, 30],
-        iconAnchor: [15, 30],
-      });
-
-      etablissementsData.forEach(e => {
-        const lon = e.Longitude;
-        const lat = e.Latitude;
-        L.marker([lat, lon], zoomedIn ? { icon: customIcon } : {}).addTo(mapRef.current)
-        .bindPopup(`<b>${e.nom}</b><br/><a href="${e.link}" target="_blank">Visiter</a>`);
-      });
-    }
-  };
 
   return (
-    <div
-      ref={mapContainer}
-      style={{
-        width: '600px',
-        height: '450px',
-        borderRadius: '15px',
-        boxShadow: '0 0 16px rgba(0,0,0,0.15)',
-      }}
-    />
+    <div id="map" className="map" style={{width: '600px', height: '450px', background: "#FECFFF", borderRadius: "15px", boxShadow: "0px 0px 16px 3px rgba(0,0,0,0.15)" }}></div>
   );
 };
 

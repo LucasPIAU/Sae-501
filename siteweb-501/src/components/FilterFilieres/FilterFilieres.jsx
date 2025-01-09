@@ -24,19 +24,18 @@ const FilterFiliere = ({ type: initialType = 'g&t' }) => {
     };
 
     useEffect(() => {
-        console.log(allFormations);
         //Filtrer par mot clé
         const nameMatchingFormations = allFormations.filter(formations => 
-            formations.name.toLowerCase().includes(motCle.toLowerCase())
+            formations.nom.toLowerCase().includes(motCle.toLowerCase())
         );
 
         console.log('Formations correspondant critere mot clé:', nameMatchingFormations);
 
         //Filtrer par type
         const typeMatchingFormations = allFormations.filter(formations => {
-            if (type === 'pro' && formations.filiere === 'Professionel') {
+            if (type === 'pro' && formations.type === 'pro') {
                 return true;
-            } else if (type === 'g&t' && (formations.filiere === 'generale' || formations.filiere === 'techno')) {
+            } else if (type === 'g&t' && (formations.type === 'generale' || formations.type === 'techno')) {
                 return true;
             } else {
                 return false;

@@ -6,5 +6,3 @@ export const selectFilteredEtablissements = (state) => state.formations.filtered
 export const selectLoading = (state) => state.formations.loading;
 export const selectError = (state) => state.formations.errors;
 export const selectCurrentPage = (state) => state.formation.currentPage;
-export const selectCurrentEtablissement = (state) => state.formations.currentEtablissement;
-
