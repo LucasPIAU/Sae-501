@@ -16,7 +16,8 @@ import AdminSpace from './pages/AdminSpace/AdminSpace.jsx';
 import Lycees from "./pages/lycees/lycees";
 import PageCard from './pages/pageCard/pageCard.jsx';
 import { useDispatch } from 'react-redux';
-import { loadInfos } from './store/formation/formationAsyncAction.js';
+import { loadEtablissement, loadFormation, loadInfos} from './store/formation/formationAsyncAction.js';
+import { selectEtablissements } from "./store/formation/formationSelector.js";
 
 export const BreadcrumbContext = createContext();
 
@@ -39,9 +40,11 @@ function MainContent() {
   const location = useLocation();
   const { setBreadcrumbs } = React.useContext(BreadcrumbContext);
 
-  useEffect(() => {
-    dispatch(loadInfos());
-  }, [dispatch]);
+  useEffect(()=>{
+    dispatch(loadEtablissement())
+    dispatch(loadFormation())
+  },[dispatch]);
+
 
   useEffect(() => {
     const labelMap = {

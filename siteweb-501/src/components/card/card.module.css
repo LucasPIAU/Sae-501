@@ -26,7 +26,7 @@
   margin: 0;
   font-size: 1rem;
   text-align: start;
-  font-size: 19px;
+  font-size: 1.1rem;
   font-weight: 600;
 }
   
@@ -129,4 +129,9 @@
   border: solid white;
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
+}
+
+.keyWord {
+  font-weight: normal;
+  font-size: 0.8rem !important;
 }

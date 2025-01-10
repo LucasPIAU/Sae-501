@@ -5,10 +5,12 @@ import { useDispatch } from 'react-redux';
 import { addFormationToFilter } from '../../store/formation/formationSlice';
 import { setCurrentPage } from '../../store/formation/formationSlice';
 
-function Card({ item, onCategorySelect, isInSearch = false}) {
+function Card({ item, onCategorySelect, isInSearch = false }) {
   const navigate = useNavigate();
-  const [isChecked, setIsChecked] = useState(item.isChecked || false); 
+  const [isChecked, setIsChecked] = useState(item.isChecked || false);
   const dispatch = useDispatch();
+
+  console.log("item de card --- : ", item);
 
   const navigateTo = () => {
     console.log('ICIICICCI');
@@ -16,13 +18,13 @@ function Card({ item, onCategorySelect, isInSearch = false}) {
     if (item.link) {
       navigate(item.link);
       // setCurrentPage(item.link);
-    }else if (item.categorie) { 
-      if(onCategorySelect){
+    } else if (item.categorie) {
+      if (onCategorySelect) {
         onCategorySelect(item.categorie);
-        navigate('/pro'); 
-      }else{
+        navigate('/pro');
+      } else {
         navigate('/detail', { state: { itemId: item.id } });
-      setCurrentPage("detail");
+        setCurrentPage("detail");
       }
     } else {
       navigate('/detail', { state: { itemId: item.id } });
@@ -33,7 +35,7 @@ function Card({ item, onCategorySelect, isInSearch = false}) {
   const handleCheckboxChange = (event) => {
     const checked = event.target.checked;
     setIsChecked(checked);
-    console.log(item);  
+    console.log(item);
     // Mettre à jour le state des établissements filtrés en fonction de la sélection/désélection de la formation
     dispatch(addFormationToFilter(item)); // Cela ajoutera ou retirera la formation selon l'état du checkbox
   };
@@ -43,8 +45,22 @@ function Card({ item, onCategorySelect, isInSearch = false}) {
       className={`${style.card} ${isChecked ? style.greenBg : style.pinkBg}`}
     >
       <div className={style.containerTitleMotClef}>
-        <h3>{item.nom}</h3>
-        {item.motClef && <p>Mot clef : {item.motClef}</p>}
+        <h3>{item.name}</h3>
+        {item.data && item.data.attributs && Array.isArray(item.data.attributs) && item.data.attributs.length > 0 && (
+          <p className={style.keyWord}>
+            {item.data.attributs.map((attribut, index) => (
+              // Vérifie si l'attribut n'est pas une chaîne vide
+              attribut.trim() !== "" && (
+                <span key={index}>
+                  {attribut}
+                  {index < item.data.attributs.length - 1 && ', '}
+                </span>
+              )
+            ))}
+          </p>
+        )}
+
+
       </div>
       <div className={style.containerButtonCard}>
         {item.type === 'etablissement' ? (

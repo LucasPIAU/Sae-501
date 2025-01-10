@@ -12,25 +12,23 @@ function Options() {
 
   const formations = useSelector(selectFormations);
 
+  const updatedFormations = formations.filter(formation => formation.filiere === "Professionel");
+
   const navigate = useNavigate();
 
   const navigateTo = () => {
       navigate(-1);
   }
-  
+
   return (
     <>
       <div className={style.containerOptions}>
-      <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
+        <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
         <div className={style.containerMapFormation}>
-          {/* <div className={style.containerMap}>
-          <Map />
-          </div> */}
-          <ListCard items={formations} type="options"/>
+          <ListCard items={updatedFormations}/>
         </div>
       </div>
     </>
-    
   );
 }
 

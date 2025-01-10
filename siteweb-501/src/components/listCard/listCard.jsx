@@ -2,10 +2,9 @@ import React from 'react';
 import Card from '../card/card';
 import style from './listCard.module.css';
 
-function ListCard({ items, selectedCategorie, isInSearch = false }) {
+function ListCard({ items, isInSearch = false }) {
 
   console.log('Items:', items);
-  console.log('Selected Category:', selectedCategorie);
   console.log('Filtered Items:', items);
 
   return (

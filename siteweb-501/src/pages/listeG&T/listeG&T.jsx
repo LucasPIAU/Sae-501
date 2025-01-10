@@ -21,67 +21,65 @@ function ListeGT() {
     return formations.filter(combineFilters(filters));
   }, [formations, filters]);
 
-
   const navigate = useNavigate();
-  console.log('filtredFormation : ' + filtredFormation);
   const navigateTo = () => {
     navigate(-1);
   }
 
   const sectionItem = [
     {
-      nom: "Options de seconde générale et technologique",
+      name: "Options de seconde générale et technologique",
       link: "/optionGenerale"
     },
     {
-      nom: "Première générale",
+      name: "Première générale",
       link: "/spePremiere"
     },
     {
-      nom: "Première technologique",
+      name: "Première technologique",
       link: "/filiereTechno"
     }
   ]
 
   const sectionItemPro = [
     {
-      nom: "Transport et logistique",
+      name: "Transport et logistique",
       categorie: "transportLogistique"
     },
     {
-      nom: "Numérique et métiers de l'électricité",
+      name: "Numérique et métiers de l'électricité",
       categorie: "numeriqueElectricite"
     },
     {
-      nom: "Alimentation hôterllerie restauration",
+      name: "Alimentation hôterllerie restauration",
       categorie: "alimentationHotellerie"
     },
     {
-      nom: "Maintenance et réparation : Industrie et véhicule",
+      name: "Maintenance et réparation : Industrie et véhicule",
       categorie: "industrieVehicule"
     },
     {
-      nom: "Commerce vente gestion administration",
+      name: "Commerce vente gestion administration",
       categorie: "commerceAdministration"
     },
     {
-      nom: "Communication visuelle et imprimerie",
+      name: "Communication visuelle et imprimerie",
       categorie: "communicationImprimerie"
     },
     {
-      nom: "Santé sociale",
+      name: "Santé sociale",
       categorie: "sante"
     },
     {
-      nom: "Conception et production industielles",
+      name: "Conception et production industielles",
       categorie: "conceptionProduction"
     },
     {
-      nom: "Batiement travaux publics",
+      name: "Batiement travaux publics",
       categorie: "batimentTravauxPublics"
     },
     {
-      nom: "Agriculture",
+      name: "Agriculture",
       categorie: "agriculture"
     }
   ]
