@@ -1,17 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import L from 'leaflet';
-import { selectFilteredEtablissements } from '../store/formation/formationSelector';
+import { selectEtablissements } from '../store/formation/formationSelector';
 import 'leaflet/dist/leaflet.css'; // Assurez-vous que le style CSS de Leaflet est inclus
 
 const Map = () => {
   const mapContainer = useRef(null); // Référence pour le conteneur de la carte
   const mapRef = useRef(null); // Référence pour la carte elle-même
-  const etablissementsData = useSelector(selectFilteredEtablissements); // Récupérer les établissements depuis Redux
+  const etablissementsData = useSelector(selectEtablissements); // Récupérer les établissements depuis Redux
   const [citiesData, setCitiesData] = useState(null); // État pour stocker les données GeoJSON des villes
   const [departementData, setDepartementData] = useState(null); // État pour stocker les données GeoJSON des départements
 
   // Initialisation de la carte
+
+  console.log(etablissementsData);
   useEffect(() => {
     if (mapContainer.current && !mapRef.current) {
       // Initialiser la carte si elle n'est pas déjà initialisée
@@ -98,7 +100,7 @@ const Map = () => {
 
         // Calculer les établissements dans la zone
         const establishmentsInArea = etablissementsData.filter(etablissement => {
-          const etablissementLatLng = L.latLng(etablissement.coordinates[1], etablissement.coordinates[0]);
+          const etablissementLatLng = L.latLng(etablissement.Latitude, etablissement.Longitude);
           const distance = center.distanceTo(etablissementLatLng); // Calcul de la distance en mètres
           return distance < radius; // Vérifier si l'établissement est dans le rayon de 5km
         });
@@ -149,7 +151,8 @@ const Map = () => {
 
       // Ajouter chaque établissement avec un marqueur
       etablissementsData.forEach(etablissement => {
-        const [lon, lat] = etablissement.coordinates;
+        const lat = etablissement.Latitude;
+        const lon = etablissement.Longitude;
         const markerOptions = zoomedIn ? { icon: customIcon } : {}; // Appliquer l'icône personnalisée si zoomé
 
         const marker = L.marker([lat, lon], markerOptions).addTo(mapRef.current);

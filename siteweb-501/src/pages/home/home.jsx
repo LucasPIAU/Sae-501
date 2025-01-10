@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectFilteredEtablissements } from '../../store/formation/formationSelector.js';
+import { selectEtablissements } from '../../store/formation/formationSelector.js';
 import style from "./home.module.css";
 
 function Home() {
-  const etablissements = useSelector(selectFilteredEtablissements);
+  const etablissements = useSelector(selectEtablissements);
   console.log("Etablissements Home : ", etablissements.length);
 
   return (

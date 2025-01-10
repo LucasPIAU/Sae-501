@@ -6,10 +6,9 @@ import { useSelector } from 'react-redux';
 import { selectFormations } from '../../store/formation/formationSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { selectFilteredFormations } from '../../store/formation/formationSelector';
 
 function Pro() {
-  const formations = useSelector(selectFilteredFormations);
+  const formations = useSelector(selectFormations);
   console.log("formations page pro : ", formations);
 
   const navigate = useNavigate();

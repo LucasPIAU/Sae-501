@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './lycees.module.css';
 import ListCard from '../../components/listCard/listCard';
@@ -25,72 +25,78 @@ const calculateDistance = (coords1, coords2) => {
 };
 
 const Lycees = () => {
-  const allEtablissements = useSelector(selectEtablissements);
-  const dispatch = useDispatch();
-  const [filters, setFilters] = useState([]);
-  const [city, setCity] = useState('');
-  const [range, setRange] = useState(50);
-  const navigate = useNavigate();
-
-  // Filtrage avec useMemo pour optimiser les calculs
-  const filteredEtablissements = useMemo(() => {
-    let results = allEtablissements;
-
-    // Filtrer par nom de ville
-    if (city) {
-      results = results.filter((est) =>
-        est.nom.toLowerCase().includes(city.toLowerCase())
+    const allEtablissements = useSelector(selectEtablissements);
+    const dispatch = useDispatch();
+    const [filters, setFilters] = useState([]);
+    const [city, setCity] = useState(null);
+    const [range, setRange] = useState(50);
+    const [userCoordinates, setUserCoordinates] = useState([0, 0]); // Coordonnées de l'utilisateur
+    const navigate = useNavigate();
+  
+    // Exemple de fonction pour obtenir la position de l'utilisateur
+    useEffect(() => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserCoordinates([position.coords.longitude, position.coords.latitude]);
+        },
+        (error) => console.error(error)
       );
-    }
+    }, []);
+  
+    // Filtrage avec useMemo pour optimiser les calculs
+    const filteredEtablissements = useMemo(() => {
+        console.log(allEtablissements);
+      let results = allEtablissements;
 
-    // Filtrer par distance
-    results = results.filter((est) => {
-      if (!est.coordinates) return false;
-      const distance = calculateDistance(allEtablissements[0].coordinates, est.coordinates);
-      return distance <= range;
-    });
-
-    // Appliquer les filtres supplémentaires
-    if (filters.length) {
-      const combineFilters = (filters) => (obj) =>
-        filters.every((filter) => filter(obj));
-      results = results.filter(combineFilters(filters));
-    }
-
-    // Mettre à jour les établissements filtrés dans le store Redux
-    dispatch(setFilteredEtablissements(results));
-
-    return results;
-  }, [allEtablissements, city, range, filters, dispatch]);
-
-  const navigateTo = () => {
-    navigate(-1);
-  };
-
-  return (
-    <>
-      <FilterForm
-        onFilter={setFilters}
-        onCityChange={setCity}
-        onRangeChange={setRange}
-        onSetType={() => {}}
-        page={"etablissement"}
-      />
-      <div className={style.containerLycee}>
-        <button className={style.backButton} onClick={navigateTo}>
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </button>
-        <div className={style.containerMapFormation}>
-          <div className={style.containerMap}>
-            <Map />
-          </div>
-          <div className={style.containerListCard}>
-            <ListCard items={filteredEtablissements} type="etablissement" />
+      console.log(city)
+      console.log(filters)
+  
+      // Filtrer par nom de ville
+      if (city && city !== "") {
+        results = results.filter((est) =>
+          est.name.toLowerCase().includes(city.toLowerCase())
+        );
+      }
+  
+      // Appliquer les filtres supplémentaires
+      if (filters.length > 0) {
+        const combineFilters = (filters) => (obj) =>
+          filters.every((filter) => filter(obj));
+        results = results.filter(combineFilters(filters));
+      }
+      console.log(results)
+      return results;
+    }, [allEtablissements, city, range, filters, userCoordinates]);
+  
+    const navigateTo = () => {
+      navigate(-1);
+    };
+  
+    return (
+      <>
+        <FilterForm
+          onFilter={setFilters}
+          onCityChange={setCity}
+          onRangeChange={setRange}
+          onSetType={() => {}}
+          page={"etablissement"}
+        />
+        <div className={style.containerLycee}>
+          <button className={style.backButton} onClick={navigateTo}>
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+          <div className={style.containerMapFormation}>
+            <div className={style.containerMap}>
+              <Map />
+            </div>
+            <div className={style.containerListCard}>
+              <ListCard items={filteredEtablissements}/>
+            </div>
           </div>
         </div>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  };
+  
 
 export default Lycees;

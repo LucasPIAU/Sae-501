@@ -4,23 +4,18 @@ import Map from '../../components/map';
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectEtablissements, selectFormations, selectFilteredEtablissements } from '../../store/formation/formationSelector';
+import { selectFormations } from '../../store/formation/formationSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { setFilteredEtablissements, } from '../../store/formation/formationSlice';
 
 function SpePremiere() {
-  const formations = useSelector(selectFormations);
-  const etablissement = useSelector(selectEtablissements);
-  const storeEtablissement = useSelector(selectFilteredEtablissements);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(etablissement);
-    dispatch(setFilteredEtablissements(etablissement));
-    console.log(storeEtablissement);
-  }, [])
+  const formations = useSelector(selectFormations);
+
+  const updatedFormations = formations.filter(formation => formation.filiere === "SpePremiere");
+
 
   const navigateTo = () => {
     navigate(-1);
@@ -35,7 +30,7 @@ function SpePremiere() {
             <Map />
           </div>
           <div className={style.containerListCard}>
-            <ListCard items={formations} type="generale" />
+            <ListCard items={updatedFormations} />
           </div>
         </div>
       </div>

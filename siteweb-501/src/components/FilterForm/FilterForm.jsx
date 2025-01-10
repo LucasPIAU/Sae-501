@@ -34,22 +34,22 @@ const FilterForm = ({ onFilter, onSetType, onCityChange, onRangeChange, page }) 
     const filters = [];
 
     if (motCle) {
-      filters.push((obj) => obj.nom.toLowerCase().includes(motCle.toLowerCase().trim()));
+      filters.push((obj) => obj.name.toLowerCase().includes(motCle.toLowerCase().trim()));
     }
 
     if ((type === 'generale' || type === 'options' || type === 'techno') && page === 'formation') {
-      filters.push((obj) => ['generale', 'options', 'techno'].includes(obj.type));
+      filters.push((obj) => ['generale', 'options', 'techno'].includes(obj.filiere));
     } else if (type === 'pro' && page === 'formation') {
-      filters.push((obj) => obj.type === 'pro');
+      filters.push((obj) => obj.filiere === 'Professionel');
     } else {
-      filters.push((obj) => obj.type === 'etablissement');
+      filters.push((obj) => obj.filiere === 'etablissement');
     }
     console.log('type : ' + type)
     console.log('filter : ' + filters)
     onFilter(filters);
     onSetType(type);
-    onCityChange(city)
-    onRangeChange(range)
+    page === "etablissement" && onCityChange(city)
+    page === "etablissement" && onRangeChange(range)
   };
 
   const handleReset = () => {
