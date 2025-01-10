@@ -2,21 +2,18 @@ import React from 'react';
 import Card from '../card/card';
 import style from './listCard.module.css';
 
-function ListCard({ items, type, onCategorySelect, selectedCategorie }) {
-  const filteredItems = items.filter(
-    item => item.type === type && (!selectedCategorie || item.categorie === selectedCategorie)
-  );
+function ListCard({ items, selectedCategorie, isInSearch = false }) {
 
   console.log('Items:', items);
   console.log('Selected Category:', selectedCategorie);
-  console.log('Filtered Items:', filteredItems);
+  console.log('Filtered Items:', items);
 
   return (
     <div className={style.listCard}>
       <div className={style.cardContainer}>
         {/* Parcours les items filtrés et affiche chaque Card */}
-        {filteredItems.map((item, index) => (
-          <Card key={index} item={item} onCategorySelect={onCategorySelect} />
+        {items.map((item, index) => (
+          <Card key={index} item={item} isInSearch={isInSearch}/>
         ))}
       </div>
     </div>
