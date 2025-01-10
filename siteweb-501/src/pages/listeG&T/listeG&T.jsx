@@ -14,7 +14,7 @@ function ListeGT() {
   const formations = useSelector(selectFormations);
   console.log('formation : ', formations)
   const [filters, setFilters] = useState([]);
-  const [type, setType] = useState(null);
+  const [type, setType] = useState('generale');
   const filtredFormation = useMemo(() => {
     if (!filters.length) return formations; // Si aucun filtre, retourner toutes les formations
     const combineFilters = filters => obj => filters.every((filter) => filter(obj));
