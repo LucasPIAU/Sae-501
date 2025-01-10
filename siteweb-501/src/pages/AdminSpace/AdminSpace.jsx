@@ -22,8 +22,6 @@ function AdminSpace() {
   const [showPopup, setShowPopup] = useState(false);
   const [newElementType, setNewElementType] = useState('');
 
-
-
   const location = useLocation();
   const { itemId } = location.state || {}; // Récupérer l'id depuis les paramètres de la route
   const navigate = useNavigate();

@@ -7,7 +7,7 @@ import { setFilteredEtablissements } from '../../store/formation/formationSlice.
 const FilterCarte = () => {
   const [range, setRange] = useState(50);
   const [city, setCity] = useState('');
-  const allEtablissements = useSelector(selectEtablissements); // Liste complète
+  const allEtablissements = useSelector(selectEtablissements);
   const dispatch = useDispatch();
 
   const handleRangeChange = (event) => {

@@ -7,7 +7,6 @@ import './App.css';
 import Home from './pages/home/home.jsx';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ListeGT from './pages/listeG&T/listeG&T.jsx';
-import ListePro from './pages/listePro/listePro.jsx';
 import SpePremiere from "./pages/spePremiere/spePremiere"
 import Options from './pages/options/options';
 import Techno from "./pages/techno/techno"
@@ -82,7 +81,6 @@ function MainContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/listeGT" element={<ListeGT />} />
-        <Route path="/listePro" element={<ListePro />} />
         <Route path="/spePremiere" element={<SpePremiere />} />
         <Route path="/optionGenerale" element={<Options />} />
         <Route path="/filiereTechno" element={<Techno />} />

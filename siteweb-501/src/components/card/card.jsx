@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { addFormationToFilter } from '../../store/formation/formationSlice';
 import { setCurrentPage } from '../../store/formation/formationSlice';
 
-function Card({ item, onCategorySelect }) {
+function Card({ item, onCategorySelect, isInSearch = false}) {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(item.isChecked || false); 
   const dispatch = useDispatch();
@@ -18,7 +18,6 @@ function Card({ item, onCategorySelect }) {
       // setCurrentPage(item.link);
     }else if (item.categorie) { 
       if(onCategorySelect){
-
         onCategorySelect(item.categorie);
         navigate('/pro'); 
       }else{
@@ -56,7 +55,7 @@ function Card({ item, onCategorySelect }) {
           <button onClick={navigateTo}>Voir plus</button>
         )}
       </div>
-      {item.type === 'generale' && (
+      {item.type === 'generale' && !isInSearch && (
         <label className={style.checkboxContainer}>
           <input
             type="checkbox"
