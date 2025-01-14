@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '../card/card';
 import style from './listCard.module.css';
 
-function ListCard({ items, isInSearch = false }) {
+function ListCard({ items, isInSearch = false, onDomainSelect }) {
 
   console.log('Items:', items);
   console.log('Filtered Items:', items);
@@ -10,9 +10,8 @@ function ListCard({ items, isInSearch = false }) {
   return (
     <div className={style.listCard}>
       <div className={style.cardContainer}>
-        {/* Parcours les items filtrés et affiche chaque Card */}
         {items.map((item, index) => (
-          <Card key={index} item={item} isInSearch={isInSearch}/>
+          <Card key={index} item={item} isInSearch={isInSearch} onDomainSelect={onDomainSelect}/>
         ))}
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectFormations } from '../../store/formation/formationSelector.js';
+import { selectEtablissements, selectFormations } from '../../store/formation/formationSelector.js';
 import style from "./detail.module.css";
 import Map from "../../components/map"
 import Title from '../../components/Title/Title';
@@ -22,17 +22,21 @@ function Detail() {
   const dispatch = useDispatch();
 
   const formations = useSelector(selectFormations);
-
-  const item = formations?.find(formation => formation.id === itemId);  // Trouver la formation par son id
+  const etablissement = useSelector(selectEtablissements);
+  console.log("itemId : ", itemId);
+  const item = formations?.find(formation => formation._id === itemId);  // Trouver la formation par son id
+  console.log("item : ", item);
 
   // Fonction pour rendre le contenu en fonction du type
   const getContent = (content) => {
+    console.log("content : ", content)
     return content?.map((element, index) => {
-      switch (element) {
-        case "Title":
-          return <Title key={index} title={item.nom} />;
+      console.log("element : ", element)
+      switch (element.type) {
+        case "title":
+          return <Title key={index} title={element.data} />;
         case "desc":
-          return <Description key={index} description={item.niveau} />;
+          return <Description key={index} description={element.data} />;
         case "images":
           return (
             <div key={index}>
@@ -54,7 +58,7 @@ function Detail() {
   };
 
   const navigateToAdmin = () => {
-    navigate('/adminspace', { state: { itemId: item.id } }); // Passer seulement l'id ici
+    navigate('/adminspace', { state: { itemId: item._id } }); // Passer seulement l'id ici
   };
 
   return (
@@ -65,7 +69,7 @@ function Detail() {
         <button className={style.backButton} onClick={navigateToAdmin}>Admin</button>
           <div className={style.containerDetail}>
             <div className={style.containerContentTitle}>
-              <h1 className={style.titleDetail}>{item.nom}</h1>
+              <h1 className={style.titleDetail}>{item.name}</h1>
               <div className={style.containerContent}>
                 {getContent(item.content)}
               </div>
@@ -73,7 +77,7 @@ function Detail() {
             <div className={style.containerContent}>
               <Map />
               <div className={style.containerListCard}>
-                <ListCard items={formations} type="etablissement" />
+                <ListCard items={etablissement} />
               </div>
             </div>
           </div>

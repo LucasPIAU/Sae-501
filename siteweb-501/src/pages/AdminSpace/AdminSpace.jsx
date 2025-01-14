@@ -28,7 +28,7 @@ function AdminSpace() {
   const dispatch = useDispatch();
 
   const formations = useSelector(selectFormations); // Récupérer toutes les formations depuis Redux
-  const item = formations.find(formation => formation.id === itemId); // Trouver la formation par son id
+  const item = formations.find(formation => formation._id === itemId); // Trouver la formation par son id
 
   const [editingElement, setEditingElement] = useState(null); // Gérer l'élément en cours d'édition
   const [editValue, setEditValue] = useState(''); // Valeur temporaire d'édition
@@ -154,7 +154,6 @@ function AdminSpace() {
                 </div>
               </>
             )}
-
           </>
         ) : (
           <p>Pas de data trouvée</p>
@@ -175,17 +174,17 @@ const DraggableContent = ({ index, element, moveContent, item }) => {
     hover: (draggedItem) => {
       if (draggedItem.index !== index) {
         moveContent(draggedItem.index, index);
-        draggedItem.index = index; // Met à jour l'index du drag
+        draggedItem.index = index;
       }
     },
   });
 
   const renderElement = () => {
-    switch (element) {
-      case "Title":
-        return <Title title={item.nom} />;
+    switch (element.type) {
+      case "title":
+        return <Title title={element.data} />;
       case "desc":
-        return <Description description={item.niveau} />;
+        return <Description description={element.data} />;
       case "images":
         return <div><Image src={bgCardImage} alt="Image description" /></div>;
       case "hr":

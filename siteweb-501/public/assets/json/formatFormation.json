@@ -1,6 +1,5 @@
 [
     {
-        "id": "6746d91a1825c42495ab4f81",
         "name": "CAP Carrossier automobile",
         "filiere": "Professionel",
         "etablissement": ["6746dd1b41d9672c5f52cc03"],
@@ -8,10 +7,13 @@
         "lieuxExercice": "",
         "data": {
             "attributs": "Scolaire, Apprentissage, Formation continue"
-        }
+        },
+        "categorie": "professionnel",
+        "content": [
+            {"type": "title", "data": "CAP Carrossier automobile"}
+        ]
     },
     {
-        "id": "6746e14c3673ee2fa511f567",
         "name": "CAP Peintre automobile",
         "filiere": "Professionel",
         "etablissement": ["6746dd1b41d9672c5f52cc03"],
@@ -20,10 +22,13 @@
         "data": {
             "conditions": "en 1 an après le CAP CA",
             "attributs": ["Apprentissage", "Formation continue"]
-        }
+        },
+        "categorie": "professionnel",
+        "content": [
+            {"type": "title", "data": "CAP Peintre automobile"}
+        ]
     },
     {
-        "id": "6746e8d5c38070adaab2a703",
         "name": "BAC PRO MV maintenance des véhicules",
         "filiere": "Professionel",
         "etablissement": ["6746dd1b41d9672c5f52cc03", "6746deeb33ea683ca735feaf"],
@@ -32,10 +37,13 @@
         "data": {
             "attributs": ["Scolaire", "Apprentissage", "Formation continue"],
             "options": ["Voitures particulières", "véhicules de transport routier", "Motocycles"]
-        }
+        },
+        "categorie": "professionnel",
+        "content": [
+            {"type": "title", "data": "BAC PRO MV maintenance des véhicules"}
+        ]
     },
     {
-        "id": "6746e14c3673ee2fa511f567",
         "name": "BAC PRO AMA-CV Artisanat et métiers d'art",
         "filiere": "Professionel",
         "etablissement": ["6746dd1b41d9672c5f52cc03"],
@@ -44,10 +52,13 @@
         "data": {
             "attributs": ["Scolaire"],
             "options": ["Communication visuelle plurimédia"]
-        }
+        },
+        "categorie": "professionnel",
+        "content": [
+            {"type": "title", "data": "BAC PRO AMA-CV Artisanat et métiers d'art"}
+        ]
     },
     {
-        "id": "6746eb3e92d73e5a354f44a2",
         "name": "BAC PRO RPIP Réalisation de produits imprimés et plurimédia",
         "filiere": "Professionel",
         "etablissement": ["6746dd1b41d9672c5f52cc03"],
@@ -56,10 +67,13 @@
         "data": {
             "attributs": ["Scolaire", "Apprentissage (option B)", "Formation continue"],
             "options": ["Productions graphiques", "Productions imprimés"]
-        }
+        },
+        "categorie": "professionnel",
+        "content": [
+            {"type": "title", "data": "BAC PRO RPIP Réalisation de produits imprimés et plurimédia"}
+        ]
     },
     {
-        "id": "6746eb46c158d4195aefcaff",
         "name": "BTS ERPC Etudes de réalisation d'un projet de communication",
         "filiere": "Professionel",
         "etablissement": ["6746dd1b41d9672c5f52cc03"],
@@ -68,10 +82,13 @@
         "data": {
             "attributs": ["Scolaire", "Apprentissage", "Formation continue"],
             "options": ["Etudes de réalisation des produits plurimédia (ERPP)", "Etudes de réalisation de produits imprimés (ERPI)"]
-        }
+        },
+        "categorie": "professionnel",
+        "content": [
+            {"type": "title", "data": "BTS ERPC Etudes de réalisation d'un projet de communication"}
+        ]
     },
     {
-        "id": "6746ebc26e14452c2845cc70",
         "name": "BAC PRO TCI Technicien en chaudronnerie industrielle",
         "filiere": "Professionel",
         "etablissement": ["6746dd1b41d9672c5f52cc03"],
@@ -79,10 +96,13 @@
         "lieuxExercice": "",
         "data": {
             "attributs": ["Scolaire", "Apprentissage", "Formation continue"]
-        }
+        },
+        "categorie": "professionnel",
+        "content": [
+            {"type": "title", "data": "BAC PRO TCI Technicien en chaudronnerie industrielle"}
+        ]
     },
     {
-        "id": "6746ebfc1b02fdb9b1f813f6",
         "name": "CQPM Soudeur industriel",
         "filiere": "Professionel",
         "etablissement": ["6746deeb33ea683ca735feaf"],
@@ -90,6 +110,10 @@
         "lieuxExercice": "",
         "data": {
             "attributs": ["Formation continue"]
-        }
+        },
+        "categorie": "industriel",
+        "content": [
+            {"type": "title", "data": "CQPM Soudeur industriel"}
+        ]
     }
 ]
