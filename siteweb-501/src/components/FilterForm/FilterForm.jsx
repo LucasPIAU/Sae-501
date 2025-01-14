@@ -38,7 +38,7 @@ const FilterForm = ({ onFilter, onSetType, onCityChange, onRangeChange, page }) 
     }
 
     if ((type === 'generale' || type === 'options' || type === 'techno') && page === 'formation') {
-      filters.push((obj) => ['generale', 'options', 'techno'].includes(obj.filiere));
+      filters.push((obj) => ['generale', 'option', 'techno'].includes(obj.filiere));
     } else if (type === 'pro' && page === 'formation') {
       filters.push((obj) => obj.filiere === 'Professionel');
     } else {
@@ -74,7 +74,7 @@ const FilterForm = ({ onFilter, onSetType, onCityChange, onRangeChange, page }) 
               placeholder="Mots-clés"
               value={motCle}
               onChange={(e) => setMotCle(e.target.value)}
-            />  
+            />
           </div>
         }
         {page === "etablissement" &&

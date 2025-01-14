@@ -5,30 +5,19 @@ import { useDispatch } from 'react-redux';
 import { addFormationToFilter } from '../../store/formation/formationSlice';
 import { setCurrentPage } from '../../store/formation/formationSlice';
 
-function Card({ item, onCategorySelect, isInSearch = false }) {
+function Card({ item, isInSearch = false, onDomainSelect }) {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(item.isChecked || false);
   const dispatch = useDispatch();
-
-  console.log("item de card --- : ", item);
 
   const navigateTo = () => {
     console.log('ICIICICCI');
     console.log(item.link);
     if (item.link) {
       navigate(item.link);
-      // setCurrentPage(item.link);
-    } else if (item.categorie) {
-      if (onCategorySelect) {
-        onCategorySelect(item.categorie);
-        navigate('/pro');
-      } else {
-        navigate('/detail', { state: { itemId: item.id } });
-        setCurrentPage("detail");
-      }
     } else {
-      navigate('/detail', { state: { itemId: item.id } });
-      setCurrentPage("detail");
+      navigate('/detail', { state: { itemId: item._id } });
+      setCurrentPage('detail');
     }
   };
 
@@ -36,37 +25,51 @@ function Card({ item, onCategorySelect, isInSearch = false }) {
     const checked = event.target.checked;
     setIsChecked(checked);
     console.log(item);
-    // Mettre à jour le state des établissements filtrés en fonction de la sélection/désélection de la formation
     dispatch(addFormationToFilter(item)); // Cela ajoutera ou retirera la formation selon l'état du checkbox
   };
+
+  const handleClick = () => {
+    if (onDomainSelect && item.name && !item.link) {
+      // Appeler onDomainSelect si l'élément est un domaine
+      onDomainSelect(item);
+    }
+  };
+
+  console.log("item dans card : ", item)
 
   return (
     <div
       className={`${style.card} ${isChecked ? style.greenBg : style.pinkBg}`}
+      onClick={handleClick} // Détecte le clic global
     >
       <div className={style.containerTitleMotClef}>
         <h3>{item.name}</h3>
-        {item.data && item.data.attributs && Array.isArray(item.data.attributs) && item.data.attributs.length > 0 && (
-          <p className={style.keyWord}>
-            {item.data.attributs.map((attribut, index) => (
-              // Vérifie si l'attribut n'est pas une chaîne vide
-              attribut.trim() !== "" && (
-                <span key={index}>
-                  {attribut}
-                  {index < item.data.attributs.length - 1 && ', '}
-                </span>
-              )
-            ))}
-          </p>
-        )}
-
-
+        {item.data &&
+          item.data.attributs &&
+          Array.isArray(item.data.attributs) &&
+          item.data.attributs.length > 0 && (
+            <p className={style.keyWord}>
+              {item.data.attributs.map((attribut, index) =>
+                attribut.trim() !== '' ? (
+                  <span key={index}>
+                    {attribut}
+                    {index < item.data.attributs.length - 1 && ', '}
+                  </span>
+                ) : null
+              )}
+            </p>
+          )}
       </div>
       <div className={style.containerButtonCard}>
         {item.type === 'etablissement' ? (
           <a href={item.link} target="_blank" rel="noopener noreferrer">
             Voir plus
           </a>
+        ) : !item.link && item.filiere != "Professionel" ? (
+          // Si c'est un domaine (pas de lien), aucune action ici
+          <button className={style.domainInfo}>
+            voir les formations
+          </button>
         ) : (
           <button onClick={navigateTo}>Voir plus</button>
         )}
@@ -76,8 +79,8 @@ function Card({ item, onCategorySelect, isInSearch = false }) {
           <input
             type="checkbox"
             className={style.checkbox}
-            checked={isChecked} // Lier l'état du checkbox à isChecked
-            onChange={handleCheckboxChange} // Gérer le changement de l'état
+            checked={isChecked}
+            onChange={handleCheckboxChange}
           />
           <span className={style.checkmark}></span>
         </label>

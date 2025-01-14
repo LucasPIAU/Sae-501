@@ -38,7 +38,11 @@ function ListeGT() {
     {
       name: "Première technologique",
       link: "/filiereTechno"
-    }
+    }, // PROVISOIRE
+    {
+      name: "Pro",
+      link: "/pro"
+    },
   ]
 
   const sectionItemPro = [

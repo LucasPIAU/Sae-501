@@ -9,7 +9,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 function Techno() {
   const formations = useSelector(selectFormations);
-  const updatedFormations = formations.filter(formation => formation.filiere === "Technologique");
+  const updatedFormations = formations.filter(formation => formation.filiere === "Professionel");
   const navigate = useNavigate();
 
   const navigateTo = () => {
@@ -21,9 +21,6 @@ function Techno() {
       <div className={style.containerTechno}>
       <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
         <div className={style.containerMapFormation}>
-          {/* <div className={style.containerMap}>
-          <Map />
-          </div> */}
           <ListCard items={updatedFormations}/>
         </div>
       </div>

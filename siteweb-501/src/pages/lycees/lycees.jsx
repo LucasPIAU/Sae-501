@@ -79,7 +79,7 @@ const Lycees = () => {
           onCityChange={setCity}
           onRangeChange={setRange}
           onSetType={() => {}}
-          page={"etablissement"}
+          page={"etablissement"}    
         />
         <div className={style.containerLycee}>
           <button className={style.backButton} onClick={navigateTo}>

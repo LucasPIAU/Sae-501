@@ -12,7 +12,7 @@ function Options() {
 
   const formations = useSelector(selectFormations);
 
-  const updatedFormations = formations.filter(formation => formation.filiere === "Professionel");
+  const updatedFormations = formations.filter(formation => formation.filiere === "option");
 
   const navigate = useNavigate();
 
