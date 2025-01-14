@@ -74,33 +74,7 @@ const FilterForm = ({ onFilter, onSetType, onCityChange, onRangeChange, page }) 
               placeholder="Mots-clés"
               value={motCle}
               onChange={(e) => setMotCle(e.target.value)}
-            />
-
-            <fieldset>
-              <legend>Filière</legend>
-              <div>
-                <input
-                  type="radio"
-                  id="generale"
-                  name="filiere"
-                  value="generale"
-                  checked={type === 'generale'}
-                  onChange={handleTypeChange}
-                />
-                <label htmlFor="generale">Général et Technologique</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  id="pro"
-                  name="filiere"
-                  value="pro"
-                  checked={type === 'pro'}
-                  onChange={handleTypeChange}
-                />
-                <label htmlFor="pro">Professionnelle</label>
-              </div>
-            </fieldset>
+            />  
           </div>
         }
         {page === "etablissement" &&
@@ -122,13 +96,14 @@ const FilterForm = ({ onFilter, onSetType, onCityChange, onRangeChange, page }) 
               max="100"
               value={range}
               onChange={handleRangeChange}
+            
             />
             <span>{range} km</span>
           </div>
         }
         <div>
-          <button type="submit">Appliquer filtre</button>
-          <button type="button" onClick={handleReset}>Réinitialiser filtre</button>
+          <button type="submit" className={style.submitButton}>Appliquer filtre</button>
+          <button type="button" className={style.resetButton} onClick={handleReset}>Réinitialiser filtre</button>
         </div>
       </div>
     </form>
