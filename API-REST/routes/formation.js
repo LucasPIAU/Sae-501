@@ -37,20 +37,97 @@ formationRoutes.get('/:id', async (req, res) => {
     }
 });
 
-formationRoutes.get('', async (req, res) => {
+formationRoutes.get('/all', async (req, res) => {
     try {
-        // On se connect à la base de donnée et on récupère la collection formation
         const db = await connectToDB();
-        const collectionFormations = db.collection('Formations');
 
-        // On fait la requête pour récupérer la liste de toute les formations
-        const cursor = collectionFormations.find();
-        const formations = await cursor.toArray();
+        const collectionFormationsPro = db.collection('formationsPro');
+        const collectionFormationsTechno = db.collection('formationsTechno');
+        const collectionOptionsSeconde = db.collection('option-seconde');
+        const collectionOptionsGenerale = db.collection('option-generale');
 
-        // Ensuite on calcule le nombre de page en sachant qu'il y a maximum 20 élément par page
+        const formationsPro = await collectionFormationsPro.find().toArray();
+        const formationsTechno = await collectionFormationsTechno.find().toArray();
+        const optionsSeconde = await collectionOptionsSeconde.find().toArray();
+        const optionsGenerale = await collectionOptionsGenerale.find().toArray();
+
+        if (
+            formationsPro.length > 0 ||
+            formationsTechno.length > 0 ||
+            optionsSeconde.length > 0 ||
+            optionsGenerale.length > 0
+        ) {
+            res.status(200).json({
+                formationsPro,
+                formationsTechno,
+                optionsSeconde,
+                optionsGenerale
+            });
+        } else {
+            res.status(404).json({ message: "Aucune formation trouvée dans les collections" });
+        }
+    } catch (err) {
+        res.status(500).json({ message: `Une erreur interne est survenue lors de la récupération des formations : ${err.message}` });
+    }
+});
+
+formationRoutes.get('/pro', async (req, res) => {
+    try {
+        const db = await connectToDB();
+        const collectionFormations = db.collection('formationsPro');
+
+        const formations = await collectionFormations.find().toArray();
+
         if (formations.length > 0) {
-            const nbrPage = Math.ceil(formations.length / 20); // On arrondie à l'entier superieur pour avoir le nbr de page
-            const formationsSlice = formations.slice(0, 20); // On ne garde les 20 éléments correspondant à la page
+            res.status(200).json(formations);
+        } else res.status(404).json({ message: "Aucune formations trouvée" });
+
+    } catch (err) {
+        res.status(500).json({ message: `Une erreur interne est survenue dans la récupération des formations : ${err}` });
+    }
+});
+
+formationRoutes.get('/techno', async (req, res) => {
+    try {
+        const db = await connectToDB();
+        const collectionFormations = db.collection('formationsTechno');
+
+        const formations = await collectionFormations.find().toArray();
+
+        if (formations.length > 0) {
+            res.status(200).json(formations);
+        } else res.status(404).json({ message: "Aucune formations trouvée" });
+
+    } catch (err) {
+        res.status(500).json({ message: `Une erreur interne est survenue dans la récupération des formations : ${err}` });
+    }
+});
+
+formationRoutes.get('/opt/seconde', async (req, res) => {
+    try {
+        const db = await connectToDB();
+        const collectionFormations = db.collection('option-seconde');
+
+        const formations = await collectionFormations.find().toArray();
+
+        if (formations.length > 0) {
+            res.status(200).json(formations);
+        } else res.status(404).json({ message: "Aucune formations trouvée" });
+
+    } catch (err) {
+        res.status(500).json({ message: `Une erreur interne est survenue dans la récupération des formations : ${err}` });
+    }
+});
+
+formationRoutes.get('/opt/generale', async (req, res) => {
+    try {
+        const db = await connectToDB();
+        const collectionFormations = db.collection('option-generale');
+
+        const formations = await collectionFormations.find().toArray();
+
+        if (formations.length > 0) {
+            res.status(200).json(formations);
         } else res.status(404).json({ message: "Aucune formations trouvée" });
 
     } catch (err) {
