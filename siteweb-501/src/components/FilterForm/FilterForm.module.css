@@ -1,26 +1,58 @@
 .filtreFiliere {
   margin: 1rem;
   display: flex;
+  flex-direction: row;
   align-items: center;
-justify-content: space-between;
+  justify-content: center;
+  gap: 3rem;
 }
 
-input[type="text"] {
-  padding: 10px;
-  border: black solid 2px;
-  border-radius: 10px;
-  width: 25%;
-  background-image: url("../../assets/images/loupe.png");
-  background-repeat: no-repeat;
-  background-position: 7px 7px;
-  background-size: 20px 20px; 
-  padding-left: 35px;
-  margin-right: 2rem;
-  max-height: 1rem;
+.containerFormationInput input {
+  width: 300px;
+  max-width: 100%;
+}
+
+button {
+  padding: 10px 20px;
+  margin-left: 1rem;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton {
+  background-color: #b059b1;
+  border: transparent 1px solid;
+}
+
+.submitButton:hover {
+  background-color: white;
+  color: black;
+  border: black 1px solid;
+}
+
+.resetButton {
+  background-color: white;
+  border: black 1px solid;
+  color: black;
+}
+
+.resetButton:hover {
+  background-color: black;
+  color: white;
+}
+
+button,
+.containerFormationInput input {
+  flex-shrink: 0;
 }
 
 fieldset {
   border: none;
+  display: none;
 }
 
 fieldset legend {
@@ -45,13 +77,12 @@ input[type="text"] {
   padding: 10px;
   border: #adadad solid 1px;
   border-radius: 10px;
-  width: 25%;
+  width: 100%;
   background-image: url("../../assets/images/loupe.png");
   background-repeat: no-repeat;
   background-position: 7px 7px;
   background-size: 20px 20px; 
   padding-left: 35px;
-  margin-right: 2rem;
   max-height: 1rem;
 }
 
