@@ -23,10 +23,10 @@ async function importData() {
 
         const collections = [
             { name: 'etablissements', file: './json/etablissements.json' },
-            { name: 'formationPro', file: './json/pro.json' },
+            { name: 'formationsPro', file: './json/pro.json' },
             { name: 'formationsTechno', file: './json/techno.json' },
             { name: 'options-generale', file: './json/opt-generale.json' },
-            { name: 'option-seconde', file: './json/opt-seconde.json' },
+            { name: 'options-seconde', file: './json/opt-seconde.json' },
         ];
 
         for (const { name, file } of collections) {
