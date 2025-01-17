@@ -21,7 +21,14 @@ function SpePremiere() {
   // Filtrer les formations "générales"
   const updatedFormations = formations.filter(formation => formation.filiere === "generale");
 
+
+
+  useEffect(()=>{
+    setFiltredEtablissement(etablissements)
+  },[etablissements])
+
   console.log(updatedFormations);
+  console.log("filtredEtablissement : ", filtredEtablissement);
 
   const navigateTo = () => {
     navigate(-1);
@@ -48,7 +55,6 @@ function SpePremiere() {
 
     // Filtrer les établissements en fonction des formations sélectionnées
 
-    console.log(etablissements);
 
     const filteredEtablissements = etablissements.filter(etablissement =>
       updatedFormations.some(formation =>
@@ -56,9 +62,14 @@ function SpePremiere() {
       )
     );
 
-    setFiltredEtablissement(filteredEtablissements);
-
     console.log("Établissements filtrés :", filteredEtablissements);
+    console.log("lenght du log juste avant : ", filteredEtablissements.length)
+    console.log("etablissements : ", etablissements);
+    console.log("condition : ", filteredEtablissements.length == 0 ? etablissements : filteredEtablissements)
+
+    setFiltredEtablissement(filteredEtablissements.length == 0 ? etablissements : filteredEtablissements);
+
+    // setFiltredEtablissement(filteredEtablissements);
   };
 
   console.log("filtredEtablissement : ", filtredEtablissement)
@@ -70,7 +81,7 @@ function SpePremiere() {
         <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft} /></button>
         <div className={style.containerMapFormation}>
           <div className={style.containerMap}>
-            <Map filtredEtablissement={filtredEtablissement.length == 0 ? etablissements : filtredEtablissement}/>
+            <Map dataEtablissement={filtredEtablissement}/>
           </div>
           <div className={style.containerListCard}>
             <ListCard items={updatedFormations} onSpeSelect={onSpeSelect}/>

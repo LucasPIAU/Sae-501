@@ -4,17 +4,22 @@ import L from 'leaflet';
 import { selectEtablissements } from '../store/formation/formationSelector';
 import 'leaflet/dist/leaflet.css'; // Assurez-vous que le style CSS de Leaflet est inclus
 
-const Map = ({filtredEtablissement}) => {
-  console.log("filtredEtablissement : ", filtredEtablissement)
+const Map = ({dataEtablissement}) => {
+  console.log("etablissements : ", dataEtablissement)
   const mapContainer = useRef(null); // Référence pour le conteneur de la carte
   const mapRef = useRef(null); // Référence pour la carte elle-même
-  // const filtredEtablissement = useSelector(selectEtablissements); // Récupérer les établissements depuis Redux
+  // const etablissements = useSelector(selectEtablissements); // Récupérer les établissements depuis Redux
   const [citiesData, setCitiesData] = useState(null); // État pour stocker les données GeoJSON des villes
   const [departementData, setDepartementData] = useState(null); // État pour stocker les données GeoJSON des départements
+  const [etablissements, setEtablissements] = useState([])
+
+  useEffect(()=> {
+    setEtablissements(dataEtablissement);
+  })
 
   // Initialisation de la carte
 
-  // console.log(filtredEtablissement);
+  // console.log(etablissements);
   useEffect(() => {
     if (mapContainer.current && !mapRef.current) {
       // Initialiser la carte si elle n'est pas déjà initialisée
@@ -69,23 +74,36 @@ const Map = ({filtredEtablissement}) => {
   // Ajouter un gestionnaire de zoom
   useEffect(() => {
     console.log(mapRef.current.getZoom())
+    console.log(mapRef.current);
+    const zoomLevel = mapRef.current.getZoom();
     if (mapRef.current) {
       mapRef.current.on('zoomend', () => {
-        const zoomLevel = mapRef.current.getZoom();
+        
 
         // Si on est proche (zoom élevé), afficher les établissements avec une icône personnalisée
         if (zoomLevel >= 12) {
           displayEtablissements(true); // Passer true pour appliquer l'icône personnalisée
         } else {
+          console.log("je fait appel a displayCircle")
           // Si on est éloigné, afficher les cercles avec les points comptés
           displayCircles();
         }
       });
     }
-  }, [filtredEtablissement, citiesData]);
+
+     // Si on est proche (zoom élevé), afficher les établissements avec une icône personnalisée
+     if (zoomLevel >= 12) {
+      displayEtablissements(true); // Passer true pour appliquer l'icône personnalisée
+    } else {
+      console.log("je fait appel a displayCircle")
+      // Si on est éloigné, afficher les cercles avec les points comptés
+      displayCircles();
+    }
+  }, [etablissements, citiesData]);
 
   // Fonction pour afficher les cercles (rayons) avec le nombre d'établissements
   const displayCircles = () => {
+    console.log("je suis dans displayCircle")
     if (mapRef.current && citiesData) {
       // On supprime les cercles précédents (si existants)
       mapRef.current.eachLayer(layer => {
@@ -100,9 +118,9 @@ const Map = ({filtredEtablissement}) => {
         const center = L.latLng(lat, lon);  // Créer un objet latLng pour le centre de la ville
         const radius = 5000; // Rayon du cercle (5 km)
 
-        console.log(filtredEtablissement)
+        console.log(etablissements)
         // Calculer les établissements dans la zone
-        const establishmentsInArea = filtredEtablissement.filter(etablissement => {
+        const establishmentsInArea = etablissements.filter(etablissement => {
           const etablissementLatLng = L.latLng(etablissement.Latitude, etablissement.Longitude);
           const distance = center.distanceTo(etablissementLatLng); // Calcul de la distance en mètres
           return distance < radius; // Vérifier si l'établissement est dans le rayon de 5km
@@ -133,7 +151,7 @@ const Map = ({filtredEtablissement}) => {
 
   // Fonction pour afficher les établissements (points) sur la carte
   const displayEtablissements = (zoomedIn = false) => {
-    if (mapRef.current && filtredEtablissement) {
+    if (mapRef.current && etablissements) {
       // On supprime les cercles précédents (si existants)
       mapRef.current.eachLayer(layer => {
         if (layer instanceof L.Circle) {
@@ -153,7 +171,7 @@ const Map = ({filtredEtablissement}) => {
       });
 
       // Ajouter chaque établissement avec un marqueur
-      filtredEtablissement.forEach(etablissement => {
+      etablissements.forEach(etablissement => {
         const lat = etablissement.Latitude;
         const lon = etablissement.Longitude;
         const markerOptions = zoomedIn ? { icon: customIcon } : {}; // Appliquer l'icône personnalisée si zoomé

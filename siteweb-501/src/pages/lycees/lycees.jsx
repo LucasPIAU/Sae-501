@@ -87,7 +87,7 @@ const Lycees = () => {
           </button>
           <div className={style.containerMapFormation}>
             <div className={style.containerMap}>
-              <Map />
+              <Map dataEtablissement={allEtablissements}/>
             </div>
             <div className={style.containerListCard}>
               <ListCard items={filteredEtablissements}/>
