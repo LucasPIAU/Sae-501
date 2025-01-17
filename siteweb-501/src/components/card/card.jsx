@@ -5,14 +5,12 @@ import { useDispatch } from 'react-redux';
 import { addFormationToFilter } from '../../store/formation/formationSlice';
 import { setCurrentPage } from '../../store/formation/formationSlice';
 
-function Card({ item, isInSearch = false, onDomainSelect }) {
+function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(item.isChecked || false);
   const dispatch = useDispatch();
 
   const navigateTo = () => {
-    // console.log('ICIICICCI');
-    // console.log(item.link);
     if (item.link) {
       navigate(item.link);
     } else {
@@ -24,8 +22,9 @@ function Card({ item, isInSearch = false, onDomainSelect }) {
   const handleCheckboxChange = (event) => {
     const checked = event.target.checked;
     setIsChecked(checked);
+    onSpeSelect(item);
     // console.log(item);
-    dispatch(addFormationToFilter(item)); // Cela ajoutera ou retirera la formation selon l'état du checkbox
+    // dispatch(addFormationToFilter(item));  // Cela ajoutera ou retirera la formation selon l'état du checkbox
   };
 
   const handleClick = () => {
@@ -35,7 +34,7 @@ function Card({ item, isInSearch = false, onDomainSelect }) {
     }
   };
 
-  // console.log("item dans card : ", item)
+  console.log("item dans card : ", item)
 
   return (
     <div
@@ -65,7 +64,7 @@ function Card({ item, isInSearch = false, onDomainSelect }) {
           <a href={item.link} target="_blank" rel="noopener noreferrer">
             Voir plus
           </a>
-        ) : !item.link && item.filiere != "Professionel" ? (
+        ) : !item.link && item.filiere != "Professionel" && item.filiere != "techno" && item.filiere != "generale" && item.filiere != "option" ? (
           // Si c'est un domaine (pas de lien), aucune action ici
           <button className={style.domainInfo}>
             voir les formations
@@ -74,7 +73,7 @@ function Card({ item, isInSearch = false, onDomainSelect }) {
           <button onClick={navigateTo}>Voir plus</button>
         )}
       </div>
-      {item.type === 'generale' && !isInSearch && (
+      {item.filiere === 'generale' && !isInSearch && (
         <label className={style.checkboxContainer}>
           <input
             type="checkbox"

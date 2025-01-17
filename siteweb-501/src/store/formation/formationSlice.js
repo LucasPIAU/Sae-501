@@ -7,12 +7,12 @@ const formationSlice = createSlice({
     formations: [], // Stocke les formations (options, techno, generale, pro)
     etablissement: [], // Stocke les établissements
     filteredFormations: [],
-    filteredEtablissements: [], // Contient les établissements filtrés
     selectedFormations: [],
     loading: false,
     errors: null,
     currentPage: null,
     currentEtablissement: null,
+    filteredEtablissements: [],
   },
   reducers: {
     setFormations: (state, action) => {
@@ -125,33 +125,36 @@ const formationSlice = createSlice({
     },
     addFormationToFilter: (state, action) => {
       const formation = action.payload;
-      const selectedFormations = [...state.selectedFormations];
-
-      // console.log(selectedFormations);
-
+      const selectedFormations = [...state.selectedFormations]; // Copie pour éviter des références directes
+      const etablissementsArray = [...state.etablissement]; // Déproxiage explicite
+    
       // Si la formation est déjà sélectionnée, la retirer
       const formationIndex = selectedFormations.findIndex(f => f.id === formation.id);
       if (formationIndex === -1) {
-        selectedFormations.push(formation);  // Ajouter la formation
+        selectedFormations.push(formation); // Ajouter la formation
       } else {
-        selectedFormations.splice(formationIndex, 1);  // Retirer la formation
+        selectedFormations.splice(formationIndex, 1); // Retirer la formation
       }
-
+    
       // Mettre à jour la liste des formations sélectionnées dans le state
       state.selectedFormations = selectedFormations;
-
+    
       // Filtrer les établissements en fonction des formations sélectionnées
-      // console.log(selectedFormations);
-      // console.log(state.etablissement)
-      if (selectedFormations.length === 0) {
-        state.filteredEtablissements = state.etablissement;  // Si aucune formation sélectionnée, vider la liste
-      } else {
+      if (selectedFormations.length !== 0) {
+        console.log("selectedFormations :", selectedFormations);
+        console.log("etablissementsArray :", JSON.stringify(etablissementsArray, null, 2));
+    
         // Filtrer les établissements qui contiennent toutes les formations sélectionnées
-        state.filteredEtablissements = state.etablissement.filter(etablissement =>
+        state.filteredEtablissements = etablissementsArray.filter(etablissement =>
           selectedFormations.every(formation =>
-            formation.etablissements.includes(etablissement.nom)
+            formation.etablissement.includes(etablissement.name) // Comparaison correcte
           )
         );
+    
+        console.log("filtrerEtablissement : ", state.filteredEtablissements);
+      } else {
+        // Réinitialiser les établissements filtrés si aucune formation n'est sélectionnée
+        state.filteredEtablissements = [];
       }
     },
   },
@@ -161,10 +164,8 @@ const formationSlice = createSlice({
     })
     .addCase(loadEtablissement.fulfilled, (state, action) => {
       const etablissements = action.payload;
-      // console.log(etablissements)
+      console.log("etablissements : ", etablissements)
       state.etablissement = etablissements;
-      state.filteredEtablissements = etablissements;
-      // console.log("load etablissement", state.etablissement);
       state.loading = false;
     })
     .addCase(loadEtablissement.rejected, (state, action) => {
@@ -176,9 +177,9 @@ const formationSlice = createSlice({
     .addCase(loadFormation.fulfilled, (state, action) => {
       const separedFormations = action.payload;
   
-      // console.log("Contenu de action.payload :", separedFormations);
+      console.log("Contenu de action.payload pour formation :", separedFormations);
   
-      const mergedFormations = [...(separedFormations.formationsPro || []), ...(separedFormations.formationsTechno || [])];
+      const mergedFormations = [...(separedFormations.formationsPro || []), ...(separedFormations.formationsTechno || []),...(separedFormations.optionsGenerale || []), ...(separedFormations.optionsSeconde || [])];
       // console.log("Les formations fusionnées :", mergedFormations);
   
       state.formations = mergedFormations;

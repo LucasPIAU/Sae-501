@@ -41,48 +41,6 @@ function ListeGT() {
     }
   ]
 
-  const sectionItemPro = [
-    {
-      name: "Transport et logistique",
-      categorie: "transportLogistique"
-    },
-    {
-      name: "Numérique et métiers de l'électricité",
-      categorie: "numeriqueElectricite"
-    },
-    {
-      name: "Alimentation hôterllerie restauration",
-      categorie: "alimentationHotellerie"
-    },
-    {
-      name: "Maintenance et réparation : Industrie et véhicule",
-      categorie: "industrieVehicule"
-    },
-    {
-      name: "Commerce vente gestion administration",
-      categorie: "commerceAdministration"
-    },
-    {
-      name: "Communication visuelle et imprimerie",
-      categorie: "communicationImprimerie"
-    },
-    {
-      name: "Santé sociale",
-      categorie: "sante"
-    },
-    {
-      name: "Conception et production industielles",
-      categorie: "conceptionProduction"
-    },
-    {
-      name: "Batiement travaux publics",
-      categorie: "batimentTravauxPublics"
-    },
-    {
-      name: "Agriculture",
-      categorie: "agriculture"
-    }
-  ]
 
   const onFilter = (newFilters) => {
     setFilters(newFilters);
@@ -92,9 +50,6 @@ function ListeGT() {
     setType(newType);
   }
 
-  // console.log('newType : ' + type);
-  // console.log("filters : " + filters)
-
   return (
     <>
       <FilterForm onFilter={onFilter} onSetType={onSetType} page={"formation"}/>
@@ -103,8 +58,6 @@ function ListeGT() {
         <div className={style.containerMapFormation}>
           {!filters.length && type === "generale" ? (
             <ListCard items={sectionItem} />
-          ) : !filters.length && type === "pro" ? (
-            <ListCard items={sectionItemPro} />
           ) : (
             <ListCard items={filtredFormation} isInSearch={true} />
           )}

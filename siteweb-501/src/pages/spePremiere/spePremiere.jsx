@@ -3,23 +3,66 @@ import style from "./spePremiere.module.css";
 import Map from '../../components/map';
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectFormations } from '../../store/formation/formationSelector';
+import { useSelector } from 'react-redux';
+import { selectEtablissements, selectFormations } from '../../store/formation/formationSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { setFilteredEtablissements, } from '../../store/formation/formationSlice';
 
 function SpePremiere() {
   const navigate = useNavigate();
 
   const formations = useSelector(selectFormations);
+  const etablissements = useSelector(selectEtablissements);
+  const [selectFormation, setSelectFormation] = useState([]);  // Liste des formations sélectionnées
+  const [filtredEtablissement, setFiltredEtablissement] = useState([]);  // Liste des établissements
 
-  const updatedFormations = formations.filter(formation => formation.filiere === "SpePremiere");
+  console.log(formations);
 
+  // Filtrer les formations "générales"
+  const updatedFormations = formations.filter(formation => formation.filiere === "generale");
+
+  console.log(updatedFormations);
 
   const navigateTo = () => {
     navigate(-1);
   }
+
+  const onSpeSelect = (newFormation) => {
+    // Vérifier si la formation est déjà dans le tableau des formations sélectionnées
+    const formationIndex = selectFormation.findIndex(f => f._id === newFormation._id);
+    
+    let updatedFormations;
+    
+    if (formationIndex === -1) {
+      // Si la formation n'est pas déjà sélectionnée, on l'ajoute
+      updatedFormations = [...selectFormation, newFormation];
+    } else {
+      // Si elle est déjà sélectionnée, on la retire
+      updatedFormations = selectFormation.filter(f => f._id !== newFormation._id);
+    }
+
+    // Mettre à jour le tableau des formations sélectionnées
+    setSelectFormation(updatedFormations);
+
+    console.log("Formations sélectionnées :", updatedFormations);
+
+    // Filtrer les établissements en fonction des formations sélectionnées
+
+    console.log(etablissements);
+
+    const filteredEtablissements = etablissements.filter(etablissement =>
+      updatedFormations.some(formation =>
+        formation.etablissement.includes(etablissement.name)
+      )
+    );
+
+    setFiltredEtablissement(filteredEtablissements);
+
+    console.log("Établissements filtrés :", filteredEtablissements);
+  };
+
+  console.log("filtredEtablissement : ", filtredEtablissement)
+  console.log("etablissements : ", etablissements)
 
   return (
     <>
@@ -27,10 +70,10 @@ function SpePremiere() {
         <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft} /></button>
         <div className={style.containerMapFormation}>
           <div className={style.containerMap}>
-            <Map />
+            <Map filtredEtablissement={filtredEtablissement.length == 0 ? etablissements : filtredEtablissement}/>
           </div>
           <div className={style.containerListCard}>
-            <ListCard items={updatedFormations} />
+            <ListCard items={updatedFormations} onSpeSelect={onSpeSelect}/>
           </div>
         </div>
       </div>

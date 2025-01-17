@@ -4,16 +4,17 @@ import L from 'leaflet';
 import { selectEtablissements } from '../store/formation/formationSelector';
 import 'leaflet/dist/leaflet.css'; // Assurez-vous que le style CSS de Leaflet est inclus
 
-const Map = () => {
+const Map = ({filtredEtablissement}) => {
+  console.log("filtredEtablissement : ", filtredEtablissement)
   const mapContainer = useRef(null); // Référence pour le conteneur de la carte
   const mapRef = useRef(null); // Référence pour la carte elle-même
-  const etablissementsData = useSelector(selectEtablissements); // Récupérer les établissements depuis Redux
+  // const filtredEtablissement = useSelector(selectEtablissements); // Récupérer les établissements depuis Redux
   const [citiesData, setCitiesData] = useState(null); // État pour stocker les données GeoJSON des villes
   const [departementData, setDepartementData] = useState(null); // État pour stocker les données GeoJSON des départements
 
   // Initialisation de la carte
 
-  // console.log(etablissementsData);
+  // console.log(filtredEtablissement);
   useEffect(() => {
     if (mapContainer.current && !mapRef.current) {
       // Initialiser la carte si elle n'est pas déjà initialisée
@@ -67,6 +68,7 @@ const Map = () => {
 
   // Ajouter un gestionnaire de zoom
   useEffect(() => {
+    console.log(mapRef.current.getZoom())
     if (mapRef.current) {
       mapRef.current.on('zoomend', () => {
         const zoomLevel = mapRef.current.getZoom();
@@ -80,7 +82,7 @@ const Map = () => {
         }
       });
     }
-  }, [etablissementsData, citiesData]);
+  }, [filtredEtablissement, citiesData]);
 
   // Fonction pour afficher les cercles (rayons) avec le nombre d'établissements
   const displayCircles = () => {
@@ -98,8 +100,9 @@ const Map = () => {
         const center = L.latLng(lat, lon);  // Créer un objet latLng pour le centre de la ville
         const radius = 5000; // Rayon du cercle (5 km)
 
+        console.log(filtredEtablissement)
         // Calculer les établissements dans la zone
-        const establishmentsInArea = etablissementsData.filter(etablissement => {
+        const establishmentsInArea = filtredEtablissement.filter(etablissement => {
           const etablissementLatLng = L.latLng(etablissement.Latitude, etablissement.Longitude);
           const distance = center.distanceTo(etablissementLatLng); // Calcul de la distance en mètres
           return distance < radius; // Vérifier si l'établissement est dans le rayon de 5km
@@ -130,7 +133,7 @@ const Map = () => {
 
   // Fonction pour afficher les établissements (points) sur la carte
   const displayEtablissements = (zoomedIn = false) => {
-    if (mapRef.current && etablissementsData) {
+    if (mapRef.current && filtredEtablissement) {
       // On supprime les cercles précédents (si existants)
       mapRef.current.eachLayer(layer => {
         if (layer instanceof L.Circle) {
@@ -150,7 +153,7 @@ const Map = () => {
       });
 
       // Ajouter chaque établissement avec un marqueur
-      etablissementsData.forEach(etablissement => {
+      filtredEtablissement.forEach(etablissement => {
         const lat = etablissement.Latitude;
         const lon = etablissement.Longitude;
         const markerOptions = zoomedIn ? { icon: customIcon } : {}; // Appliquer l'icône personnalisée si zoomé

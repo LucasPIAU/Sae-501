@@ -44,13 +44,12 @@ function Techno() {
       <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
         <div className={style.containerMapFormation}>
           <ListCard
-            items={selectedDomain ? filteredFormations : domains} // Affiche soit les domaines, soit les formations filtrées
+            items={selectedDomain ? filteredFormations : updatedFormations} // Affiche soit les domaines, soit les formations filtrées
             onDomainSelect={onDomainSelect} // Permet de sélectionner un domaine
           />
         </div>
       </div>
     </>
-    
   );
 }
 

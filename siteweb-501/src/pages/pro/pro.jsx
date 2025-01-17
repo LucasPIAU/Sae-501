@@ -13,6 +13,8 @@ function Pro() {
 
   const [selectedDomain, setSelectedDomain] = useState(null);
 
+  console.log("formation : ", formations);
+
   // Liste des domaines (catégories)
   const domains = [
     ...new Set(

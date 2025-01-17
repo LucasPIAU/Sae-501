@@ -19,7 +19,7 @@ function Home() {
         <h2>Retrouvez les {etablissements.length} lycées de la Mayenne et découvrez leurs formations</h2>
         <div className={style.logoGrid}>
           {etablissements.map((etablissement, index) => (
-            <a href={etablissement.link} target='_blank'>
+            <a key={index} href={etablissement.link} target='_blank'>
               <div key={index} className={style.logoItem}>
                 <img src={etablissement.logo} alt={etablissement.nom} className={style.logoImage}/>
               </div>

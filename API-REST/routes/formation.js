@@ -26,26 +26,26 @@ formationRoutes.get('/all', async (req, res) => {
         const collectionFormationsPro = db.collection('formationsPro');
         const collectionFormationsTechno = db.collection('formationsTechno');
 
-        // const collectionOptionsSeconde = db.collection('option-seconde');
-        // const collectionOptionsGenerale = db.collection('option-generale');
+        const collectionOptionsSeconde = db.collection('optionSeconde');
+        const collectionformationGenerale = db.collection('formationsGenerale');
 
         const formationsPro = await collectionFormationsPro.find().toArray();
         const formationsTechno = await collectionFormationsTechno.find().toArray();
 
-        // const optionsSeconde = await collectionOptionsSeconde.find().toArray();
-        // const optionsGenerale = await collectionOptionsGenerale.find().toArray();
+        const optionsSeconde = await collectionOptionsSeconde.find().toArray();
+        const optionsGenerale = await collectionformationGenerale.find().toArray();
 
         if (
             formationsPro.length > 0 ||
-            formationsTechno.length > 0
-            // optionsSeconde.length > 0 ||
-            // optionsGenerale.length > 0
+            formationsTechno.length > 0 ||
+            optionsSeconde.length > 0 ||
+            optionsGenerale.length > 0
         ) {
             res.status(200).json({
                 formationsPro,
                 formationsTechno,
-                // optionsSeconde,
-                // optionsGenerale
+                optionsSeconde,
+                optionsGenerale
             });
         } else {
             res.status(404).json({ message: "Aucune formation trouvée dans les collections" });
