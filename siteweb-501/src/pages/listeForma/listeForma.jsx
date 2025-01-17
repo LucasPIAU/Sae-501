@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import style from "./listeG&T.module.css";
+import style from "./listeForma.module.css";
 import Map from '../../components/map';
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import FilterForm from '../../components/FilterForm/FilterForm.jsx';
 
-function ListeGT() {
+function ListeForma() {
   const formations = useSelector(selectFormations);
   // console.log('formation : ', formations)
   const [filters, setFilters] = useState([]);
@@ -28,60 +28,13 @@ function ListeGT() {
 
   const sectionItem = [
     {
-      name: "Options de seconde générale et technologique",
-      link: "/optionGenerale"
+      name: "Formations Générales et Technologiques",
+      link: "/listeGT"
     },
     {
-      name: "Première générale",
-      link: "/spePremiere"
+      name: "Formations Professionnelles",
+      link: "/pro"
     },
-    {
-      name: "Première technologique",
-      link: "/filiereTechno"
-    }
-  ]
-
-  const sectionItemPro = [
-    {
-      name: "Transport et logistique",
-      categorie: "transportLogistique"
-    },
-    {
-      name: "Numérique et métiers de l'électricité",
-      categorie: "numeriqueElectricite"
-    },
-    {
-      name: "Alimentation hôterllerie restauration",
-      categorie: "alimentationHotellerie"
-    },
-    {
-      name: "Maintenance et réparation : Industrie et véhicule",
-      categorie: "industrieVehicule"
-    },
-    {
-      name: "Commerce vente gestion administration",
-      categorie: "commerceAdministration"
-    },
-    {
-      name: "Communication visuelle et imprimerie",
-      categorie: "communicationImprimerie"
-    },
-    {
-      name: "Santé sociale",
-      categorie: "sante"
-    },
-    {
-      name: "Conception et production industielles",
-      categorie: "conceptionProduction"
-    },
-    {
-      name: "Batiement travaux publics",
-      categorie: "batimentTravauxPublics"
-    },
-    {
-      name: "Agriculture",
-      categorie: "agriculture"
-    }
   ]
 
   const onFilter = (newFilters) => {
@@ -101,17 +54,11 @@ function ListeGT() {
       <div className={style.AppA}>
         <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft} /></button>
         <div className={style.containerMapFormation}>
-          {!filters.length && type === "generale" ? (
-            <ListCard items={sectionItem} />
-          ) : !filters.length && type === "pro" ? (
-            <ListCard items={sectionItemPro} />
-          ) : (
-            <ListCard items={filtredFormation} isInSearch={true} />
-          )}
+          <ListCard items={sectionItem} />
         </div>
       </div>
     </>
   );
 }
 
-export default ListeGT;
+export default ListeForma;

@@ -11,8 +11,8 @@ function Card({ item, isInSearch = false, onDomainSelect }) {
   const dispatch = useDispatch();
 
   const navigateTo = () => {
-    console.log('ICIICICCI');
-    console.log(item.link);
+    // console.log('ICIICICCI');
+    // console.log(item.link);
     if (item.link) {
       navigate(item.link);
     } else {
@@ -24,7 +24,7 @@ function Card({ item, isInSearch = false, onDomainSelect }) {
   const handleCheckboxChange = (event) => {
     const checked = event.target.checked;
     setIsChecked(checked);
-    console.log(item);
+    // console.log(item);
     dispatch(addFormationToFilter(item)); // Cela ajoutera ou retirera la formation selon l'état du checkbox
   };
 
@@ -35,7 +35,7 @@ function Card({ item, isInSearch = false, onDomainSelect }) {
     }
   };
 
-  console.log("item dans card : ", item)
+  // console.log("item dans card : ", item)
 
   return (
     <div

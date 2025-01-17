@@ -24,7 +24,7 @@ const FilterForm = ({ onFilter, onSetType, onCityChange, onRangeChange, page }) 
 
   const handleSubmit = (event) => {
 
-    console.log('page : ' + page)
+    // console.log('page : ' + page)
 
     if(page === 'etablissement'){
       setType('etablissement');
@@ -44,8 +44,8 @@ const FilterForm = ({ onFilter, onSetType, onCityChange, onRangeChange, page }) 
     } else {
       filters.push((obj) => obj.filiere === 'etablissement');
     }
-    console.log('type : ' + type)
-    console.log('filter : ' + filters)
+    // console.log('type : ' + type)
+    // console.log('filter : ' + filters)
     onFilter(filters);
     onSetType(type);
     page === "etablissement" && onCityChange(city)

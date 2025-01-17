@@ -16,11 +16,11 @@ const formationSlice = createSlice({
   },
   reducers: {
     setFormations: (state, action) => {
-      console.log("Données envoyées au state : ", action.payload);
+      // console.log("Données envoyées au state : ", action.payload);
       state.formations = action.payload;
     },
     setEtablissements: (state, action) => {
-      console.log("Données des établissements envoyées au state : ", action.payload);
+      // console.log("Données des établissements envoyées au state : ", action.payload);
       state.etablissement = action.payload;
     },
     setCurrentPage: (state, action) => {
@@ -28,10 +28,10 @@ const formationSlice = createSlice({
     },
     setCurrentEtablissement: (state, action) => {
       state.currentEtablissement = action.payload;
-      console.log(state.currentEtablissement);
+      // console.log(state.currentEtablissement);
     },
     setFilteredEtablissements: (state, action) => {
-      console.log("Données filtrées des établissements : ", action.payload);
+      // console.log("Données filtrées des établissements : ", action.payload);
       state.filteredEtablissements = action.payload;
     },
     addContent: (state, action) => {
@@ -55,7 +55,7 @@ const formationSlice = createSlice({
       }
     },
     setFilteredFormations: (state, action) => {
-      console.log("Données filtrées des formations : ", action.payload);
+      // console.log("Données filtrées des formations : ", action.payload);
       state.filteredFormations = action.payload;
     },
     moveContent: (state, action) => {
@@ -127,7 +127,7 @@ const formationSlice = createSlice({
       const formation = action.payload;
       const selectedFormations = [...state.selectedFormations];
 
-      console.log(selectedFormations);
+      // console.log(selectedFormations);
 
       // Si la formation est déjà sélectionnée, la retirer
       const formationIndex = selectedFormations.findIndex(f => f.id === formation.id);
@@ -141,8 +141,8 @@ const formationSlice = createSlice({
       state.selectedFormations = selectedFormations;
 
       // Filtrer les établissements en fonction des formations sélectionnées
-      console.log(selectedFormations);
-      console.log(state.etablissement)
+      // console.log(selectedFormations);
+      // console.log(state.etablissement)
       if (selectedFormations.length === 0) {
         state.filteredEtablissements = state.etablissement;  // Si aucune formation sélectionnée, vider la liste
       } else {
@@ -161,10 +161,10 @@ const formationSlice = createSlice({
     })
     .addCase(loadEtablissement.fulfilled, (state, action) => {
       const etablissements = action.payload;
-      console.log(etablissements)
+      // console.log(etablissements)
       state.etablissement = etablissements;
       state.filteredEtablissements = etablissements;
-      console.log("load etablissement", state.etablissement);
+      // console.log("load etablissement", state.etablissement);
       state.loading = false;
     })
     .addCase(loadEtablissement.rejected, (state, action) => {
@@ -174,11 +174,14 @@ const formationSlice = createSlice({
       state.loading = true;
     })
     .addCase(loadFormation.fulfilled, (state, action) => {
-      const formations = action.payload;
-      console.log(formations)
-      state.formations = formations;
-      state.filteredFormations = formations;
-      console.log("load formation", state.filteredFormations);
+      const separedFormations = action.payload;
+  
+      // console.log("Contenu de action.payload :", separedFormations);
+  
+      const mergedFormations = [...(separedFormations.formationsPro || []), ...(separedFormations.formationsTechno || [])];
+      // console.log("Les formations fusionnées :", mergedFormations);
+  
+      state.formations = mergedFormations;
       state.loading = false;
     })
     .addCase(loadFormation.rejected, (state, action) => {

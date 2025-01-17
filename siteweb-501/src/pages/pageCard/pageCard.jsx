@@ -12,7 +12,7 @@ function PageCard({filiere}) {
   const navigate = useNavigate();
 
   const currentPage = useSelector(selectCurrentPage);
-  console.log(currentPage);
+  // console.log(currentPage);
   const navigateTo = () => {
       navigate(-1);
   }

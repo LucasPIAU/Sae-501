@@ -34,7 +34,7 @@ const FilterCarte = () => {
       est.nom.toLowerCase().includes(city.toLowerCase())
     );
 
-    console.log('Établissements correspondant critère name:', nameMatchingEstablishments);
+    // console.log('Établissements correspondant critère name:', nameMatchingEstablishments);
 
     // Filtrer par distance (établissements dans le rayon spécifié)
     const distanceMatchingEstablishments = allEtablissements.filter(est => {
@@ -43,14 +43,14 @@ const FilterCarte = () => {
       return distance <= range;
     });
 
-    console.log('Établissements correspondant critère localisation:', distanceMatchingEstablishments);
+    // console.log('Établissements correspondant critère localisation:', distanceMatchingEstablishments);
 
     // Trouver les éléments présents dans les deux listes
     const matchingEstablishments = nameMatchingEstablishments.filter(est =>
       distanceMatchingEstablishments.some(distEst => distEst.nom === est.nom)
     );
 
-    console.log('Établissements correspondant aux deux critères:', matchingEstablishments);
+    // console.log('Établissements correspondant aux deux critères:', matchingEstablishments);
 
     dispatch(setFilteredEtablissements(matchingEstablishments));
   }, [city, range, allEtablissements, dispatch]);

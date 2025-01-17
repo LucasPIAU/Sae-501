@@ -5,7 +5,7 @@ import style from "./home.module.css";
 
 function Home() {
   const etablissements = useSelector(selectEtablissements);
-  console.log("Etablissements Home : ", etablissements.length);
+  // console.log("Etablissements Home : ", etablissements.length);
 
   return (
     <>

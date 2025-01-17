@@ -38,7 +38,7 @@ export const loadInfos = createAsyncThunk(
         }
   
         const data = await response.json(); // Conversion en JSON
-        console.log("Données chargées des lycées :", data);
+        // console.log("Données chargées des lycées :", data);
         return data; // Retourne les données du fichier JSON
       } catch (error) {
         console.error("Erreur lors du chargement des données :", error);
@@ -54,14 +54,14 @@ export const loadInfos = createAsyncThunk(
       'lycee/loadFormation',
       async (_, { rejectWithValue }) => {
         try {
-          const response = await fetch('http://localhost:3001/api/formation');
+          const response = await fetch('http://localhost:3001/api/formation/all');
           
           if (!response.ok) {
             throw new Error(`Erreur HTTP: ${response.status}`);
           }
     
           const data = await response.json(); // Conversion en JSON
-          console.log("Données chargées des formation :", data);
+          // console.log("Données chargées des formation :", data);
           return data; // Retourne les données du fichier JSON
         } catch (error) {
           console.error("Erreur lors du chargement des données :", error);

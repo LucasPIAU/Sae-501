@@ -45,11 +45,11 @@ const Lycees = () => {
   
     // Filtrage avec useMemo pour optimiser les calculs
     const filteredEtablissements = useMemo(() => {
-        console.log(allEtablissements);
+        // console.log(allEtablissements);
       let results = allEtablissements;
 
-      console.log(city)
-      console.log(filters)
+      // console.log(city)
+      // console.log(filters)
   
       // Filtrer par nom de ville
       if (city && city !== "") {
@@ -64,7 +64,7 @@ const Lycees = () => {
           filters.every((filter) => filter(obj));
         results = results.filter(combineFilters(filters));
       }
-      console.log(results)
+      // console.log(results)
       return results;
     }, [allEtablissements, city, range, filters, userCoordinates]);
   

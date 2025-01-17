@@ -6,6 +6,7 @@ import BreadCrumb from "./components/breadCrumb/breadCrumb.jsx";
 import './App.css';
 import Home from './pages/home/home.jsx';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ListeForma from "./pages/listeForma/listeForma.jsx";
 import ListeGT from './pages/listeG&T/listeG&T.jsx';
 import SpePremiere from "./pages/spePremiere/spePremiere"
 import Options from './pages/options/options';
@@ -49,6 +50,7 @@ function MainContent() {
   useEffect(() => {
     const labelMap = {
       "/": "Accueil",
+      "/listeForma": "Liste des formations",
       "/listeGT": "Liste Générale et Technologique",
       "/spePremiere": "Spécialités Première",
       "/optionGenerale": "Options Générales",
@@ -83,6 +85,7 @@ function MainContent() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/listeForma" element={<ListeForma />} />
         <Route path="/listeGT" element={<ListeGT />} />
         <Route path="/spePremiere" element={<SpePremiere />} />
         <Route path="/optionGenerale" element={<Options />} />

@@ -23,15 +23,15 @@ function Detail() {
 
   const formations = useSelector(selectFormations);
   const etablissement = useSelector(selectEtablissements);
-  console.log("itemId : ", itemId);
+  // console.log("itemId : ", itemId);
   const item = formations?.find(formation => formation._id === itemId);  // Trouver la formation par son id
-  console.log("item : ", item);
+  // console.log("item : ", item);
 
   // Fonction pour rendre le contenu en fonction du type
   const getContent = (content) => {
-    console.log("content : ", content)
+    // console.log("content : ", content)
     return content?.map((element, index) => {
-      console.log("element : ", element)
+      // console.log("element : ", element)
       switch (element.type) {
         case "title":
           return <Title key={index} title={element.data} />;

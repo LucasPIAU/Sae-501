@@ -13,7 +13,7 @@ const Map = () => {
 
   // Initialisation de la carte
 
-  console.log(etablissementsData);
+  // console.log(etablissementsData);
   useEffect(() => {
     if (mapContainer.current && !mapRef.current) {
       // Initialiser la carte si elle n'est pas déjà initialisée

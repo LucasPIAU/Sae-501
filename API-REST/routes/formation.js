@@ -17,25 +17,7 @@ const formationRoutes = express();
 
 // Routes GET
 
-formationRoutes.get('/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-        // On se connect à la base de donnée et on récupère la collection formations
-        const db = await connectToDB();
-        const collectionFormations = db.collection('Formations');
 
-        // On fait la requêtes pour récupérer la formation qui correspond à l'id passer en paramètre
-        if (id) {
-            const query = { '_id': new ObjectId(id) };
-            console.log(query);
-            const formation = await collectionFormations.findOne(query);
-            if (formation) res.status(200).json(formation);
-            else res.status(404).json({ message: "Aucune formation trouvé pour cet id" });
-        } else throw "L'id de la formations est obligatoire";
-    } catch (err) {
-        res.status(500).json({ message: `Une erreur interne est survenue dans la récupération d'une formation : ${err}` });
-    }
-});
 
 formationRoutes.get('/all', async (req, res) => {
     try {
@@ -43,25 +25,27 @@ formationRoutes.get('/all', async (req, res) => {
 
         const collectionFormationsPro = db.collection('formationsPro');
         const collectionFormationsTechno = db.collection('formationsTechno');
-        const collectionOptionsSeconde = db.collection('option-seconde');
-        const collectionOptionsGenerale = db.collection('option-generale');
+
+        // const collectionOptionsSeconde = db.collection('option-seconde');
+        // const collectionOptionsGenerale = db.collection('option-generale');
 
         const formationsPro = await collectionFormationsPro.find().toArray();
         const formationsTechno = await collectionFormationsTechno.find().toArray();
-        const optionsSeconde = await collectionOptionsSeconde.find().toArray();
-        const optionsGenerale = await collectionOptionsGenerale.find().toArray();
+
+        // const optionsSeconde = await collectionOptionsSeconde.find().toArray();
+        // const optionsGenerale = await collectionOptionsGenerale.find().toArray();
 
         if (
             formationsPro.length > 0 ||
-            formationsTechno.length > 0 ||
-            optionsSeconde.length > 0 ||
-            optionsGenerale.length > 0
+            formationsTechno.length > 0
+            // optionsSeconde.length > 0 ||
+            // optionsGenerale.length > 0
         ) {
             res.status(200).json({
                 formationsPro,
                 formationsTechno,
-                optionsSeconde,
-                optionsGenerale
+                // optionsSeconde,
+                // optionsGenerale
             });
         } else {
             res.status(404).json({ message: "Aucune formation trouvée dans les collections" });
@@ -132,6 +116,26 @@ formationRoutes.get('/opt/generale', async (req, res) => {
 
     } catch (err) {
         res.status(500).json({ message: `Une erreur interne est survenue dans la récupération des formations : ${err}` });
+    }
+});
+
+formationRoutes.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        // On se connect à la base de donnée et on récupère la collection formations
+        const db = await connectToDB();
+        const collectionFormations = db.collection('Formations');
+
+        // On fait la requêtes pour récupérer la formation qui correspond à l'id passer en paramètre
+        if (id) {
+            const query = { '_id': new ObjectId(id) };
+            // console.log(query);
+            const formation = await collectionFormations.findOne(query);
+            if (formation) res.status(200).json(formation);
+            else res.status(404).json({ message: "Aucune formation trouvé pour cet id" });
+        } else throw "L'id de la formations est obligatoire";
+    } catch (err) {
+        res.status(500).json({ message: `Une erreur interne est survenue dans la récupération d'une formation : ${err}` });
     }
 });
 

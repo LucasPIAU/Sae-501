@@ -63,6 +63,7 @@ function AdminSpace() {
   };
 
   const getContent = (content) => {
+    console.log(content);
     if (!content || content.length === 0) return null;
 
     return content.map((element, index) => (

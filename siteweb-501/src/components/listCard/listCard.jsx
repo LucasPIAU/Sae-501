@@ -4,8 +4,8 @@ import style from './listCard.module.css';
 
 function ListCard({ items, isInSearch = false, onDomainSelect }) {
 
-  console.log('Items:', items);
-  console.log('Filtered Items:', items);
+  // console.log('Items:', items);
+  // console.log('Filtered Items:', items);
 
   return (
     <div className={style.listCard}>
