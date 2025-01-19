@@ -52,7 +52,7 @@ function ListeGT() {
 
   return (
     <>
-      <FilterForm onFilter={onFilter} onSetType={onSetType} page={"formation"}/>
+      <FilterForm onFilter={onFilter} type={"generale"} page={"formation"}/>
       <div className={style.AppA}>
         <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft} /></button>
         <div className={style.containerMapFormation}>

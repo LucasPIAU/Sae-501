@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { moveContent, editContent, deleteContent, addContent } from '../../store/formation/formationSlice';
-import { selectFormations } from '../../store/formation/formationSelector.js';
+import { selectEtablissements, selectFormations } from '../../store/formation/formationSelector.js';
 import style from "./AdminSpace.module.css";
 import Map from "../../components/map";
 import Title from '../../components/Title/Title';
@@ -21,7 +21,7 @@ function AdminSpace() {
 
   const [showPopup, setShowPopup] = useState(false);
   const [newElementType, setNewElementType] = useState('');
-
+  const allEtablissements = useSelector(selectEtablissements);
   const location = useLocation();
   const { itemId } = location.state || {}; // Récupérer l'id depuis les paramètres de la route
   const navigate = useNavigate();
@@ -107,7 +107,7 @@ function AdminSpace() {
                 </div>
               </div>
               <div className={style.containerContent}>
-                <Map />
+                <Map dataEtablissement={allEtablissements} />
                 <div className={style.containerListCard}>
                   <ListCard items={formations} type="etablissement" />
                 </div>

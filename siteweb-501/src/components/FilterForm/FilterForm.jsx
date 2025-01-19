@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 import style from './FilterForm.module.css';
 
-const FilterForm = ({ onFilter, onSetType, onCityChange, onRangeChange, page }) => {
+const FilterForm = ({ onFilter, type, onCityChange, onRangeChange, page }) => {
   const [motCle, setMotCle] = useState('');
-  const [type, setType] = useState('generale');
+  // const [type, setType] = useState('generale');
   const [city, setCity] = useState('');
   const [range, setRange] = useState(50);
-
-  const handleTypeChange = (event) => {
-    setType(event.target.value);
-    onSetType(event.target.value);
-  };
 
   const handleCityChange = (event) => {
     setCity(event.target.value);
@@ -25,10 +20,6 @@ const FilterForm = ({ onFilter, onSetType, onCityChange, onRangeChange, page }) 
   const handleSubmit = (event) => {
 
     // console.log('page : ' + page)
-
-    if(page === 'etablissement'){
-      setType('etablissement');
-    }
 
     event.preventDefault();
     const filters = [];
@@ -47,18 +38,16 @@ const FilterForm = ({ onFilter, onSetType, onCityChange, onRangeChange, page }) 
     // console.log('type : ' + type)
     // console.log('filter : ' + filters)
     onFilter(filters);
-    onSetType(type);
     page === "etablissement" && onCityChange(city)
     page === "etablissement" && onRangeChange(range)
   };
 
   const handleReset = () => {
     setMotCle('');
-    setType('generale');
     setCity('');
     setRange(50);
-    onCityChange('');
-    onRangeChange(50);
+    page === "etablissement" && onCityChange("")
+    page === "etablissement" && onRangeChange(50)
     onFilter([]);
   };
 

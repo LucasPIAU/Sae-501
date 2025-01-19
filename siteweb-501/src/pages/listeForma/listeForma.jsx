@@ -37,20 +37,12 @@ function ListeForma() {
     },
   ]
 
-  const onFilter = (newFilters) => {
-    setFilters(newFilters);
-  }
-
-  const onSetType = (newType) => {
-    setType(newType);
-  }
-
   // console.log('newType : ' + type);
   // console.log("filters : " + filters)
 
   return (
     <>
-      <FilterForm onFilter={onFilter} onSetType={onSetType} page={"formation"}/>
+      {/* <FilterForm onFilter={onFilter} onSetType={onSetType} page={"formation"}/> */}
       <div className={style.AppA}>
         <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft} /></button>
         <div className={style.containerMapFormation}>

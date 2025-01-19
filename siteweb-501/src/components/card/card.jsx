@@ -34,7 +34,7 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
     }
   };
 
-  console.log("item dans card : ", item)
+  // console.log("item dans card : ", item)
 
   return (
     <div
