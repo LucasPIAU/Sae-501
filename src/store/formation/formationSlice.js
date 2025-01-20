@@ -36,7 +36,9 @@ const formationSlice = createSlice({
     },
     addContent: (state, action) => {
       const { formationId, newElement } = action.payload;
-    
+
+      console.log("formationId : ",formationId);
+      console.log("newElement : ", newElement);
       const formationIndex = state.formations.findIndex(f => f.id === formationId);
     
       if (formationIndex === -1) {

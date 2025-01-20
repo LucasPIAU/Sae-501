@@ -30,15 +30,17 @@
 
     useEffect(()=>{
       setItem(formations?.find(formation => formation._id === itemId)) // Trouver la formation par son id
-      console.log("etablissement: ", etablissement)
-      console.log("item : ", item)
+      // console.log("etablissement: ", etablissement)
+      // console.log("itemId: ", itemId);
+      // console.log("formations : ", formations);
+      // console.log("item : ", item)
       if(item){
-        console.log("je passe dans item")
+        // console.log("je passe dans item")
       setFiltredEtablissement(etablissement.filter(etab => 
         item.etablissement.includes(etab._id)
       ))
     }
-    console.log(filtredEtablissement)
+    // console.log("filtredEtablissement : ", filtredEtablissement);
     }, [itemId, formations, etablissement, item])
 
     console.log("item detail : ", item);
@@ -89,12 +91,14 @@
                   {getContent(item.content)}
                 </div>
               </div>
+              { filtredEtablissement && 
               <div className={style.containerContent}>
-                <Map dataEtablissement={filtredEtablissement  }/>
+                <Map dataEtablissement={filtredEtablissement}/>
                 <div className={style.containerListCard}>
                   <ListCard items={filtredEtablissement} />
                 </div>
               </div>
+              }
             </div>
           </>
         ) : (

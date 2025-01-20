@@ -5,7 +5,7 @@ const FilterForm = ({ onFilter, type, onCityChange, onRangeChange, page }) => {
   const [motCle, setMotCle] = useState('');
   // const [type, setType] = useState('generale');
   const [city, setCity] = useState('');
-  const [range, setRange] = useState(50);
+  const [range, setRange] = useState(20);
 
   const handleCityChange = (event) => {
     setCity(event.target.value);
@@ -21,7 +21,7 @@ const FilterForm = ({ onFilter, type, onCityChange, onRangeChange, page }) => {
 
     // console.log('page : ' + page)
 
-    event.preventDefault();
+    event.preventDefault(); 
     const filters = [];
 
     if (motCle) {

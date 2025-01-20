@@ -21,8 +21,6 @@ function SpePremiere() {
   // Filtrer les formations "générales"
   const updatedFormations = formations.filter(formation => formation.filiere === "generale");
 
-
-
   useEffect(()=>{
     setFiltredEtablissement(etablissements)
   },[etablissements])
@@ -58,7 +56,7 @@ function SpePremiere() {
 
     const filteredEtablissements = etablissements.filter(etablissement =>
       updatedFormations.some(formation =>
-        formation.etablissement.includes(etablissement.name)
+        formation.etablissement.includes(etablissement._id)
       )
     );
 

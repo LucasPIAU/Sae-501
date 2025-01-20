@@ -37,6 +37,10 @@
     gap: 1rem;
   }
 
+  .containerContent button {
+    background-color: #B059B1;
+  }
+
   .containerDetail {
     display: flex;
   }
@@ -98,6 +102,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    background-color: #B059B1;
   }
   
   .editModal button:hover {
