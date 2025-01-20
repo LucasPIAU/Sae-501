@@ -19,6 +19,7 @@ import PageCard from './pages/pageCard/pageCard.jsx';
 import { useDispatch } from 'react-redux';
 import { loadEtablissement, loadFormation, loadInfos} from './store/formation/formationAsyncAction.js';
 import { selectEtablissements } from "./store/formation/formationSelector.js";
+import Connexion from "./pages/AdminSpace/Connexion.jsx";
 
 export const BreadcrumbContext = createContext();
 
@@ -60,6 +61,7 @@ function MainContent() {
       "/detail": "Détail",
       "/pageCard": "Page Card",
       "/adminspace": "Espace Administrateur",
+      "/connexion" : "Connexion Administrateur",
     };
 
     setBreadcrumbs((prev) => {
@@ -95,6 +97,7 @@ function MainContent() {
         <Route path="/detail" element={<Detail />} />
         <Route path="/pageCard" element={<PageCard />} />
         <Route path="/adminspace" element={<AdminSpace />} />
+        <Route path="/connexion" element={<Connexion />} />
       </Routes>
     </>
   );
