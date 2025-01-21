@@ -40,6 +40,9 @@
                 "Laboratoires d’analyses et de contrôle",
                 "Ateliers de production (industries chimiques, pharmaceutiques, agroalimentaires, etc.)"
             ]
+        },
+        "content": {
+            
         }
     },
     {
@@ -64,6 +67,9 @@
                 "Hôpitaux",
                 "Laboratoires d'analyses"
             ]
+        },
+        "content": {
+            
         }
     }
 ]
