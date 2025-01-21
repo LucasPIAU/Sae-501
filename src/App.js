@@ -20,6 +20,7 @@ import { useDispatch } from 'react-redux';
 import { loadEtablissement, loadFormation, loadInfos} from './store/formation/formationAsyncAction.js';
 import { selectEtablissements } from "./store/formation/formationSelector.js";
 import Connexion from "./pages/AdminSpace/Connexion.jsx";
+import AdminDashboard from "./pages/AdminSpace/AdminDashboard.jsx";
 
 export const BreadcrumbContext = createContext();
 
@@ -29,12 +30,21 @@ function App({ item }) {
   return (
     <BreadcrumbContext.Provider value={{ breadcrumbs, setBreadcrumbs }}>
       <Router>
-        <Header />
+        <ConditionalHeader />
         <BreadCrumb />
         <MainContent />
       </Router>
     </BreadcrumbContext.Provider>
   );
+}
+
+function ConditionalHeader() {
+  const location = useLocation();
+
+  const routes = ['/connexion', '/adminDashboard']; 
+  const isInRoutes = routes.includes(location.pathname);
+
+  return isInRoutes ? null : <Header />;
 }
 
 function MainContent() {
@@ -98,6 +108,7 @@ function MainContent() {
         <Route path="/pageCard" element={<PageCard />} />
         <Route path="/adminspace" element={<AdminSpace />} />
         <Route path="/connexion" element={<Connexion />} />
+        <Route path="/adminDashboard" element={<AdminDashboard />} />
       </Routes>
     </>
   );
