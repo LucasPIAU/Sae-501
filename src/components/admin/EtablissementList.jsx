@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
 
-const EtablissementList = ({ etablissements, addEtablissement, updateEtablissement }) => {
+const EtablissementList = ({ etablissements}) => {
   const [newEtablissement, setNewEtablissement] = useState('');
   const [selectedEtablissement, setSelectedEtablissement] = useState(null);
 
   const handleAddEtablissement = () => {
-    if (newEtablissement) {
-      addEtablissement({ id: Date.now(), name: newEtablissement });
-      setNewEtablissement('');
-    }
+
   };
 
-  const handleUpdateEtablissement = () => {
-    if (selectedEtablissement && selectedEtablissement.name) {
-      updateEtablissement(selectedEtablissement);
-      setSelectedEtablissement(null);
-    }
+  const handleUpdateEtablissement = (id) => {
+
   };
 
   return (
@@ -24,28 +18,12 @@ const EtablissementList = ({ etablissements, addEtablissement, updateEtablisseme
         {etablissements.map((etablissement) => (
           <li key={etablissement.id}>
             {etablissement.name}
-            <button onClick={() => setSelectedEtablissement(etablissement)}>Modifier</button>
+            <button onClick={() => handleUpdateEtablissement(etablissement.id)}>Modifier</button>
           </li>
         ))}
       </ul>
-      <input
-        type="text"
-        value={newEtablissement}
-        onChange={(e) => setNewEtablissement(e.target.value)}
-        placeholder="Ajouter un établissement"
-      />
       <button onClick={handleAddEtablissement}>Ajouter</button>
       
-      {selectedEtablissement && (
-        <div>
-          <input
-            type="text"
-            value={selectedEtablissement.name}
-            onChange={(e) => setSelectedEtablissement({ ...selectedEtablissement, name: e.target.value })}
-          />
-          <button onClick={handleUpdateEtablissement}>Mettre à jour</button>
-        </div>
-      )}
     </div>
   );
 };

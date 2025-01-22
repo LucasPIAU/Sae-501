@@ -72,6 +72,7 @@ function MainContent() {
       "/pageCard": "Page Card",
       "/adminspace": "Espace Administrateur",
       "/connexion" : "Connexion Administrateur",
+      "/adminDashboard" : "Panel Administrateur",
     };
 
     setBreadcrumbs((prev) => {
