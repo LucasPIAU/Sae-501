@@ -24,9 +24,7 @@
                 "Formation continue"
             ]
         },
-        "content": {
-
-        }
+        "content": []  
     },
     {
         "name": "BAC PRO MV maintenance des véhicules",
@@ -48,9 +46,7 @@
                 "Motocycles"
             ]
         },
-        "content": {
-            
-        }
+        "content": []  
         
     },
     {
@@ -65,8 +61,6 @@
                 "Formation continue"
             ]
         },
-        "content": {
-            
-        }
+        "content": []  
     }
 ]

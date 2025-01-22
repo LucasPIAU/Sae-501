@@ -41,9 +41,7 @@
                 "Ateliers de production (industries chimiques, pharmaceutiques, agroalimentaires, etc.)"
             ]
         },
-        "content": {
-            
-        }
+        "content": []  
     },
     {
         "name": "BAC ST2S Sciences et Technologies de la Santé et du Social",
@@ -68,8 +66,6 @@
                 "Laboratoires d'analyses"
             ]
         },
-        "content": {
-            
-        }
+        "content": []  
     }
 ]

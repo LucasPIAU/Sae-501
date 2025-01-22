@@ -4,35 +4,27 @@
         "type": "opt-seconde",
         "description": "Découvrir les protocoles expérimentaux, l’utilisation de technologies de mesure et d’identification ainsi que les procédés bio-industriels liés aux biotechnologies. On y aborde également les questions de qualité et de sécurité biologiques.",
         "etablissements":[{"$oid": "5fdb8c9b8b2d4d1f8c1f16e2"}],
-        "content": {
-            
-        }
+        "content": []         
     },
     {
         "name": "Santé et Social",
         "type": "opt-seconde",
         "description": "Découvrir les liens entre la santé et le social, au travers des principales problématiques de société, liées aux âges de la vie, au handicap, à la santé publique, à la cohésion sociale à l’échelle d’un territoire.",
         "etablissements":[{"$oid": "5fdb8c9b8b2d4d1f8c1f16e2"}],
-        "content": {
-            
-        }
+        "content": []  
     },
     {
         "name": "Exploration Scientifique et Technologique (EST)",
         "type": "opt-seconde",
         "description": "Analyser comment des produits ou des systèmes complexes répondent à des besoins sociétaux, en lien avec le développement durable.",
         "etablissements":[{"$oid": "5fdb8c9b8b2d4d1f8c1f16e2"}],
-        "content": {
-            
-        }
+        "content": []  
     },
     {
         "name": "SNAPI - Sciences du Numérique Appliquées à la Programmation Informatique",
         "type": "opt-seconde",
         "description": "Découvrir l’informatique à travers la conception de programmes de graphismes et de jeux et vivre une expérience d’équipe de développement de logiciels.",
         "etablissements":[{"$oid": "5fdb8c9b8b2d4d1f8c1f16e2"}],
-        "content": {
-            
-        }
+        "content": []  
     }
 ]
