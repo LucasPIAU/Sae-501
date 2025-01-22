@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import styles from './List.module.css';
 
 const FormationList = ({ formations }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleAddFormation = () => {
-
   };
 
   const handleUpdateFormation = (id) => {
@@ -13,18 +13,23 @@ const FormationList = ({ formations }) => {
   };
 
   return (
-    <div>
-      <ul>
+    <div className={styles.containerList}>
+      <ul className={styles.list}>
         {formations.map((formation) => (
-          <li key={formation.id}>
+          <li key={formation._id} className={styles.listItem}>
             {formation.name}
-            <button onClick={()=> handleUpdateFormation(formation.id)}>Modifier</button>
+            <button
+              className={styles.buttonList}
+              onClick={() => handleUpdateFormation(formation._id)}
+            >
+              Modifier
+            </button>
           </li>
         ))}
       </ul>
-      <button onClick={handleAddFormation}>Ajouter</button>
-      
-      
+      <button className={styles.addButtonList} onClick={handleAddFormation}>
+        Ajouter
+      </button>
     </div>
   );
 };

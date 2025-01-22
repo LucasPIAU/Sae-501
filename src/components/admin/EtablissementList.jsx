@@ -1,29 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import styles from "./List.module.css";
 
-const EtablissementList = ({ etablissements}) => {
-  const [newEtablissement, setNewEtablissement] = useState('');
+const EtablissementList = ({ etablissements }) => {
+  const [newEtablissement, setNewEtablissement] = useState("");
   const [selectedEtablissement, setSelectedEtablissement] = useState(null);
 
-  const handleAddEtablissement = () => {
+  const handleAddEtablissement = () => {};
 
-  };
-
-  const handleUpdateEtablissement = (id) => {
-
-  };
+  const handleUpdateEtablissement = (id) => {};
 
   return (
-    <div>
-      <ul>
+    <div className={styles.containerList}>
+      <ul className={styles.list}>
         {etablissements.map((etablissement) => (
-          <li key={etablissement.id}>
+          <li key={etablissement._id} className={styles.listItem}>
             {etablissement.name}
-            <button onClick={() => handleUpdateEtablissement(etablissement.id)}>Modifier</button>
+            <button
+              className={styles.buttonList}
+              onClick={() => handleUpdateEtablissement(etablissement._id)}
+            >
+              Modifier
+            </button>
           </li>
         ))}
       </ul>
-      <button onClick={handleAddEtablissement}>Ajouter</button>
-      
+      <button className={styles.addButtonList} onClick={handleAddEtablissement}>
+        Ajouter
+      </button>
     </div>
   );
 };

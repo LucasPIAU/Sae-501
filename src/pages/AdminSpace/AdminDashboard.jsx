@@ -7,33 +7,42 @@ import {
   selectFormations,
 } from "../../store/formation/formationSelector";
 
+import {selectIsConnected} from "../../store/connexion/connexionSelector.js";
+import styles from './AdminDashboard.module.css';
+import { useNavigate } from "react-router-dom/dist";
+
 const AdminDashboard = () => {
-  const dispatch = useDispatch();
-  const [display, setDisplay] = useState("");
+  const [display, setDisplay] = useState("formation");
 
   const formations = useSelector(selectFormations);
   const etablissements = useSelector(selectEtablissements);
+  const isConnected = useSelector(selectIsConnected);
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if (!isConnected) {
+      navigate('/connexion');
+    }
+  },[isConnected, navigate])
 
   return (
-    <div>
-      <h1>Panel d'administration</h1>
-      <nav>
+    <div className={styles.containerDashboard}>
+      <h1 className={styles.titleDashboard}>Panel d'administration</h1>
+      <nav className={styles.navDashboard}>
         <button onClick={() => setDisplay("formation")}>Formations</button>
-        <button onClick={() => setDisplay("etablissement")}>
-          Etablissements
-        </button>
+        <button onClick={() => setDisplay("etablissement")}>Etablissements</button>
       </nav>
       {display === "formation" && (
-        <div>
-          <h2>Formations</h2>
+        <section className={styles.sectionDashboard}>
+          <h2 className={styles.h2Dashboard}>Formations</h2>
           <FormationList formations={formations} />
-        </div>
+        </section>
       )}
       {display === "etablissement" && (
-        <div>
-          <h2>Etablissements</h2>
+        <section className={styles.sectionDashboard}>
+          <h2 className={styles.h2Dashboard}>Etablissements</h2>
           <EtablissementList etablissements={etablissements} />
-        </div>
+        </section>
       )}
     </div>
   );
