@@ -35,10 +35,31 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
   };
 
   // console.log("item dans card : ", item)
+  const filiere = item.filiere;
+  console.log("filiere : ", filiere)
+
+  const getBackgroundType = (filiere) => {
+    switch (filiere) {
+      case "Professionel":
+        return style.proBg;
+      case "techno":
+        return style.technoBg;
+      case "generale":
+        return style.generalBg;
+      case "general":
+        return style.generalBg;
+      case "option":
+        return style.optionBg;
+      case "generalTechnoOption":
+        return style.all3Bg;
+      default:
+        return style.proBg;
+    }
+  }
 
   return (
     <div
-      className={`${style.card} ${isChecked ? style.greenBg : style.pinkBg}`}
+      className={`${style.card} ${isChecked ? style.greenBg : getBackgroundType(item.filiere)}`}
       onClick={handleClick} // Détecte le clic global
     >
       <div className={style.containerTitleMotClef}>

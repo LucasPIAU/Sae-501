@@ -13,7 +13,7 @@ const MainHeader = () => {
         <>
             <header className={style.AppHeader}>
                 <div className={style.divTitle}>
-                    <h1>LES LYCEES PUBLICS MAYENNAIS VOUS FORMENT !</h1>
+                    <h1>Les lycées publics mayennais vous forment !</h1>
                 </div>
 
                 {/* <div className={style.mainButton}>Trouve ta formation grâce au chatbot</div> */}

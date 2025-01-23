@@ -29,11 +29,13 @@ function ListeForma() {
   const sectionItem = [
     {
       name: "Formations Générales et Technologiques",
-      link: "/listeGT"
+      link: "/listeGT",
+      filiere: "generalTechnoOption"
     },
     {
       name: "Formations Professionnelles",
-      link: "/pro"
+      link: "/pro",
+      filiere: "Professionel"
     },
   ]
 

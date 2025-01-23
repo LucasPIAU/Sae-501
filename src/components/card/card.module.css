@@ -21,6 +21,25 @@
   background-image: url("../../assets/images/bgCard.svg");
 }
 
+.technoBg  {
+  background-image: url("../../assets/images/bgCardTechno.svg");
+}
+
+.proBg {
+  background-image: url("../../assets/images/bgCardPro.svg");
+}
+
+.optionBg {
+  background-image: url("../../assets/images/bgCardOption.svg");
+}
+
+.generalBg {
+  background-image: url("../../assets/images/bgCardGeneral.svg");
+}
+
+.all3Bg {
+  background-image: url("../../assets/images/bgCardAll3.svg");
+}
   
 .card h3 {
   margin: 0;
