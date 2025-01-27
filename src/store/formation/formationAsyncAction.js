@@ -31,7 +31,7 @@ export const loadInfos = createAsyncThunk(
     'lycee/loadLycee',
     async (_, { rejectWithValue }) => {
       try {
-        const response = await fetch('http://localhost:3001/api/lycee');
+        const response = await fetch('/api/lycee');
         
         if (!response.ok) {
           throw new Error(`Erreur HTTP: ${response.status}`);
@@ -54,7 +54,7 @@ export const loadInfos = createAsyncThunk(
       'lycee/loadFormation',
       async (_, { rejectWithValue }) => {
         try {
-          const response = await fetch('http://localhost:3001/api/formation/all');
+          const response = await fetch('/api/formation/all');
           
           if (!response.ok) {
             throw new Error(`Erreur HTTP: ${response.status}`);
