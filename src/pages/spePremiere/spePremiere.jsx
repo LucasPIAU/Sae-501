@@ -19,7 +19,7 @@ function SpePremiere() {
   console.log(formations);
 
   // Filtrer les formations "générales"
-  const updatedFormations = formations.filter(formation => formation.filiere === "generale");
+  const updatedFormations = formations.filter(formation => formation.type === "generale");
 
   console.log("formations : ", formations)
 
@@ -54,6 +54,7 @@ function SpePremiere() {
     console.log("Formations sélectionnées :", updatedFormations);
 
     // Filtrer les établissements en fonction des formations sélectionnées
+    console.log("etablissements : ", etablissements)
 
 
     const filteredEtablissements = etablissements.filter(etablissement =>

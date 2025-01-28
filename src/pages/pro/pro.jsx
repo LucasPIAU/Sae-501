@@ -27,11 +27,11 @@ function Pro() {
             case 'motClef':
               return obj.name.toLowerCase().includes(filter.value);
             case 'generale':
-              return filter.value.includes(obj.filiere);
+              return filter.value.includes(obj.type);
             case 'pro':
-              return obj.filiere === filter.value;
+              return obj.type === filter.value;
             case 'etablissement':
-              return obj.filiere === filter.value;
+              return obj.type === filter.value;
             default:
               return true; // Aucun filtre correspondant
           }
@@ -42,14 +42,14 @@ function Pro() {
     }, [formations, filters]);
   const [selectedDomain, setSelectedDomain] = useState(null);
 
-  console.log("filtredFormation : ", filtredFormation);
+  // console.log("filtredFormation : ", filtredFormation);
 
   // Liste des domaines (catégories)
   const domains = [
     ...new Set(
       formations
-        .filter((formation) => formation.filiere === "Professionel")
-        .map((formation) => formation.categorie)
+        .filter((formation) => formation.type === "pro")
+        .map((formation) => formation.data.categorie)
     )
   ].map((category) => ({ name: category })); // Transforme en objets avec une clé `name`
 
@@ -57,10 +57,13 @@ function Pro() {
   const filteredFormations = selectedDomain
     ? formations.filter(
         (formation) =>
-          formation.filiere === "Professionel" &&
-          formation.categorie === selectedDomain
+          formation.type === "pro" &&
+          formation.data.categorie === selectedDomain
       )
-    : formations.filter((formation) => formation.filiere === "Professionel");
+    : formations.filter((formation) => formation.type === "pro");
+
+    console.log("domain : ", selectedDomain);
+    console.log("filtredFormation : ", filtredFormation);
 
   const navigateTo = () => {
     if(selectedDomain){
