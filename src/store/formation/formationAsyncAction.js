@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-// import axios from 'axios';
+import axios from 'axios';
 // import { URL_API_FILMS } from '../../utils/config';
 
 // Actions asynchrones avec gestion des erreurs POUR LES DATA LOCAL
@@ -31,7 +31,7 @@ export const loadInfos = createAsyncThunk(
     'lycee/loadLycee',
     async (_, { rejectWithValue }) => {
       try {
-        const response = await fetch('http://localhost:3001/api/lycee');
+        const response = await fetch('/api/lycee');
         
         if (!response.ok) {
           throw new Error(`Erreur HTTP: ${response.status}`);
@@ -54,7 +54,7 @@ export const loadInfos = createAsyncThunk(
       'lycee/loadFormation',
       async (_, { rejectWithValue }) => {
         try {
-          const response = await fetch('http://localhost:3001/api/formation/all');
+          const response = await fetch('/api/formation/all');
           
           if (!response.ok) {
             throw new Error(`Erreur HTTP: ${response.status}`);
@@ -72,51 +72,63 @@ export const loadInfos = createAsyncThunk(
       }
     );
 
+export const editContent = createAsyncThunk(
+  'formation/editContent',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.put("http://localhost:3001/api/formation/editContent", data); // revoir URL pour avoir une variable et non en entier
+      return response.data;
+    } catch (error) {
+      return rejectWithValue("erreur lors de la modification du contenu");
+    }
+  }
+);
 
 
+export const addFormation = createAsyncThunk(
+  'formation/addFormation',
+  async (data, { rejectWithValue }) => {
+    try {
+      const newFormation = await axios.post("http://localhost:3001/api/formation/addFormation", data);
+      return newFormation.data;
+    } catch (error) {
+      return rejectWithValue("erreur lors de la création de la formation");
+    }
+  }
+);
 
-// export const addFilm = createAsyncThunk(
-//   'film/addFilm',
-//   async (data, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.post(URL_API_FILMS, data);
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue("Le titre du film existe déjà.");
-//     }
-//   }
-// );
+export const deleteFormation = createAsyncThunk(
+  'formation/deleteFormation',
+  async (id, { rejectWithValue }) => {
+    try {
+      await axios.post(`http://localhost:3001/api/formation/deleteFormation/${id}`);
+      return id;
+    } catch (error) {
+      return rejectWithValue("erreur lors de la création de la formation");
+    }
+  }
+);
 
-// export const deleteFilm = createAsyncThunk(
-//   'film/deleteFilm',
-//   async (id, { rejectWithValue }) => {
-//     try {
-//       await axios.delete(`${URL_API_FILMS}/${id}`);
-//       return id;
-//     } catch (error) {
-//       return rejectWithValue("Le film à supprimer n'existe plus.");
-//     }
-//   }
-// );
+export const addEtablissement = createAsyncThunk(
+  'etablissement/addEtablissement',
+  async (data, { rejectWithValue }) => {
+    try {
+      const newFormation = await axios.post("http://localhost:3001/api/etablissement/addEtablissement", data);
+      return newFormation.data;
+    } catch (error) {
+      return rejectWithValue("erreur lors de la création de l'établissement");
+    }
+  }
+);
 
-// export const updateFilm = createAsyncThunk(
-//   'film/updateFilm',
-//   async ({ id, data }, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.put(`${URL_API_FILMS}/${id}`, data);
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue("Erreur de mise à jour du film.");
-//     }
-//   }
-// );
-
-// export const saveFilm = createAsyncThunk(
-//   'film/saveFilm', 
-//   async ({ filmData, id }, { dispatch }) => {
-//     if (id) {
-//       return dispatch(updateFilm({ id, data: filmData }));
-//     } else {
-//       return dispatch(addFilm(filmData));
-//     }
-//   });
+export const deleteEtablissement = createAsyncThunk(
+  'etablissement/deleteEtablissement',
+  async (id, { rejectWithValue }) => {
+    try {
+      await axios.post(`http://localhost:3001/api/etablissement/deleteEtablissement/${id}`);
+      return id;
+    } catch (error) {
+      return rejectWithValue("erreur lors de la suppression de l'établissement");
+    }
+  }
+);
