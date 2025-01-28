@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addFormationToFilter } from '../../store/formation/formationSlice';
 import { setCurrentPage } from '../../store/formation/formationSlice';
-
+      
 function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(item.isChecked || false);
