@@ -9,7 +9,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 function Techno() {
   const formations = useSelector(selectFormations);
-  const updatedFormations = formations.filter(formation => formation.filiere === "techno");
+  const updatedFormations = formations.filter(formation => formation.type === "techno");
   const navigate = useNavigate();
 
   const [selectedDomain, setSelectedDomain] = useState(null);

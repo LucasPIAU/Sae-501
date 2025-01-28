@@ -28,7 +28,7 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
   };
 
   const handleClick = () => {
-    if (onDomainSelect && item.name && !item.link && !item.filiere) {
+    if (onDomainSelect && item.name && !item.link && !item.type) {
       // Appeler onDomainSelect si l'élément est un domaine
       onDomainSelect(item);
     }
@@ -64,7 +64,7 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
           <a href={item.link} target="_blank" rel="noopener noreferrer">
             Voir plus
           </a>
-        ) : !item.link && item.filiere != "Professionel" && item.filiere != "techno" && item.filiere != "generale" && item.filiere != "option" ? (
+        ) : !item.link && item.type != "pro" && item.type != "techno" && item.type != "generale" && item.type != "opt-seconde" ? (
           // Si c'est un domaine (pas de lien), aucune action ici
           <button className={style.domainInfo}>
             voir les formations
@@ -73,7 +73,7 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
           <button onClick={navigateTo}>Voir plus</button>
         )}
       </div>
-      {item.filiere === 'generale' && !isInSearch && (
+      {item.type === 'generale' && !isInSearch && (
         <label className={style.checkboxContainer}>
           <input
             type="checkbox"

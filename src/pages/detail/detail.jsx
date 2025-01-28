@@ -33,7 +33,7 @@
       // console.log("itemId: ", itemId);
       // console.log("formations : ", formations);
       // console.log("item : ", item)
-      if(item){
+      if(item && item.etablissement ){
         // console.log("je passe dans item")
       setFiltredEtablissement(etablissement.filter(etab => 
         item.etablissement.includes(etab._id)
@@ -90,7 +90,7 @@
                   {getContent(item.content)}
                 </div>
               </div>
-              { filtredEtablissement && 
+              {filtredEtablissement && 
               <div className={style.containerContent}>
                 <Map dataEtablissement={filtredEtablissement}/>
                 <div className={style.containerListCard}>

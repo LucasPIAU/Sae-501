@@ -11,7 +11,7 @@ function Options() {
 
   const formations = useSelector(selectFormations);
 
-  const updatedFormations = formations.filter(formation => formation.filiere === "option");
+  const updatedFormations = formations.filter(formation => formation.type === "opt-seconde");
 
   const navigate = useNavigate();
 
