@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import L from 'leaflet';
-import { selectEtablissements } from '../store/formation/formationSelector';
+import { selectEtablissements } from '../../store/formation/formationSelector';
 import 'leaflet/dist/leaflet.css'; // Assurez-vous que le style CSS de Leaflet est inclus
+import style from './Map.module.css';
+
 
 const Map = ({dataEtablissement}) => {
   console.log("etablissements : ", dataEtablissement)
@@ -50,36 +52,42 @@ const Map = ({dataEtablissement}) => {
   // Ajouter le département de la Mayenne à la carte
   useEffect(() => {
     if (mapRef.current && departementData) {
-      const mayenne = departementData.features.find(department => department.properties.code === '53');  // Filtrer pour Mayenne
-
+      // Trouver le département de la Mayenne dans les données GeoJSON
+      const mayenne = departementData.features.find(department => department.properties.code === '53'); // Code INSEE pour la Mayenne
+  
       if (mayenne) {
         // Ajouter le contour du département de la Mayenne
-        L.geoJSON(mayenne, {
+        const mayenneLayer = L.geoJSON(mayenne, {
           style: {
-            color: 'blue',  // Choisir la couleur du contour
-            weight: 2,  // Largeur du contour
-            opacity: 0.6,  // Opacité
-            fillColor: 'lightblue',  // Couleur de remplissage
-            fillOpacity: 0.2,  // Opacité du remplissage
+            color: 'blue', // Couleur du contour
+            weight: 1.5, // Largeur du contour
+            opacity: 0.6, // Opacité
+            fillColor: 'transparent', // Pas de remplissage
+            fillOpacity: 0, // Pas de remplissage visible
           },
         }).addTo(mapRef.current);
-
-        // Centrer la carte sur le département de la Mayenne
-        const bounds = L.geoJSON(mayenne).getBounds();
-        mapRef.current.fitBounds(bounds);  // Ajuster la vue pour que la Mayenne soit visible
+  
+        // Calculer les limites (bounds) pour la Mayenne
+        const bounds = mayenneLayer.getBounds();
+  
+        // Centrer la carte et définir des limites strictes
+        mapRef.current.fitBounds(bounds); // Ajuster la vue pour la Mayenne
+        mapRef.current.setMaxBounds(bounds); // Limiter les mouvements de la carte à ces limites
+        mapRef.current.setMinZoom(8.5); // Définir un zoom minimum pour éviter de zoomer trop loin
       }
     }
   }, [departementData]);
+  
 
   // Ajouter un gestionnaire de zoom
   useEffect(() => {
     console.log(mapRef.current.getZoom())
     console.log(mapRef.current);
-    const zoomLevel = mapRef.current.getZoom();
+    var zoomLevel = mapRef.current.getZoom();
     if (mapRef.current) {
       mapRef.current.on('zoomend', () => {
-        
-
+        zoomLevel = mapRef.current.getZoom();
+        // console.log("zoomLevel : ", mapRef.current.getZoom());
         // Si on est proche (zoom élevé), afficher les établissements avec une icône personnalisée
         if (zoomLevel >= 12) {
           displayEtablissements(true); // Passer true pour appliquer l'icône personnalisée
@@ -90,7 +98,6 @@ const Map = ({dataEtablissement}) => {
         }
       });
     }
-
      // Si on est proche (zoom élevé), afficher les établissements avec une icône personnalisée
      if (zoomLevel >= 12) {
       displayEtablissements(true); // Passer true pour appliquer l'icône personnalisée
@@ -129,8 +136,10 @@ const Map = ({dataEtablissement}) => {
         // Ajouter le cercle à la carte
         const circle = L.circle([lat, lon], {
           color: 'blue',
+          opacity: 0.7,
+          width:0.5,
           fillColor: '#30a3e0',
-          fillOpacity: 0.4,
+          fillOpacity: 0.2,
           radius: radius,
         }).addTo(mapRef.current);
 
@@ -188,9 +197,8 @@ const Map = ({dataEtablissement}) => {
   return (
     <div
       ref={mapContainer}
+      className={style.containerMap}
       style={{
-        width: '600px',
-        height: '450px',
         background: '#FECFFF',
         borderRadius: '15px',
         boxShadow: '0px 0px 16px 3px rgba(0,0,0,0.15)',

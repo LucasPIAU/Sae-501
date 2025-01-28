@@ -30,3 +30,12 @@
   .backButton svg {
     margin: 10px 12px;
   }
+
+  .noDataResult {
+    display: flex;
+    justify-content: center;
+    height: 200px;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 600
+  }

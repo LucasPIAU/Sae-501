@@ -61,12 +61,6 @@ fieldset legend {
   width: 100%;
 }
 
-.oscour {
-  display: flex; 
-  gap: 1rem;
-  accent-color: black;
-}
-
 .filtreCarte {
   margin: 1rem;
   display: flex;

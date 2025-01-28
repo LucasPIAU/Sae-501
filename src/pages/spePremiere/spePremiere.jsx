@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import style from "./spePremiere.module.css";
-import Map from '../../components/map';
+import Map from "../../components/Map/map.jsx";
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -20,6 +20,8 @@ function SpePremiere() {
 
   // Filtrer les formations "générales"
   const updatedFormations = formations.filter(formation => formation.filiere === "generale");
+
+  console.log("formations : ", formations)
 
   useEffect(()=>{
     setFiltredEtablissement(etablissements)
@@ -60,11 +62,11 @@ function SpePremiere() {
       )
     );
 
-    console.log("Établissements filtrés :", filteredEtablissements);
-    console.log("lenght du log juste avant : ", filteredEtablissements.length)
-    console.log("etablissements : ", etablissements);
-    console.log("condition : ", filteredEtablissements.length == 0 ? etablissements : filteredEtablissements)
-
+    // console.log("Établissements filtrés :", filteredEtablissements);
+    // console.log("lenght du log juste avant : ", filteredEtablissements.length);
+    // console.log("etablissements : ", etablissements);
+    // console.log("condition : ", filteredEtablissements.length == 0 ? etablissements : filteredEtablissements);
+    
     setFiltredEtablissement(filteredEtablissements.length == 0 ? etablissements : filteredEtablissements);
 
     // setFiltredEtablissement(filteredEtablissements);
