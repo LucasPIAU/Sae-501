@@ -82,7 +82,7 @@
         {item ? (
           <>
           <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
-          <button className={style.backButton} onClick={navigateToAdmin}>Admin</button>
+          {/* <button className={style.backButton} onClick={navigateToAdmin}>Admin</button> */}
             <div className={style.containerDetail}>
               <div className={style.containerContentTitle}>
                 <h1 className={style.titleDetail}>{item.name}</h1>
