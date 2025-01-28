@@ -1,0 +1,81 @@
+/* Connexion.module.css */
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+.heading {
+    text-align: center;
+    font-size: 24px;
+}
+
+.error {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.formControl {
+    margin-bottom: 10px;
+}
+
+.formLabel {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.formInput {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.submitButton {
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submitButton:disabled {
+    background-color: gray;
+}
+
+.logoutButton {
+    padding: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logoutButton:hover {
+    background-color: darkred;
+}
+
+.reconnectButton{
+    padding: 10px;
+    background-color: rgb(0, 140, 255);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.reconnectButton:hover {
+    background-color: rgb(0, 101, 184);
+}
+
+.choicesContainer{
+    display: flex;
+    justify-content: center;
+}
