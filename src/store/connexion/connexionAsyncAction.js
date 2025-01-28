@@ -4,7 +4,7 @@ export const login = createAsyncThunk(
     "connexion/login",
     async ({ username, password }, { rejectWithValue }) => {
         try {
-            const response = await fetch("http://localhost:3001/api/auth", {
+            const response = await fetch(process.env.REACT_APP_API_LINK + "/auth", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const reconnect = createAsyncThunk(
     "connexion/reconnect",
     async (token, { rejectWithValue }) => {
         try {
-            const response = await fetch("http://localhost:3001/api/auth/re", {
+            const response = await fetch(process.env.REACT_APP_API_LINK + "/auth/re", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
