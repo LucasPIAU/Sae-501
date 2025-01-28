@@ -87,15 +87,18 @@ function ListeGT() {
   const sectionItem = [
     {
       name: "Options de seconde générale et technologique",
-      link: "/optionGenerale"
+      link: "/optionGenerale",
+      filiere: "option"
     },
     {
       name: "Première générale",
-      link: "/spePremiere"
+      link: "/spePremiere",
+      filiere: "general"
     },
     {
       name: "Première technologique",
-      link: "/filiereTechno"
+      link: "/filiereTechno",
+      filiere: "techno"
     }
   ]
 
