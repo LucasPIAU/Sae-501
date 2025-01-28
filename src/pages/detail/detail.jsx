@@ -3,7 +3,7 @@
   import { useSelector, useDispatch } from 'react-redux';
   import { selectEtablissements, selectFormations } from '../../store/formation/formationSelector.js';
   import style from "./detail.module.css";
-  import Map from "../../components/map"
+  import Map from "../../components/Map/map.jsx";
   import Title from '../../components/Title/Title';
   import Description from '../../components/Description/Description';
   import Image from '../../components/Image/Image';
@@ -19,7 +19,6 @@
     const location = useLocation();
     const { itemId } = location.state || {};  // Récupérer l'id depuis les paramètres de la route
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const [item, setItem] = useState(null);
     const [filtredEtablissement, setFiltredEtablissement] = useState(null);
 

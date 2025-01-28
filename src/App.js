@@ -94,7 +94,7 @@ function MainContent() {
         <Route path="/pro" element={<Pro />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/pageCard" element={<PageCard />} />
-        <Route path="/adminspace" element={<AdminSpace />} />
+        {/* <Route path="/adminspace" element={<AdminSpace />} /> */}
       </Routes>
     </>
   );

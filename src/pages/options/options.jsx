@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import style from "./options.module.css";
-import Map from '../../components/map';
 import ListCard from '../../components/listCard/listCard';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';

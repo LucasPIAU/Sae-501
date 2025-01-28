@@ -28,7 +28,7 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
   };
 
   const handleClick = () => {
-    if (onDomainSelect && item.name && !item.link) {
+    if (onDomainSelect && item.name && !item.link && !item.filiere) {
       // Appeler onDomainSelect si l'élément est un domaine
       onDomainSelect(item);
     }

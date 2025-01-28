@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loadEtablissement, loadFormation } from './formationAsyncAction';
+import { loadEtablissement, loadFormation, editContent } from './formationAsyncAction';
 
 const formationSlice = createSlice({
   name: 'formations',
@@ -13,14 +13,18 @@ const formationSlice = createSlice({
     currentPage: null,
     currentEtablissement: null,
     filteredEtablissements: [],
+    etablissementFilter: [],
+    formationFilter: [],
+    filterMotClef: '',
+    filterCity: '',
+    filterRange: 20,
+    etablissementFilter: [],
   },
   reducers: {
     setFormations: (state, action) => {
-      // console.log("Données envoyées au state : ", action.payload);
       state.formations = action.payload;
     },
     setEtablissements: (state, action) => {
-      // console.log("Données des établissements envoyées au state : ", action.payload);
       state.etablissement = action.payload;
     },
     setCurrentPage: (state, action) => {
@@ -28,36 +32,43 @@ const formationSlice = createSlice({
     },
     setCurrentEtablissement: (state, action) => {
       state.currentEtablissement = action.payload;
-      // console.log(state.currentEtablissement);
     },
-    setFilteredEtablissements: (state, action) => {
-      // console.log("Données filtrées des établissements : ", action.payload);
-      state.filteredEtablissements = action.payload;
+    setEtablissementsFilter: (state, action)=> {
+      state.etablissementFilter = action.payload;
     },
-    addContent: (state, action) => {
-      const { formationId, newElement } = action.payload;
+    setFormationFilter: (state, action)=> {
+      state.formationFilter = action.payload;
+    },
+    setMotClef(state, action) {
+      state.filterMotClef = action.payload;
+    },
+    setFilterRange(state, action) {
+      state.filterRange = action.payload;
+    },
+    setFilterCity(state, action) {
+      state.filterCity = action.payload;
+    },
+    // addContent: (state, action) => {
+    //   const { formationId, newElement } = action.payload;
 
-      console.log("formationId : ",formationId);
-      console.log("newElement : ", newElement);
-      const formationIndex = state.formations.findIndex(f => f.id === formationId);
+    //   const formationIndex = state.formations.findIndex(f => f.id === formationId);
     
-      if (formationIndex === -1) {
-        console.error(`Formation avec l'ID "${formationId}" introuvable`);
-        return;
-      }
+    //   if (formationIndex === -1) {
+    //     console.error(`Formation avec l'ID "${formationId}" introuvable`);
+    //     return;
+    //   }
     
-      const formation = state.formations[formationIndex];
-      const formationCopy = JSON.parse(JSON.stringify(formation));
+    //   const formation = state.formations[formationIndex];
+    //   const formationCopy = JSON.parse(JSON.stringify(formation));
     
-      if (formationCopy?.content) {
-        formationCopy.content.push(newElement);
-        state.formations[formationIndex] = formationCopy;
-      } else {
-        console.error("Erreur : Le contenu de la formation est manquant ou invalide.");
-      }
-    },
+    //   if (formationCopy?.content) {
+    //     formationCopy.content.push(newElement);
+    //     state.formations[formationIndex] = formationCopy;
+    //   } else {
+    //     console.error("Erreur : Le contenu de la formation est manquant ou invalide.");
+    //   }
+    // },
     setFilteredFormations: (state, action) => {
-      // console.log("Données filtrées des formations : ", action.payload);
       state.filteredFormations = action.payload;
     },
     moveContent: (state, action) => {
@@ -83,27 +94,27 @@ const formationSlice = createSlice({
         console.error("Erreur: Le contenu de la formation est manquant ou invalide.");
       }
     },
-    editContent: (state, action) => {
-      const { formationId, index, newValue } = action.payload;
+    // editContent: (state, action) => {
+    //   const { formationId, index, newValue } = action.payload;
 
-      // Recherche de la formation par son id
-      const formationIndex = state.formations.findIndex(f => f.id === formationId);
+    //   // Recherche de la formation par son id
+    //   const formationIndex = state.formations.findIndex(f => f.id === formationId);
 
-      if (formationIndex === -1) {
-        console.error(`Formation avec l'ID "${formationId}" introuvable`);
-        return;
-      }
+    //   if (formationIndex === -1) {
+    //     console.error(`Formation avec l'ID "${formationId}" introuvable`);
+    //     return;
+    //   }
 
-      const formation = state.formations[formationIndex];
-      const formationCopy = JSON.parse(JSON.stringify(formation));
+    //   const formation = state.formations[formationIndex];
+    //   const formationCopy = JSON.parse(JSON.stringify(formation));
 
-      if (formationCopy?.content && formationCopy.content[index] !== undefined) {
-        formationCopy.content[index] = newValue; // Mise à jour de l'élément
-        state.formations[formationIndex] = formationCopy;
-      } else {
-        console.error("Erreur: L'élément à modifier est manquant ou invalide.");
-      }
-    },
+    //   if (formationCopy?.content && formationCopy.content[index] !== undefined) {
+    //     formationCopy.content[index] = newValue; // Mise à jour de l'élément
+    //     state.formations[formationIndex] = formationCopy;
+    //   } else {
+    //     console.error("Erreur: L'élément à modifier est manquant ou invalide.");
+    //   }
+    // },
     deleteContent: (state, action) => {
       const { formationId, index } = action.payload;
 
@@ -178,17 +189,41 @@ const formationSlice = createSlice({
     })
     .addCase(loadFormation.fulfilled, (state, action) => {
       const separedFormations = action.payload;
-  
+    
       console.log("Contenu de action.payload pour formation :", separedFormations);
-  
-      const mergedFormations = [...(separedFormations.formationsPro || []), ...(separedFormations.formationsTechno || []),...(separedFormations.optionsGenerale || []), ...(separedFormations.optionsSeconde || [])];
-      // console.log("Les formations fusionnées :", mergedFormations);
-  
+    
+      const mergedFormations = [];
+      Object.keys(separedFormations).forEach((key) => {
+        if (Array.isArray(separedFormations[key])) {
+          mergedFormations.push(...separedFormations[key]);
+        }
+      });
+    
       state.formations = mergedFormations;
       state.loading = false;
     })
     .addCase(loadFormation.rejected, (state, action) => {
       state.loading = false;
+    })
+    .addCase(editContent.pending, (state)=>{
+      state.loading = true;
+    })
+    .addCase(editContent.rejected, (state)=>{
+      state.loading = false;
+    })
+    .addCase(editContent.fulfilled,(state,action)=>{
+      const { formationId, newElement } = action.payload;
+
+      const formationIndex = state.formations.findIndex(f => f._id === formationId);
+    
+      if (formationIndex === -1) {
+        console.error(`Formation avec l'ID "${formationId}" introuvable`);
+        return;
+      }
+    
+      const formation = state.formations[formationIndex];
+
+      console.log("mettre a jour le store : ", formation);
     })
   }
 });
@@ -199,14 +234,17 @@ export const {
   setEtablissements,
   initializeData,
   moveContent,
-  editContent,
   deleteContent,
   setFilteredEtablissements,
-  addContent,
   addFormationToFilter,
   setCurrentPage,
   setFilteredFormations,
-  setCurrentEtablissement
+  setCurrentEtablissement,
+  setFormationFilter,
+  setEtablissementsFilter,
+  setMotClef,
+  setFilterCity,
+  setFilterRange
 } = formationSlice.actions;
 
 // Exporter le reducer

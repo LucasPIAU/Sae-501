@@ -2,13 +2,14 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './lycees.module.css';
 import ListCard from '../../components/listCard/listCard';
-import Map from '../../components/map';
+import Map from "../../components/Map/map.jsx";
 import { useNavigate } from 'react-router-dom';
-import { selectEtablissements } from '../../store/formation/formationSelector.js';
+import { selectCity, selectEtablissements, selectRange } from '../../store/formation/formationSelector.js';
 import FilterForm from '../../components/FilterForm/FilterForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import fetchCoordinates from '../../utils/fetchCoordinates'; // Import de la fonction
+import { setFilterCity, setFilterRange } from '../../store/formation/formationSlice.js';
 
 const calculateDistance = (coords1, coords2) => {
   const [lon1, lat1] = coords1;
@@ -26,16 +27,19 @@ const calculateDistance = (coords1, coords2) => {
 
 const Lycees = () => {
   const allEtablissements = useSelector(selectEtablissements);
+  const storeCity = useSelector(selectCity);
+  const storeRange = useSelector(selectRange);
   const [filteredEtablissements, setFilteredEtablissements] = useState([]);
   const [city, setCity] = useState('');
-  const [range, setRange] = useState(50);
+  const [range, setRange] = useState(20);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const filterByLocation = async () => {
       console.log("city : ", city)
-      if (city) {
-        const cityCoordinates = await fetchCoordinates(city);
+      if (city || storeCity) {
+        const cityCoordinates = await fetchCoordinates(storeCity ? storeCity : city);
         if (!cityCoordinates) return;
         console.log("cityCoordinates : ", cityCoordinates);
         const results = allEtablissements.filter((etablissement) => {
@@ -46,10 +50,12 @@ const Lycees = () => {
           );    
           console.log("distance : ", distance)
           console.log("range : ", range)     
-          return distance <= range; // Filtrer selon le rayon
+          return distance <= (storeRange ? storeRange : range); // Filtrer selon le rayon
         });
         console.log("result : ", results)
         setFilteredEtablissements(results);
+        dispatch(setFilterCity(city))
+        dispatch(setFilterRange(range))
       } else {
         setFilteredEtablissements(allEtablissements); // Si pas de ville, afficher tout
       }

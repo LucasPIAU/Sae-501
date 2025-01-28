@@ -1,11 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './FilterForm.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMotClef, setFilterCity, setFilterRange } from '../../store/formation/formationSlice';
+import { selectCity, selectMotClef, selectRange } from '../../store/formation/formationSelector';
 
 const FilterForm = ({ onFilter, type, onCityChange, onRangeChange, page }) => {
   const [motCle, setMotCle] = useState('');
   // const [type, setType] = useState('generale');
   const [city, setCity] = useState('');
   const [range, setRange] = useState(20);
+  const dispatch = useDispatch();
+  const storeMotClef = useSelector(selectMotClef);
+  const storeCity = useSelector(selectCity);
+  const storeRange = useSelector(selectRange);
+  console.log(type)
+
+  useEffect(()=>{
+    console.log("storeCity : ", storeCity)
+    if(storeMotClef && storeMotClef !== ""){
+      setMotCle(storeMotClef);
+    }
+    if(storeCity && storeCity !== ""){
+      setCity(storeCity);
+    }
+    if(storeRange){
+      setRange(storeRange);
+    }
+  },[storeMotClef, storeCity, storeRange])
 
   const handleCityChange = (event) => {
     setCity(event.target.value);
@@ -17,30 +38,37 @@ const FilterForm = ({ onFilter, type, onCityChange, onRangeChange, page }) => {
     // onRangeChange(event.target.value); // A rajouter pour emttre a jour la lsite a chaque changement
   };
 
-  const handleSubmit = (event) => {
-
-    // console.log('page : ' + page)
-
-    event.preventDefault(); 
+  const handleSubmit = (event) => { 
+    event.preventDefault();
     const filters = [];
-
+  
     if (motCle) {
-      filters.push((obj) => obj.name.toLowerCase().includes(motCle.toLowerCase().trim()));
+      filters.push({ type: 'motClef', value: motCle.toLowerCase().trim() });
+      console.log(motCle)
+      dispatch(setMotClef(motCle));
     }
-
+  
     if ((type === 'generale' || type === 'options' || type === 'techno') && page === 'formation') {
-      filters.push((obj) => ['generale', 'option', 'techno'].includes(obj.filiere));
+      filters.push({ type: 'generale', value: ['generale', 'option', 'techno'] });
     } else if (type === 'pro' && page === 'formation') {
-      filters.push((obj) => obj.filiere === 'Professionel');
+      filters.push({ type: 'pro', value: 'Professionel' });
     } else {
-      filters.push((obj) => obj.filiere === 'etablissement');
+      filters.push({ type: 'etablissement', value: 'etablissement' });
     }
-    // console.log('type : ' + type)
-    // console.log('filter : ' + filters)
+  
+    console.log("Filtres soumis :", filters); // Vérifie les filtres avant envoi
     onFilter(filters);
-    page === "etablissement" && onCityChange(city)
-    page === "etablissement" && onRangeChange(range)
+  
+    if (page === "etablissement") {
+      console.log("range : ", range);
+      dispatch(setFilterRange(range));
+      dispatch(setFilterCity(city));
+      onCityChange(city);
+      onRangeChange(range);
+    }
   };
+  
+  
 
   const handleReset = () => {
     setMotCle('');
