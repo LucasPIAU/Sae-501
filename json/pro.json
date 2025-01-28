@@ -1,66 +1,90 @@
-[
+[{
+  "_id": {
+    "$oid": "679894d70fe00b246d18c25f"
+  },
+  "name": "CAP Réparation en carrosserie",
+  "type": "pro",
+  "etablissement": [
+    "674dc3aa4a3aa1faa36741a3"
+  ],
+  "data": {
+    "categorie": "Maintenance et réparation : industrie et véhicule",
+    "attributs": "Scolaire, Apprentissage, Formation continue"
+  }
+},
+{
+  "_id": {
+    "$oid": "679894d70fe00b246d18c260"
+  },
+  "name": "CAP Peintre en carrosserie",
+  "type": "pro",
+  "etablissement": [
+    "674dc3aa4a3aa1faa36741a3"
+  ],
+  "data": {
+    "categorie": "Maintenance et réparation : industrie et véhicule",
+    "conditions": "en 1 an après le CAP CA",
+    "attributs": [
+      "Apprentissage",
+      "Formation continue"
+    ]
+  },
+  "content": [
     {
-        "name": "CAP Carrossier automobile",
-        "type": "pro",
-        "etablissement": [
-            "674dc3aa4a3aa1faa36741a3"
-        ],
-        "data": {
-            "categorie": "industriel",
-            "attributs": "Scolaire, Apprentissage, Formation continue"
-        }
-    },
-    {
-        "name": "CAP Peintre automobile",
-        "type": "pro",
-        "etablissement": [
-            "674dc3aa4a3aa1faa36741a3"
-        ],
-        "data": {
-            "categorie": "industriel",
-            "conditions": "en 1 an après le CAP CA",
-            "attributs": [
-                "Apprentissage",
-                "Formation continue"
-            ]
-        },
-        "content": []  
-    },
-    {
-        "name": "BAC PRO MV maintenance des véhicules",
-        "type": "pro",
-        "etablissement": [
-            "674dc3aa4a3aa1faa36741a3",
-            "674dc3aa4a3aa1faa36741a4"
-        ],
-        "data": {
-            "categorie": "industriel",
-            "attributs": [
-                "Scolaire",
-                "Apprentissage",
-                "Formation continue"
-            ],
-            "options": [
-                "Voitures particulières",
-                "véhicules de transport routier",
-                "Motocycles"
-            ]
-        },
-        "content": []  
-        
-    },
-    {
-        "name": "CQPM Soudeur industriel",
-        "type": "pro",
-        "etablissement": [
-            "674dc3aa4a3aa1faa36741a4"
-        ],
-        "data": {
-            "categorie": "industriel",
-            "attributs": [
-                "Formation continue"
-            ]
-        },
-        "content": []  
+      "type": "title",
+      "data": "Titre"
     }
-]
+  ]
+},
+{
+  "_id": {
+    "$oid": "679894d70fe00b246d18c261"
+  },
+  "name": "CAP opérateur logistique",
+  "type": "pro",
+  "etablissement": [
+    "674dc3aa4a3aa1faa36741a3",
+    "674dc3aa4a3aa1faa36741a4"
+  ],
+  "data": {
+    "categorie": "Transport et logistique",
+    "attributs": [
+      "Scolaire",
+      "Apprentissage",
+      "Formation continue"
+    ],
+    "options": [
+      "Voitures particulières",
+      "véhicules de transport routier",
+      "Motocycles"
+    ]
+  },
+  "content": [
+    {
+      "type": "title",
+      "data": "Titre"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "679894d70fe00b246d18c262"
+  },
+  "name": "CAP éléctricien",
+  "type": "pro",
+  "etablissement": [
+    "674dc3aa4a3aa1faa36741a4"
+  ],
+  "data": {
+    "categorie": "Numérique et métiers de l'éléctricité",
+    "attributs": [
+      "Formation continue"
+    ]
+  },
+  "content": [
+    {
+      "type": "title",
+      "data": "Titre"
+    }
+  ]
+}]

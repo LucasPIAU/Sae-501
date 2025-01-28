@@ -32,7 +32,7 @@ async function importData() {
         for (const { name, file } of collections) {
             const data = await loadJSONData(file);
             data.forEach(e => {
-                e._id = new ObjectId(e._id);
+                e._id = ObjectId.createFromHexString(e._id.$oid);
             });
             const collection = db.collection(name);
             await collection.deleteMany({});
