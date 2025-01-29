@@ -13,7 +13,8 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect, onHover =
   };
 
   const handleClick = () => {
-    if (onDomainSelect && item.name && !item.link && item.type === "domain") {
+    // console.log()
+    if (onDomainSelect && item.type === "domain") {
       onDomainSelect(item);
     }
   };
