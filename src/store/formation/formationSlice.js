@@ -55,10 +55,10 @@ const formationSlice = createSlice({
 
       const formation = state.formations.find((f) => f._id === formationId);
       if (formation && formation.content) {
-          const [movedItem] = formation.content.splice(indexFrom, 1);
-          formation.content.splice(indexTo, 0, movedItem);
+        const [movedItem] = formation.content.splice(indexFrom, 1);
+        formation.content.splice(indexTo, 0, movedItem);
       }
-  },
+    },
     addFormationToFilter: (state, action) => {
       const formation = action.payload;
       const selectedFormations = [...state.selectedFormations]; // Copie pour éviter des références directes
@@ -128,25 +128,6 @@ const formationSlice = createSlice({
       .addCase(loadFormation.rejected, (state, action) => {
         state.loading = false;
       })
-      .addCase(editContent.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(editContent.rejected, (state) => {
-        state.loading = false;
-      })
-      .addCase(editContent.fulfilled, (state, action) => {
-        const { formationId, newElement } = action.payload;
-
-        const formationIndex = state.formations.findIndex(f => f._id === formationId);
-
-        if (formationIndex === -1) {
-          console.error(`Formation avec l'ID "${formationId}" introuvable`);
-          return;
-        }
-        const formation = state.formations[formationIndex];
-
-        console.log("mettre a jour le store : ", formation);
-      })
       .addCase(deleteFormation.pending, (state) => {
         state.loading = true;
       })
@@ -187,41 +168,36 @@ const formationSlice = createSlice({
         );
         state.formations.push(action.payload.data);
       })
-  
-    })
-    .addCase(loadFormation.rejected, (state, action) => {
-      state.loading = false;
-    })
-    .addCase(addContent.pending, (state)=>{
-      state.loading = true;
-    })
-    .addCase(addContent.rejected, (state)=>{
-      state.loading = false;
-    })
-    .addCase(addContent.fulfilled, (state, action) => {
-      const { formationId, newElement } = action.payload;
-    
-      // Rechercher la formation correspondante dans le store
-      const formation = state.formations.find((f) => f._id === formationId);
-    
-      if (formation) {
-        // Ajouter le nouvel élément à la fin du tableau "content"
-        if (!formation.content) {
-          formation.content = []; // Si "content" est vide, initialise-le
+      .addCase(addContent.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addContent.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(addContent.fulfilled, (state, action) => {
+        const { formationId, newElement } = action.payload;
+
+        // Rechercher la formation correspondante dans le store
+        const formation = state.formations.find((f) => f._id === formationId);
+
+        if (formation) {
+          // Ajouter le nouvel élément à la fin du tableau "content"
+          if (!formation.content) {
+            formation.content = []; // Si "content" est vide, initialise-le
+          }
+          formation.content.push(newElement);
+        } else {
+          console.error(`Formation avec l'ID ${formationId} introuvable dans le store.`);
         }
-        formation.content.push(newElement);
-      } else {
-        console.error(`Formation avec l'ID ${formationId} introuvable dans le store.`);
-      }
-    
-      state.loading = false;
-    })
+
+        state.loading = false;
+      })
     builder.addCase(deleteContent.fulfilled, (state, action) => {
       const { formationId, index } = action.payload;
-    
+
       // Trouver la formation concernée
       const formation = state.formations.find((f) => f._id === formationId);
-    
+
       if (formation && formation.content) {
         // Supprimer l'élément à l'index spécifié
         formation.content.splice(index, 1);
@@ -229,10 +205,10 @@ const formationSlice = createSlice({
     })
     builder.addCase(editContent.fulfilled, (state, action) => {
       const { formationId, index, newValue } = action.payload;
-    
+
       // Trouver la formation concernée
       const formation = state.formations.find((f) => f._id === formationId);
-    
+
       if (formation && formation.content) {
         // Vérifiez que l'index est valide
         if (index >= 0 && index < formation.content.length) {
@@ -247,18 +223,18 @@ const formationSlice = createSlice({
       } else {
         console.error(`Formation avec l'ID ${formationId} introuvable ou contenu inexistant.`);
       }
-    })       
+    })
     builder.addCase(saveContentOrder.fulfilled, (state, action) => {
       const { formationId, content } = action.payload;
-    
+
       // Trouver la formation concernée
       const formation = state.formations.find((f) => f._id === formationId);
-    
+
       if (formation) {
         // Mettre à jour le tableau `content` avec le nouvel ordre
         formation.content = content;
       }
-    });    
+    });
   }
 });
 
