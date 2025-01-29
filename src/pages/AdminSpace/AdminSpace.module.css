@@ -1,5 +1,6 @@
 .detail {
   margin: 0 25px;
+  position: relative;
 }
 
 .containerMapFormation {
@@ -41,10 +42,24 @@
     background-color: #B059B1;
   }
 
+  .containerContent button:hover {
+    background-color: #914a92;
+  }
+  
+
   .containerDetail {
     display: flex;
   }
 
+  .saveChange {
+    background-color: #B059B1;
+    position: absolute;
+    top: 5px;
+  }
+
+  .saveChange:hover {
+    background-color: #914a92;
+  }
   .containerListCard {
     overflow-y: scroll;
     max-height: 350px;
@@ -106,7 +121,7 @@
   }
   
   .editModal button:hover {
-    background-color: #f0f0f0;
+    background-color: #914a92;
   }
   
   .modalOverlay {
@@ -119,6 +134,9 @@
     z-index: 999;
   }
 
+  .contentItem button:hover {
+    background-color: #914a92;
+  }
   
   
   .backButton {
