@@ -31,14 +31,15 @@ const Lycees = () => {
   const storeRange = useSelector(selectRange);
   const [filteredEtablissements, setFilteredEtablissements] = useState([]);
   const [city, setCity] = useState('');
-  const [range, setRange] = useState(20);
+  const [range, setRange] = useState(15);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const filterByLocation = async () => {
       console.log("city : ", city)
-      if (city || storeCity) {
+      console.log("storeCity : ", storeCity)
+      if ( (city && city != "") || (storeCity && storeCity != "")) {
         const cityCoordinates = await fetchCoordinates(storeCity ? storeCity : city);
         if (!cityCoordinates) return;
         console.log("cityCoordinates : ", cityCoordinates);
@@ -72,7 +73,7 @@ const Lycees = () => {
     <>
       <FilterForm
         onCityChange={setCity}
-        onRangeChange={setRange}
+        onRangeChange={setRange}  
         onFilter={() => {}}
         page="etablissement"
       />

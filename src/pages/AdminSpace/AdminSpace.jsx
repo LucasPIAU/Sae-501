@@ -58,17 +58,18 @@ function AdminSpace() {
 
     const handleEdit = (index, element) => {
         console.log(element)
-        setEditingElement({ index, element });
+        setEditingElement({ index, element});
         setEditValue(element.data); // Pré-remplir avec les données actuelles
     };
 
     const handleEditSave = () => {
         if (editingElement) {
+            console.log(editingElement)
             dispatch(editContent({
                 formationId: item._id,
                 index: editingElement.index,
                 newValue: editValue,
-                formationType: item.formationType // Ajoute le type de formation
+                formationType: editingElement.type // Ajoute le type de formation
             }));
             setEditingElement(null); // Fermer l'interface d'édition
             setEditValue('');
@@ -89,7 +90,7 @@ function AdminSpace() {
             console.log("selectedValue : ", selectedValue);
             console.log("newElement : ", newElement);
 
-            if (selectedValue === 'Title' || selectedValue === 'desc') {
+            if (selectedValue === 'title' || selectedValue === 'desc') {
                 newElement.data = inputValue;
             } else if (selectedValue === 'images' || selectedValue === 'video') {
                 newElement.data = mediaFile;
@@ -175,13 +176,13 @@ function AdminSpace() {
                                     <h3>Ajouter un Élement</h3>
                                     <select value={selectedValue} onChange={(e) => setSelectedValue(e.target.value)}>
                                         <option value="">-- Choisissez un type --</option>
-                                        <option value="Title">Titre</option>
+                                        <option value="title">Titre</option>
                                         <option value="desc">Description</option>
                                         <option value="images">Image</option>
                                         <option value="hr">Séparateur</option>
                                         <option value="video">Vidéo</option>
                                     </select>
-                                    {selectedValue === 'Title' || selectedValue === 'desc' ? (
+                                    {selectedValue === 'title' || selectedValue === 'desc' ? (
                                         <input
                                             type="text"
                                             placeholder="Entrez le contenu"

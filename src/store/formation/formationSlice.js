@@ -1,23 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loadEtablissement, loadFormation, addContent } from './formationAsyncAction';
+import { loadEtablissement, loadFormation, addContent, deleteContent, saveContentOrder, editContent } from './formationAsyncAction';
 
 const formationSlice = createSlice({
   name: 'formations',
   initialState: {
     formations: [], // Stocke les formations (options, techno, generale, pro)
     etablissement: [], // Stocke les établissements
-    filteredFormations: [],
     selectedFormations: [],
     loading: false,
     errors: null,
     currentPage: null,
     currentEtablissement: null,
-    filteredEtablissements: [],
     etablissementFilter: [],
     formationFilter: [],
     filterMotClef: '',
     filterCity: '',
-    filterRange: 20,
+    filterRange: 15,
     etablissementFilter: [],
   },
   reducers: {
@@ -135,9 +133,67 @@ const formationSlice = createSlice({
     .addCase(addContent.rejected, (state)=>{
       state.loading = false;
     })
-    .addCase(addContent.fulfilled,(state,action)=>{
-      console.log("mettre a jour le store : ", action);
+    .addCase(addContent.fulfilled, (state, action) => {
+      const { formationId, newElement } = action.payload;
+    
+      // Rechercher la formation correspondante dans le store
+      const formation = state.formations.find((f) => f._id === formationId);
+    
+      if (formation) {
+        // Ajouter le nouvel élément à la fin du tableau "content"
+        if (!formation.content) {
+          formation.content = []; // Si "content" est vide, initialise-le
+        }
+        formation.content.push(newElement);
+      } else {
+        console.error(`Formation avec l'ID ${formationId} introuvable dans le store.`);
+      }
+    
+      state.loading = false;
     })
+    builder.addCase(deleteContent.fulfilled, (state, action) => {
+      const { formationId, index } = action.payload;
+    
+      // Trouver la formation concernée
+      const formation = state.formations.find((f) => f._id === formationId);
+    
+      if (formation && formation.content) {
+        // Supprimer l'élément à l'index spécifié
+        formation.content.splice(index, 1);
+      }
+    })
+    builder.addCase(editContent.fulfilled, (state, action) => {
+      const { formationId, index, newValue } = action.payload;
+    
+      // Trouver la formation concernée
+      const formation = state.formations.find((f) => f._id === formationId);
+    
+      if (formation && formation.content) {
+        // Vérifiez que l'index est valide
+        if (index >= 0 && index < formation.content.length) {
+          // Mettre à jour uniquement la propriété 'data' de l'élément
+          formation.content[index] = {
+            ...formation.content[index], // Conserver les autres propriétés de l'objet
+            data: newValue, // Mettre à jour uniquement la propriété 'data'
+          };
+        } else {
+          console.error(`Index ${index} est invalide pour la formation ${formationId}`);
+        }
+      } else {
+        console.error(`Formation avec l'ID ${formationId} introuvable ou contenu inexistant.`);
+      }
+    })       
+    builder.addCase(saveContentOrder.fulfilled, (state, action) => {
+      const { formationId, content } = action.payload;
+    
+      // Trouver la formation concernée
+      const formation = state.formations.find((f) => f._id === formationId);
+    
+      if (formation) {
+        // Mettre à jour le tableau `content` avec le nouvel ordre
+        formation.content = content;
+      }
+    });    
   }
 });
 
@@ -147,7 +203,6 @@ export const {
   setEtablissements,
   initializeData,
   moveContent,
-  deleteContent,
   setFilteredEtablissements,
   addFormationToFilter,
   setCurrentPage,

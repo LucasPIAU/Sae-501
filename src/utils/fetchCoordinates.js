@@ -9,6 +9,7 @@ const fetchCoordinates = async (city) => {
         limit: 1,
       },
     });
+    console.log(response)
     if (response.data && response.data.length > 0) {
       const { lat, lon } = response.data[0];
       return [parseFloat(lon), parseFloat(lat)]; // Retourne les coordonnées [longitude, latitude]
