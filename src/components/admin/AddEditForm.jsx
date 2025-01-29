@@ -24,7 +24,7 @@ const AddEditForm = ({
   const handleInputNumberChange = (e) => {
     const { name, value } = e.target;
     if (value !== "") {
-      setFormValues((prev) => ({ ...prev, [name]: parseInt(value) }));
+      setFormValues((prev) => ({ ...prev, [name]: parseFloat(value) }));
     } else {
       setFormValues((prev) => ({ ...prev, [name]: value }));
     }
