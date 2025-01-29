@@ -95,11 +95,13 @@ function AdminSpace() {
     };
 
     const handleDelete = (index) => {
-        dispatch(deleteContent({
-            formationId: item._id,
-            index,
-        }));
+        // Crée une nouvelle version du tableau sans l'élément à l'index spécifié
+        const newContent = item.content.filter((_, i) => i !== index);
+    
+        // Ensuite, tu mets à jour le tableau content avec cette nouvelle version
+        dispatch(saveContentOrder({ formationId: item._id, content: newContent }));
     };
+    
 
     const handleAddElement = () => {
         if (selectedValue) {
@@ -154,7 +156,7 @@ function AdminSpace() {
                         {hasChanges && <button className={style.saveChange} onClick={handleSaveChanges}>Sauvegarder</button>}
                         <div className={style.containerDetail}>
                             <div className={style.containerContentTitle}>
-                                <h1 className={style.titleDetail}>{item.nom}</h1>
+                                <h1 className={style.titleDetail}>{item.name}</h1>
                                 <div className={style.containerContent}>
                                     {getContent(item.content)}
                                     <button onClick={() => setShowPopup(true)}>PLUS</button>
