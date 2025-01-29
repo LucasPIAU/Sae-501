@@ -116,7 +116,7 @@
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 1000;
 }
 
 .contentItem button:hover {
@@ -141,6 +141,15 @@
 .backButton svg {
   margin: 0;
   font-size: 24px;
+}
+
+select {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  width: 100%;
 }
 
 @media screen and (max-width: 600px) {
