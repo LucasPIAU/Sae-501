@@ -50,8 +50,10 @@ const FilterForm = ({ onFilter, type, onCityChange, onRangeChange, page }) => {
     if ((type === 'generale' || type === 'opt-seconde' || type === 'techno') && page === 'formation') {
       filters.push({ type: 'generale', value: ['generale', 'opt-seconde', 'techno'] });
     } else if (type === 'pro' && page === 'formation') {
-      filters.push({ type: 'pro', value: 'Professionel' });
-    } else {
+      filters.push({ type: 'pro', value: 'pro' });
+    } else if (type === 'all' && page === 'formation'){
+      filters.push({ type: 'generale', value: ['generale', 'opt-seconde', 'techno', 'pro'] });
+    }else{
       filters.push({ type: 'etablissement', value: 'etablissement' });
     }
   

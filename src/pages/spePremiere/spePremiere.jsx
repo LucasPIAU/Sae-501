@@ -30,7 +30,7 @@ function SpePremiere() {
   console.log("filtredEtablissement : ", filtredEtablissement);
 
   const onSpeSelect = (newFormation) => {
-    // Vérifier si la formation est déjà dans le tableau des formations sélectionnées
+        // Vérifier si la formation est déjà dans le tableau des formations sélectionnées
     const formationIndex = selectFormation.findIndex(f => f._id === newFormation._id);
     
     let updatedFormations;
@@ -50,6 +50,7 @@ function SpePremiere() {
 
     // Filtrer les établissements en fonction des formations sélectionnées
     console.log("etablissements : ", etablissements)
+    
 
 
     const filteredEtablissements = etablissements.filter(etablissement =>
@@ -82,7 +83,7 @@ function SpePremiere() {
             <Map dataEtablissement={filtredEtablissement}/>
           </div>
           <div className={style.containerListCard}>
-            <ListCard items={updatedFormations} onSpeSelect={onSpeSelect}/>
+            <ListCard items={updatedFormations} onSpeSelect={onSpeSelect} mini={true}/>
           </div>
         </div>
       </div>

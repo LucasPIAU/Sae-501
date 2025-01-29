@@ -30,17 +30,24 @@ function App({ item }) {
     <BreadcrumbContext.Provider value={{ breadcrumbs, setBreadcrumbs }}>
       <Router>
         <ConditionalHeader />
-        <BreadCrumb />
+        <ConditionalBreadCrumb />
         <MainContent />
       </Router>
     </BreadcrumbContext.Provider>
   );
 }
 
+function ConditionalBreadCrumb() {
+  const location = useLocation();
+  const routes = ['/connexion', '/adminDashboard']; 
+  const isInRoutes = routes.includes(location.pathname);
+
+  return isInRoutes ? null : <BreadCrumb />;
+}
+
 function ConditionalHeader() {
   const location = useLocation();
-
-  const routes = ['/connexion', '/adminDashboard']; 
+  const routes = ['/adminDashboard', "/connexion"]; 
   const isInRoutes = routes.includes(location.pathname);
 
   return isInRoutes ? null : <Header />;
