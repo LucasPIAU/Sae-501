@@ -88,17 +88,17 @@ function ListeGT() {
     {
       name: "Options de seconde générale et technologique",
       link: "/optionGenerale",
-      filiere: "option"
+      type: "opt-seconde"
     },
     {
       name: "Première générale",
       link: "/spePremiere",
-      filiere: "general"
+      type: "general"
     },
     {
       name: "Première technologique",
       link: "/filiereTechno",
-      filiere: "techno"
+      type: "techno"
     }
   ]
 

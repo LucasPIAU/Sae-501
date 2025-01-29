@@ -1,8 +1,14 @@
 .containerMap {
-    width: 500px;
+    width: 50%;
     height: 500px;
 }
 
-.leaflet-label {
-    margin-bottom: 10px;
+@media screen and (max-width: 600px) {
+    .containerMap {
+        width: 100%;
+        height: 400px;
+    }
+  .leaflet-label {
+      margin-bottom: 10px;
+  }
 }

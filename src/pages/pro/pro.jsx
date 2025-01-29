@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFormations, selectFormationFilter } from '../../store/formation/formationSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faQ } from '@fortawesome/free-solid-svg-icons';
 import FilterForm from '../../components/FilterForm/FilterForm';
 import { setFormationFilter } from '../../store/formation/formationSlice';
 
@@ -51,7 +51,7 @@ function Pro() {
         .filter((formation) => formation.type === "pro")
         .map((formation) => formation.data.categorie)
     )
-  ].map((category) => ({ name: category })); // Transforme en objets avec une clé `name`
+  ].map((category) => ({ name: category, type: "domain" })); // Transforme en objets avec une clé `name`
 
   // Filtrer les formations affichées en fonction du domaine sélectionné
   const filteredFormations = selectedDomain

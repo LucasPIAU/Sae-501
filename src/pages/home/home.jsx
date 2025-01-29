@@ -9,20 +9,15 @@ function Home() {
 
   return (
     <>
-      <div className={style.paragraphe}>
-        <p>
-        Bienvenue sur notre plateforme dédiée aux formations proposées par les lycées publics de la Mayenne ! Que vous soyez élève, parent ou simplement curieux, découvrez une présentation complète des parcours éducatifs, des options de seconde aux spécialités de première générale et technologique, jusqu’aux différents baccalauréats professionnels. Nous mettons à votre disposition toutes les informations nécessaires pour vous aider à faire les choix qui correspondent le mieux à vos aspirations et projets d’avenir. Explorez les nombreuses possibilités offertes dans notre département et trouvez la voie qui vous mènera vers la réussite !
-        </p>
-      </div>
-      <hr className={style.hr} />
+      <p className={style.paragraphe}>
+        Découvrez les formations des lycées publics de la Mayenne, des options de seconde aux spécialités et baccalauréats, pour vous guider dans vos choix et projets d’avenir.
+      </p>
       <div className={style.container}>
         <h2>Retrouvez les {etablissements.length} lycées de la Mayenne et découvrez leurs formations</h2>
         <div className={style.logoGrid}>
           {etablissements.map((etablissement, index) => (
-            <a key={index} href={etablissement.link} target='_blank'>
-              <div key={index} className={style.logoItem}>
-                <img src={etablissement.logo} alt={etablissement.nom} className={style.logoImage}/>
-              </div>
+            <a key={index} href={etablissement.website} target='_blank'>
+              <img src={etablissement.logo} alt={etablissement.nom} className={style.logoImage}/>
             </a>
           ))}
         </div>

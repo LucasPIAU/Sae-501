@@ -28,8 +28,7 @@
     // console.log("itemId : ", itemId);
 
     useEffect(()=>{
-      setItem(formations?.find(formation => formation._id === itemId)) // Trouver la formation par son id
-      console.log("etablissement: ", etablissement)
+      setItem(formations?.find(formation => formation._id === itemId))
       console.log("itemId: ", itemId);
       // console.log("formations : ", formations);
       console.log("item : ", item)
