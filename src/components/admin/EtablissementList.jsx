@@ -20,7 +20,8 @@ const EtablissementList = ({ etablissements, setFormData, setPopupMode, setPopup
       <ul className={styles.list}>
         {etablissements.map((etablissement) => (
           <li key={etablissement._id} className={styles.listItem}>
-            {etablissement.name}
+            <h3>{etablissement.name}</h3>
+            <div>
             <button
               className={styles.buttonList}
               onClick={() => handleOpenPopup(etablissement)}
@@ -33,6 +34,7 @@ const EtablissementList = ({ etablissements, setFormData, setPopupMode, setPopup
               >
                 Supprimer
               </button>
+              </div>
           </li>
         ))}
       </ul>
