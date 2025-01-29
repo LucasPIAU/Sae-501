@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
@@ -36,10 +36,24 @@ function AdminSpace() {
     const [inputValue, setInputValue] = useState(''); // Valeur pour le contenu texte
     const [mediaFile, setMediaFile] = useState(null); // Fichier pour les médias
     const [hasChanges, setHasChanges] = useState(false); // Pour détecter les modifications
+    const [filtredEtablissement, setFiltredEtablissement] = useState(null);
 
     const navigateTo = () => {
         navigate(-1);
     };
+
+        useEffect(()=>{
+          console.log("itemId: ", itemId);
+          // console.log("formations : ", formations);
+          console.log("item : ", item)
+          if(item && item.etablissement ){
+            // console.log("je passe dans item")
+          setFiltredEtablissement(allEtablissements.filter(etab => 
+            item.etablissement.includes(etab._id)
+          ))
+        }
+        console.log("filtredEtablissement : ", filtredEtablissement);
+        }, [itemId, formations, allEtablissements, item])
 
     const handleMoveContent = (fromIndex, toIndex) => {
         dispatch(moveContent({ formationId: item._id, indexFrom: fromIndex, indexTo: toIndex }));
@@ -134,11 +148,10 @@ function AdminSpace() {
     return (
         <DndProvider backend={HTML5Backend}>
             <div className={style.detail}>
-                {hasChanges && <button onClick={handleSaveChanges}>Sauvegarder</button>
-                }
                 {item ? (
                     <>
                         <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft} /></button>
+                        {hasChanges && <button className={style.saveChange} onClick={handleSaveChanges}>Sauvegarder</button>}
                         <div className={style.containerDetail}>
                             <div className={style.containerContentTitle}>
                                 <h1 className={style.titleDetail}>{item.nom}</h1>
@@ -147,12 +160,14 @@ function AdminSpace() {
                                     <button onClick={() => setShowPopup(true)}>PLUS</button>
                                 </div>
                             </div>
+                            {filtredEtablissement && 
                             <div className={style.containerContent}>
-                                <Map dataEtablissement={allEtablissements} />
+                                <Map dataEtablissement={filtredEtablissement} />
                                 <div className={style.containerListCard}>
-                                    <ListCard items={allEtablissements} type="etablissement" />
+                                    <ListCard items={filtredEtablissement} type="etablissement" />
                                 </div>
                             </div>
+                            }
                         </div>
                         {editingElement && (
                             <>
