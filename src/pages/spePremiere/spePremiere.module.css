@@ -18,24 +18,22 @@
 }
 
 .backButton {
-  border-radius: 15px;
-  background-color: #B059B1;
-  padding: 10px 15px;
-  cursor: pointer;
-}
-
-.backButton {
   border-radius: 50%;
   background-color: #B059B1;
   cursor: pointer;
   border: none;
   font-size: 20px;
   color: white;
-  padding: 0;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .backButton svg {
-  margin: 10px 12px;
+  margin: 0;
+  font-size: 24px;
 }
 
 .containerSpe {

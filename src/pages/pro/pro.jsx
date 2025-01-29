@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect} from 'react';
 import style from "./pro.module.css";
 import ListCard from '../../components/listCard/listCard';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFormations, selectFormationFilter } from '../../store/formation/formationSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +11,6 @@ import { setFormationFilter } from '../../store/formation/formationSlice';
 
 function Pro() {
   const formations = useSelector(selectFormations);
-  const navigate = useNavigate();
   const [filters, setFilters] = useState([]);
   const filterArray = useSelector(selectFormationFilter);
   const dispatch = useDispatch();
@@ -68,8 +67,6 @@ function Pro() {
   const navigateTo = () => {
     if(selectedDomain){
       setSelectedDomain(null);
-    } else {
-      navigate(-1);
     }
   };
 
@@ -105,9 +102,9 @@ function Pro() {
     <>
       <FilterForm onFilter={onFilter} type={"pro"} page={"formation"}/>
       <div className={style.containerPro}>
-        <button className={style.backButton} onClick={navigateTo}>
+        <Link to={-1} className={style.backButton}>
           <FontAwesomeIcon icon={faArrowLeft} />
-        </button>
+        </Link>
         <div className={style.containerMapFormation}>
           {/* Liste des domaines et formations dans la même ListCard */}
         {!filters.length ? (

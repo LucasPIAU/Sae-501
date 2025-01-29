@@ -15,7 +15,6 @@ import Pro from "./pages/pro/pro.jsx";
 import Detail from "./pages/detail/detail.jsx"
 import AdminSpace from './pages/AdminSpace/AdminSpace.jsx';
 import Lycees from "./pages/lycees/lycees";
-import PageCard from './pages/pageCard/pageCard.jsx';
 import { useDispatch } from 'react-redux';
 import { loadEtablissement, loadFormation, loadInfos} from './store/formation/formationAsyncAction.js';
 import { selectEtablissements } from "./store/formation/formationSelector.js";
@@ -106,7 +105,6 @@ function MainContent() {
         <Route path="/lycees" element={<Lycees />} />
         <Route path="/pro" element={<Pro />} />
         <Route path="/detail" element={<Detail />} />
-        <Route path="/pageCard" element={<PageCard />} />
         <Route path="/adminspace" element={<AdminSpace />} />
         <Route path="/connexion" element={<Connexion />} />
         <Route path="/adminDashboard" element={<AdminDashboard />} />

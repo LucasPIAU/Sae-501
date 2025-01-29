@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import style from "./spePremiere.module.css";
 import Map from "../../components/Map/map.jsx";
 import ListCard from '../../components/listCard/listCard';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectEtablissements, selectFormations } from '../../store/formation/formationSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 function SpePremiere() {
-  const navigate = useNavigate();
 
   const formations = useSelector(selectFormations);
   const etablissements = useSelector(selectEtablissements);
@@ -29,10 +28,6 @@ function SpePremiere() {
 
   console.log(updatedFormations);
   console.log("filtredEtablissement : ", filtredEtablissement);
-
-  const navigateTo = () => {
-    navigate(-1);
-  }
 
   const onSpeSelect = (newFormation) => {
     // Vérifier si la formation est déjà dans le tableau des formations sélectionnées
@@ -79,7 +74,9 @@ function SpePremiere() {
   return (
     <>
       <div className={style.containerSpe}>
-        <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft} /></button>
+        <Link to={-1} className={style.backButton}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Link>
         <div className={style.containerMapFormation}>
           <div className={style.containerMap}>
             <Map dataEtablissement={filtredEtablissement}/>
