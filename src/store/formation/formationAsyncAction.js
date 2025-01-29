@@ -96,23 +96,6 @@ export const addContent = createAsyncThunk(
   }
 );
 
-export const deleteContent = createAsyncThunk(
-  'formation/deleteContent',
-  async ({ formationId, index, formationType }, { rejectWithValue, getState }) => {
-      try {
-        const state = getState();
-        const token = state.connexion.token;
-          const response = await axios.delete(
-              `${process.env.REACT_APP_API_LINK}/formation/delete/${formationId}/content`,
-              { index, formationType },
-              { headers: { "x-auth-token": token } }  
-          );
-          return { formationId, index };
-      } catch (error) {
-          return rejectWithValue("Erreur lors de la suppression du contenu");
-      }
-  }
-);
 
 export const editContent = createAsyncThunk(
   'formation/editContent',

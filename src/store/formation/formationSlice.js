@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { loadEtablissement, loadFormation, addContent, deleteContent, saveContentOrder, editContent, deleteFormation, addFormation, editFormation } from './formationAsyncAction';
+import { loadEtablissement, loadFormation, addContent, saveContentOrder, editContent, deleteFormation, addFormation, editFormation } from './formationAsyncAction';
 
 const formationSlice = createSlice({
   name: 'formations',
@@ -192,17 +192,6 @@ const formationSlice = createSlice({
 
         state.loading = false;
       })
-    builder.addCase(deleteContent.fulfilled, (state, action) => {
-      const { formationId, index } = action.payload;
-
-      // Trouver la formation concernée
-      const formation = state.formations.find((f) => f._id === formationId);
-
-      if (formation && formation.content) {
-        // Supprimer l'élément à l'index spécifié
-        formation.content.splice(index, 1);
-      }
-    })
     builder.addCase(editContent.fulfilled, (state, action) => {
       const { formationId, index, newValue } = action.payload;
 
