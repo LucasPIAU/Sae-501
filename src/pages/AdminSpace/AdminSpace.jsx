@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { moveContent, deleteContent } from '../../store/formation/formationSlice';
-import { editContent } from '../../store/formation/formationAsyncAction.js';
+import { moveContent } from '../../store/formation/formationSlice';
+import { editContent, addContent, deleteContent, saveContentOrder } from '../../store/formation/formationAsyncAction.js';
 import { selectEtablissements, selectFormations } from '../../store/formation/formationSelector.js';
 import style from "./AdminSpace.module.css";
 import Map from "../../components/Map/map.jsx";
@@ -15,8 +15,8 @@ import Hr from "../../components/Hr/Hr";
 import Video from "../../components/Video/Video";
 import ListCard from '../../components/listCard/listCard';
 import bgCardImage from '../../assets/images/stmg.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 function AdminSpace() {
 
@@ -33,34 +33,80 @@ function AdminSpace() {
     const [editingElement, setEditingElement] = useState(null); // Gérer l'élément en cours d'édition
     const [editValue, setEditValue] = useState(''); // Valeur temporaire d'édition
     const [selectedValue, setSelectedValue] = useState('');
+    const [inputValue, setInputValue] = useState(''); // Valeur pour le contenu texte
+    const [mediaFile, setMediaFile] = useState(null); // Fichier pour les médias
+    const [hasChanges, setHasChanges] = useState(false); // Pour détecter les modifications
 
     const navigateTo = () => {
         navigate(-1);
     };
 
     const handleMoveContent = (fromIndex, toIndex) => {
-        dispatch(moveContent({ formationId: item.id, indexFrom: fromIndex, indexTo: toIndex }));
+        dispatch(moveContent({ formationId: item._id, indexFrom: fromIndex, indexTo: toIndex }));
+        setHasChanges(true); // Active le bouton "Sauvegarder"
+    };
+
+    const handleSaveChanges = () => {
+        dispatch(saveContentOrder({ formationId: item._id, content: item.content }))
+            .then(() => {
+                setHasChanges(false); // Désactive le bouton après la sauvegarde
+            })
+            .catch((error) => {
+                console.error("Erreur lors de la sauvegarde :", error);
+            });
     };
 
     const handleEdit = (index, element) => {
-        setEditingElement({ index, element });
-        setEditValue(element); // Pré-remplir avec les données actuelles
+        console.log(element)
+        setEditingElement({ index, element});
+        setEditValue(element.data); // Pré-remplir avec les données actuelles
     };
 
     const handleEditSave = () => {
         if (editingElement) {
+            console.log(editingElement)
             dispatch(editContent({
-                formationId: item.id,
+                formationId: item._id,
                 index: editingElement.index,
-                newValue: editValue
+                newValue: editValue,
+                formationType: editingElement.type // Ajoute le type de formation
             }));
             setEditingElement(null); // Fermer l'interface d'édition
             setEditValue('');
         }
     };
-
+    
     const handleDelete = (index) => {
-        dispatch(deleteContent({ formationId: item.id, index }));
+        dispatch(deleteContent({
+            formationId: item._id,
+            index,
+        }));
+    };
+
+    const handleAddElement = () => {
+        if (selectedValue) {
+            let newElement = { type: selectedValue };
+
+            console.log("selectedValue : ", selectedValue);
+            console.log("newElement : ", newElement);
+
+            if (selectedValue === 'title' || selectedValue === 'desc') {
+                newElement.data = inputValue;
+            } else if (selectedValue === 'images' || selectedValue === 'video') {
+                newElement.data = mediaFile;
+            }
+
+            console.log("newElement : ", newElement);
+
+            dispatch(addContent({
+                formationId: item._id,
+                newElement
+            }));
+            setShowPopup(false); // Ferme la popup
+            setSelectedValue(''); // Réinitialise le select
+            setInputValue(''); // Réinitialise le champ texte
+            setMediaFile(null); // Réinitialise le fichier média
+        }
     };
 
     const getContent = (content) => {
@@ -81,22 +127,11 @@ function AdminSpace() {
         ));
     };
 
-    const handleAddElement = () => {
-        if (selectedValue) {
-          dispatch(editContent({
-            formationId: item.id,
-            newElement: { type: selectedValue, data: '' } // Ajoute un nouvel élément avec le type sélectionné
-          }));
-          setShowPopup(false); // Ferme la popup
-          setSelectedValue(''); // Réinitialise le select
-        }
-      };
-      
-
-
     return (
         <DndProvider backend={HTML5Backend}>
             <div className={style.detail}>
+                {hasChanges && <button onClick={handleSaveChanges}>Sauvegarder</button>
+            }
                 {item ? (
                     <>
                         <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft} /></button>
@@ -111,7 +146,7 @@ function AdminSpace() {
                             <div className={style.containerContent}>
                                 <Map dataEtablissement={allEtablissements} />
                                 <div className={style.containerListCard}>
-                                    <ListCard items={formations} type="etablissement" />
+                                    <ListCard items={allEtablissements} type="etablissement" />
                                 </div>
                             </div>
                         </div>
@@ -141,12 +176,26 @@ function AdminSpace() {
                                     <h3>Ajouter un Élement</h3>
                                     <select value={selectedValue} onChange={(e) => setSelectedValue(e.target.value)}>
                                         <option value="">-- Choisissez un type --</option>
-                                        <option value="Title">Titre</option>
+                                        <option value="title">Titre</option>
                                         <option value="desc">Description</option>
                                         <option value="images">Image</option>
                                         <option value="hr">Séparateur</option>
                                         <option value="video">Vidéo</option>
                                     </select>
+                                    {selectedValue === 'title' || selectedValue === 'desc' ? (
+                                        <input
+                                            type="text"
+                                            placeholder="Entrez le contenu"
+                                            value={inputValue}
+                                            onChange={(e) => setInputValue(e.target.value)}
+                                        />
+                                    ) : null}
+                                    {selectedValue === 'images' || selectedValue === 'video' ? (
+                                        <input
+                                            type="file"
+                                            onChange={(e) => setMediaFile(e.target.files[0])}
+                                        />
+                                    ) : null}
                                     <div>
                                         <button onClick={handleAddElement}>Ajouter</button>
                                         <button onClick={() => setShowPopup(false)}>Annuler</button>

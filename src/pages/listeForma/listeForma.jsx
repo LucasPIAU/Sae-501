@@ -29,12 +29,12 @@ function ListeForma() {
     {
       name: "Formations Générales et Technologiques",
       link: "/listeGT",
-      filiere: "generalTechnoOption"
+      type: "generalTechnoOption"
     },
     {
       name: "Formations Professionnelles",
       link: "/pro",
-      filiere: "Professionel"
+      type: "pro"
     },
   ]
 

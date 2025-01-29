@@ -1,44 +1,55 @@
 .containerMapFormation {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
   
 .containerListCard {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .containerMap {
-    margin: 30px 25px 25px 25px;
+  margin: 30px 25px 25px 25px;
 }
 
 .backButton {
-    border-radius: 15px;
-    background-color: #B059B1;
-    padding: 10px 15px;
-    cursor: pointer;
-  }
+  border-radius: 15px;
+  background-color: #B059B1;
+  padding: 10px 15px;
+  cursor: pointer;
+}
 
-  .backButton {
-    border-radius: 50%;
-    background-color: #B059B1;
-    cursor: pointer;
-    border: none;
-    font-size: 20px;
-    color: white;
-    padding: 0;
-  }
+.backButton {
+  border-radius: 50%;
+  background-color: #B059B1;
+  cursor: pointer;
+  border: none;
+  font-size: 20px;
+  color: white;
+  padding: 0;
+}
 
-  .backButton svg {
-    margin: 10px 12px;
+.backButton svg {
+  margin: 10px 12px;
+}
+
+.containerLycee {
+  margin: 0 25px;
+}
+
+.containerListCard {
+  height: 550px;
+  padding: 25px;
+  overflow-y: scroll;
+}
+
+@media screen and (max-width: 600px) {
+  .containerMapFormation {
+    display: flex;
+    flex-direction: column;
   }
 
   .containerLycee {
-    margin: 0 25px;
+    margin: 0;
   }
-
-  .containerListCard {
-    height: 550px;
-    padding: 25px;
-    overflow-y: scroll;
-  }
+}

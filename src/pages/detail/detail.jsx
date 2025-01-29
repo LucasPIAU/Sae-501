@@ -28,18 +28,17 @@
     // console.log("itemId : ", itemId);
 
     useEffect(()=>{
-      setItem(formations?.find(formation => formation._id === itemId)) // Trouver la formation par son id
-      // console.log("etablissement: ", etablissement)
-      // console.log("itemId: ", itemId);
+      setItem(formations?.find(formation => formation._id === itemId))
+      console.log("itemId: ", itemId);
       // console.log("formations : ", formations);
-      // console.log("item : ", item)
+      console.log("item : ", item)
       if(item && item.etablissement ){
         // console.log("je passe dans item")
       setFiltredEtablissement(etablissement.filter(etab => 
         item.etablissement.includes(etab._id)
       ))
     }
-    // console.log("filtredEtablissement : ", filtredEtablissement);
+    console.log("filtredEtablissement : ", filtredEtablissement);
     }, [itemId, formations, etablissement, item])
 
     console.log("item detail : ", item);
