@@ -15,7 +15,7 @@
 
 h1 {
   color: white;
-  font-size: 400%;
+  font-size: 380%;
 }
 
 .mainButton {
@@ -66,4 +66,17 @@ h1 {
 .divTitle {
   text-align: start;
   max-width: 100vh;
+}
+
+
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 200%; 
+  }
+
+  .AppHeader {
+    background-image: url('../../assets/images/headerResp.png');
+    background-size: cover;
+    background-position: top left;
+  }
 }

@@ -1,4 +1,11 @@
 .containerMap {
-    width: 500px;
+    width: 50%;
     height: 500px;
+}
+
+@media screen and (max-width: 600px) {
+    .containerMap {
+        width: 100%;
+        height: 400px;
+    }
 }

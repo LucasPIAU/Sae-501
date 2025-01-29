@@ -28,7 +28,7 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
   };
 
   const handleClick = () => {
-    if (onDomainSelect && item.name && !item.link && !item.type) {
+    if (onDomainSelect && item.name && !item.link && item.type === "domain") {
       // Appeler onDomainSelect si l'élément est un domaine
       onDomainSelect(item);
     }
@@ -36,30 +36,33 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
 
   // console.log("item dans card : ", item)
   const filiere = item.filiere;
-  console.log("filiere : ", filiere)
+  // console.log("filiere : ", filiere)
 
   const getBackgroundType = (filiere) => {
+    console.log("le type : ", filiere)
     switch (filiere) {
-      case "Professionel":
+      case "pro":
+        return style.proBg;
+      case "domain":
         return style.proBg;
       case "techno":
         return style.technoBg;
-      case "generale":
-        return style.generalBg;
       case "general":
         return style.generalBg;
-      case "option":
+      case "generale":
+        return style.generalBg;
+      case "opt-seconde":
         return style.optionBg;
       case "generalTechnoOption":
         return style.all3Bg;
       default:
-        return style.proBg;
+        return style.pinkBg;
     }
   }
 
   return (
     <div
-      className={`${style.card} ${isChecked ? style.greenBg : getBackgroundType(item.filiere)}`}
+      className={`${style.card} ${isChecked ? style.greenBg : getBackgroundType(item.type)}`}
       onClick={handleClick} // Détecte le clic global
     >
       <div className={style.containerTitleMotClef}>
@@ -81,14 +84,14 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
           )}
       </div>
       <div className={style.containerButtonCard}>
-        {item.type === 'etablissement' ? (
-          <a href={item.link} target="_blank" rel="noopener noreferrer">
-            Voir plus
+        {item.adresse ? (
+          <a href={item.website} target="_blank" rel="noopener noreferrer">
+            Site web
           </a>
         ) : !item.link && item.type != "pro" && item.type != "techno" && item.type != "generale" && item.type != "opt-seconde" ? (
           // Si c'est un domaine (pas de lien), aucune action ici
           <button className={style.domainInfo}>
-            voir les formations
+            Voir plus
           </button>
         ) : (
           <button onClick={navigateTo}>Voir plus</button>
