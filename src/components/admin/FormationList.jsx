@@ -1,19 +1,14 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./List.module.css";
 import { useDispatch } from "react-redux";
 import { deleteFormation } from "../../store/formation/formationAsyncAction";
 
 const FormationList = ({ formations, setPopupOpen, setPopupMode, setFormData }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
     dispatch(deleteFormation(id));
-  };
-
-  const handleUpdateFormation = (id) => {
-    navigate("/adminspace", { state: { itemId: id } });
   };
 
   const handleOpenPopup = (formation) => {
@@ -30,12 +25,13 @@ const FormationList = ({ formations, setPopupOpen, setPopupMode, setFormData }) 
             <h3 className={styles.titleItemList}>{formation.name}</h3>
             <div>
               {formation.type !== "generale" && (
-                <button
+                <Link
+                  to="/adminspace"
+                  state={{ itemId: formation._id }}
                   className={styles.buttonList}
-                  onClick={() => handleUpdateFormation(formation._id)}
                 >
                   Modifier la page
-                </button>
+                </Link>
               )}
               <button
                 className={styles.buttonList}

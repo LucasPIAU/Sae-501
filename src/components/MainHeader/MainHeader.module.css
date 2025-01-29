@@ -61,6 +61,7 @@ h1 {
 .secondButton:hover {
   background-color: white;
   color: black;
+  text-decoration: none;
 }
 
 .divTitle {

@@ -1,34 +1,39 @@
-  .containerMapFormation {
-    display: flex;
-    flex-direction: column;
-    margin: 0 25px 15px;
-  }
+.containerMapFormation {
+  display: flex;
+  flex-direction: column;
+  margin: 0 25px 15px;
+}
   
-  .containerListCard {
-    display: flex;
-    flex-wrap: wrap;
-  }
+.containerListCard {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  .backButton {
-    border-radius: 50%;
-    margin: 0 25px;
-    background-color: #B059B1;
-    cursor: pointer;
-    border: none;
-    font-size: 20px;
-    color: white;
-    padding: 0;
-  }
+.backButton {
+  border-radius: 50%;
+  margin: 0 26px;
+  background-color: #B059B1;
+  cursor: pointer;
+  border: none;
+  font-size: 20px;
+  color: white;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
+.backButton svg {
+  margin: 0;
+  font-size: 24px;
+}
 
-  .backButton svg {
-    margin: 10px 12px;
-  }
-
-  .noDataResult {
-    display: flex;
-    justify-content: center;
-    height: 200px;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: 600
-  }
+.noDataResult {
+  display: flex;
+  justify-content: center;
+  height: 200px;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600
+}

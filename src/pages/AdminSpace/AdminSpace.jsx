@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { moveContent } from '../../store/formation/formationSlice';
@@ -14,7 +14,7 @@ import Image from '../../components/Image/Image';
 import Hr from "../../components/Hr/Hr";
 import Video from "../../components/Video/Video";
 import ListCard from '../../components/listCard/listCard';
-import bgCardImage from '../../assets/images/stmg.png';
+// import bgCardImage from '../../assets/images/stmg.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -24,7 +24,6 @@ function AdminSpace() {
     const allEtablissements = useSelector(selectEtablissements);
     const location = useLocation();
     const { itemId } = location.state || {}; // Récupérer l'id depuis les paramètres de la route
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const formations = useSelector(selectFormations); // Récupérer toutes les formations depuis Redux
@@ -36,10 +35,20 @@ function AdminSpace() {
     const [inputValue, setInputValue] = useState(''); // Valeur pour le contenu texte
     const [mediaFile, setMediaFile] = useState(null); // Fichier pour les médias
     const [hasChanges, setHasChanges] = useState(false); // Pour détecter les modifications
+    const [filtredEtablissement, setFiltredEtablissement] = useState(null);
 
-    const navigateTo = () => {
-        navigate(-1);
-    };
+        useEffect(()=>{
+          console.log("itemId: ", itemId);
+          // console.log("formations : ", formations);
+          console.log("item : ", item)
+          if(item && item.etablissement ){
+            // console.log("je passe dans item")
+          setFiltredEtablissement(allEtablissements.filter(etab => 
+            item.etablissement.includes(etab._id)
+          ))
+        }
+        console.log("filtredEtablissement : ", filtredEtablissement);
+        }, [itemId, formations, allEtablissements, item])
 
     const handleMoveContent = (fromIndex, toIndex) => {
         dispatch(moveContent({ formationId: item._id, indexFrom: fromIndex, indexTo: toIndex }));
@@ -58,30 +67,36 @@ function AdminSpace() {
 
     const handleEdit = (index, element) => {
         console.log(element)
-        setEditingElement({ index, element});
+        setEditingElement({ index, element });
         setEditValue(element.data); // Pré-remplir avec les données actuelles
     };
 
     const handleEditSave = () => {
         if (editingElement) {
             console.log(editingElement)
+            let newValue = editValue;
+            if (editingElement.element.type === "images" || editingElement.element.type === "video") {
+                newValue = mediaFile; // Utiliser le fichier sélectionné
+            }
             dispatch(editContent({
                 formationId: item._id,
                 index: editingElement.index,
-                newValue: editValue,
+                newValue: newValue,
                 formationType: editingElement.type // Ajoute le type de formation
             }));
             setEditingElement(null); // Fermer l'interface d'édition
             setEditValue('');
         }
     };
-    
+
     const handleDelete = (index) => {
-        dispatch(deleteContent({
-            formationId: item._id,
-            index,
-        }));
+        // Crée une nouvelle version du tableau sans l'élément à l'index spécifié
+        const newContent = item.content.filter((_, i) => i !== index);
+    
+        // Ensuite, tu mets à jour le tableau content avec cette nouvelle version
+        dispatch(saveContentOrder({ formationId: item._id, content: newContent }));
     };
+    
 
     const handleAddElement = () => {
         if (selectedValue) {
@@ -130,25 +145,28 @@ function AdminSpace() {
     return (
         <DndProvider backend={HTML5Backend}>
             <div className={style.detail}>
-                {hasChanges && <button onClick={handleSaveChanges}>Sauvegarder</button>
-            }
                 {item ? (
                     <>
-                        <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft} /></button>
+                        <Link to={-1} className={style.backButton}>
+                            <FontAwesomeIcon icon={faArrowLeft} />
+                        </Link>
+                        {hasChanges && <button className={style.saveChange} onClick={handleSaveChanges}>Sauvegarder</button>}
                         <div className={style.containerDetail}>
                             <div className={style.containerContentTitle}>
-                                <h1 className={style.titleDetail}>{item.nom}</h1>
+                                <h1 className={style.titleDetail}>{item.name}</h1>
                                 <div className={style.containerContent}>
                                     {getContent(item.content)}
                                     <button onClick={() => setShowPopup(true)}>PLUS</button>
                                 </div>
                             </div>
+                            {filtredEtablissement && 
                             <div className={style.containerContent}>
-                                <Map dataEtablissement={allEtablissements} />
+                                <Map dataEtablissement={filtredEtablissement} />
                                 <div className={style.containerListCard}>
-                                    <ListCard items={allEtablissements} type="etablissement" />
+                                    <ListCard items={filtredEtablissement} type="etablissement" />
                                 </div>
                             </div>
+                            }
                         </div>
                         {editingElement && (
                             <>
@@ -156,11 +174,23 @@ function AdminSpace() {
                                 <div className={style.modalOverlay} onClick={() => setEditingElement(null)}></div>
                                 <div className={style.editModal}>
                                     <h3>Modifier l'Élément</h3>
-                                    <input
-                                        type="text"
-                                        value={editValue}
-                                        onChange={(e) => setEditValue(e.target.value)}
-                                    />
+                                    {editingElement.element.type === 'desc' ? (
+                                        <textarea
+                                            value={editValue}
+                                            onChange={(e) => setEditValue(e.target.value)}
+                                        />
+                                    ) : editingElement.element.type === 'images' || editingElement.element.type === 'video' ? (
+                                        <input
+                                            type="file"
+                                            onChange={(e) => setMediaFile(e.target.files[0])}
+                                        />
+                                    ) : (
+                                        <input
+                                            type="text"
+                                            value={editValue}
+                                            onChange={(e) => setEditValue(e.target.value)}
+                                        />
+                                    )}
                                     <div>
                                         <button onClick={handleEditSave}>Sauvegarder</button>
                                         <button onClick={() => setEditingElement(null)}>Annuler</button>
@@ -182,8 +212,16 @@ function AdminSpace() {
                                         <option value="hr">Séparateur</option>
                                         <option value="video">Vidéo</option>
                                     </select>
-                                    {selectedValue === 'title' || selectedValue === 'desc' ? (
+                                    {selectedValue === 'title' ? (
                                         <input
+                                            type="text"
+                                            placeholder="Entrez le contenu"
+                                            value={inputValue}
+                                            onChange={(e) => setInputValue(e.target.value)}
+                                        />
+                                    ) : null}
+                                    {selectedValue === 'desc' ? (
+                                        <textarea
                                             type="text"
                                             placeholder="Entrez le contenu"
                                             value={inputValue}
@@ -229,13 +267,14 @@ const DraggableContent = ({ index, element, moveContent, item }) => {
     });
 
     const renderElement = () => {
+        console.log(element);
         switch (element.type) {
             case "title":
                 return <Title title={element.data} />;
             case "desc":
                 return <Description description={element.data} />;
             case "images":
-                return <div><Image src={bgCardImage} alt="Image description" /></div>;
+                return <div><Image src={element.data.name} alt="Image description" /></div>;
             case "hr":
                 return <Hr />;
             case "video":

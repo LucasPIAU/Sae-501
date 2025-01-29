@@ -1,42 +1,27 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import style from './card.module.css';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addFormationToFilter } from '../../store/formation/formationSlice';
 import { setCurrentPage } from '../../store/formation/formationSlice';
       
-function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
-  const navigate = useNavigate();
+function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect, onHover = ()=> {}}) {
   const [isChecked, setIsChecked] = useState(item.isChecked || false);
   const dispatch = useDispatch();
-
-  const navigateTo = () => {
-    if (item.link) {
-      navigate(item.link);
-    } else {
-      navigate('/detail', { state: { itemId: item._id } });
-      setCurrentPage('detail');
-    }
-  };
 
   const handleCheckboxChange = (event) => {
     const checked = event.target.checked;
     setIsChecked(checked);
     onSpeSelect(item);
-    // console.log(item);
-    // dispatch(addFormationToFilter(item));  // Cela ajoutera ou retirera la formation selon l'état du checkbox
   };
 
   const handleClick = () => {
     if (onDomainSelect && item.name && !item.link && item.type === "domain") {
-      // Appeler onDomainSelect si l'élément est un domaine
       onDomainSelect(item);
     }
   };
 
-  // console.log("item dans card : ", item)
   const filiere = item.filiere;
-  // console.log("filiere : ", filiere)
 
   const getBackgroundType = (filiere) => {
     console.log("le type : ", filiere)
@@ -63,7 +48,9 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
   return (
     <div
       className={`${style.card} ${isChecked ? style.greenBg : getBackgroundType(item.type)}`}
-      onClick={handleClick} // Détecte le clic global
+      onClick={handleClick}
+      onMouseEnter={() => onHover(item)}
+      onMouseLeave={() => onHover(null)}
     >
       <div className={style.containerTitleMotClef}>
         <h3>{item.name}</h3>
@@ -89,12 +76,13 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
             Site web
           </a>
         ) : !item.link && item.type != "pro" && item.type != "techno" && item.type != "generale" && item.type != "opt-seconde" ? (
-          // Si c'est un domaine (pas de lien), aucune action ici
           <button className={style.domainInfo}>
             Voir plus
           </button>
         ) : (
-          <button onClick={navigateTo}>Voir plus</button>
+          <Link to={item.link || "/detail"} state={item.link ? {} : { itemId: item._id }} className={style.button}>
+            Voir plus
+          </Link>
         )}
       </div>
       {item.type === 'generale' && !isInSearch && (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import style from "./options.module.css";
 import ListCard from '../../components/listCard/listCard';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectFormations } from '../../store/formation/formationSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,16 +13,12 @@ function Options() {
 
   const updatedFormations = formations.filter(formation => formation.type === "opt-seconde");
 
-  const navigate = useNavigate();
-
-  const navigateTo = () => {
-      navigate(-1);
-  }
-
   return (
     <>
       <div className={style.containerOptions}>
-        <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft}/></button>
+        <Link to={-1} className={style.backButton}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Link>
         <div className={style.containerMapFormation}>
           <ListCard items={updatedFormations}/>
         </div>
