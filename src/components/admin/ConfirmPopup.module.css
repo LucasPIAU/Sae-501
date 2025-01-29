@@ -1,0 +1,45 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 300px;
+  }
+  
+  .header {
+    margin-bottom: 10px;
+  }
+  
+  .confirmButtons {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .confirmButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .confirmButton:first-child{
+    background-color: rgb(0, 132, 255);
+  }
+
+  .confirmButton:last-child{
+    background-color: red;
+  }
+  
