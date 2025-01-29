@@ -147,17 +147,20 @@ const AddEditForm = ({
                 ))}
               </div>
               {formValues.type === "pro" && (
-                <select
-                  name="categorie"
-                  value={formValues.data.categorie}
-                  onChange={handleCategChange}
-                >
-                  {categoriesPro.map((categ, index) => (
-                    <option key={index} value={categ}>
-                      {categ}
-                    </option>
-                  ))}
-                </select>
+                <label>
+                  Categorie :
+                  <select
+                    name="categorie"
+                    value={formValues.data.categorie}
+                    onChange={handleCategChange}
+                  >
+                    {categoriesPro.map((categ, index) => (
+                      <option key={index} value={categ}>
+                        {categ}
+                      </option>
+                    ))}
+                  </select>
+                </label>
               )}
             </>
           )}
