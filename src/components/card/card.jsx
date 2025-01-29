@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { addFormationToFilter } from '../../store/formation/formationSlice';
 import { setCurrentPage } from '../../store/formation/formationSlice';
       
-function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
+function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect, onHover = ()=> {}}) {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(item.isChecked || false);
   const dispatch = useDispatch();
@@ -64,6 +64,8 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect }) {
     <div
       className={`${style.card} ${isChecked ? style.greenBg : getBackgroundType(item.type)}`}
       onClick={handleClick} // Détecte le clic global
+      onMouseEnter={() => onHover(item)}
+      onMouseLeave={() => onHover(null)}
     >
       <div className={style.containerTitleMotClef}>
         <h3>{item.name}</h3>

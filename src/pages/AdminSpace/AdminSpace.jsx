@@ -14,7 +14,7 @@ import Image from '../../components/Image/Image';
 import Hr from "../../components/Hr/Hr";
 import Video from "../../components/Video/Video";
 import ListCard from '../../components/listCard/listCard';
-import bgCardImage from '../../assets/images/stmg.png';
+// import bgCardImage from '../../assets/images/stmg.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -58,24 +58,28 @@ function AdminSpace() {
 
     const handleEdit = (index, element) => {
         console.log(element)
-        setEditingElement({ index, element});
+        setEditingElement({ index, element });
         setEditValue(element.data); // Pré-remplir avec les données actuelles
     };
 
     const handleEditSave = () => {
         if (editingElement) {
             console.log(editingElement)
+            let newValue = editValue;
+            if (editingElement.element.type === "images" || editingElement.element.type === "video") {
+                newValue = mediaFile; // Utiliser le fichier sélectionné
+            }
             dispatch(editContent({
                 formationId: item._id,
                 index: editingElement.index,
-                newValue: editValue,
+                newValue: newValue,
                 formationType: editingElement.type // Ajoute le type de formation
             }));
             setEditingElement(null); // Fermer l'interface d'édition
             setEditValue('');
         }
     };
-    
+
     const handleDelete = (index) => {
         dispatch(deleteContent({
             formationId: item._id,
@@ -131,7 +135,7 @@ function AdminSpace() {
         <DndProvider backend={HTML5Backend}>
             <div className={style.detail}>
                 {hasChanges && <button onClick={handleSaveChanges}>Sauvegarder</button>
-            }
+                }
                 {item ? (
                     <>
                         <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft} /></button>
@@ -156,11 +160,23 @@ function AdminSpace() {
                                 <div className={style.modalOverlay} onClick={() => setEditingElement(null)}></div>
                                 <div className={style.editModal}>
                                     <h3>Modifier l'Élément</h3>
-                                    <input
-                                        type="text"
-                                        value={editValue}
-                                        onChange={(e) => setEditValue(e.target.value)}
-                                    />
+                                    {editingElement.element.type === 'desc' ? (
+                                        <textarea
+                                            value={editValue}
+                                            onChange={(e) => setEditValue(e.target.value)}
+                                        />
+                                    ) : editingElement.element.type === 'images' || editingElement.element.type === 'video' ? (
+                                        <input
+                                            type="file"
+                                            onChange={(e) => setMediaFile(e.target.files[0])}
+                                        />
+                                    ) : (
+                                        <input
+                                            type="text"
+                                            value={editValue}
+                                            onChange={(e) => setEditValue(e.target.value)}
+                                        />
+                                    )}
                                     <div>
                                         <button onClick={handleEditSave}>Sauvegarder</button>
                                         <button onClick={() => setEditingElement(null)}>Annuler</button>
@@ -182,8 +198,16 @@ function AdminSpace() {
                                         <option value="hr">Séparateur</option>
                                         <option value="video">Vidéo</option>
                                     </select>
-                                    {selectedValue === 'title' || selectedValue === 'desc' ? (
+                                    {selectedValue === 'title' ? (
                                         <input
+                                            type="text"
+                                            placeholder="Entrez le contenu"
+                                            value={inputValue}
+                                            onChange={(e) => setInputValue(e.target.value)}
+                                        />
+                                    ) : null}
+                                    {selectedValue === 'desc' ? (
+                                        <textarea
                                             type="text"
                                             placeholder="Entrez le contenu"
                                             value={inputValue}
@@ -229,13 +253,14 @@ const DraggableContent = ({ index, element, moveContent, item }) => {
     });
 
     const renderElement = () => {
+        console.log(element);
         switch (element.type) {
             case "title":
                 return <Title title={element.data} />;
             case "desc":
                 return <Description description={element.data} />;
             case "images":
-                return <div><Image src={bgCardImage} alt="Image description" /></div>;
+                return <div><Image src={element.data.name} alt="Image description" /></div>;
             case "hr":
                 return <Hr />;
             case "video":

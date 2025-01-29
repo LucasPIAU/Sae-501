@@ -34,6 +34,9 @@ const Lycees = () => {
   const [range, setRange] = useState(15);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [hoveredEtablissement, setHoveredEtablissement] = useState(null);
+
+  console.log(hoveredEtablissement);
 
   useEffect(() => {
     const filterByLocation = async () => {
@@ -83,10 +86,10 @@ const Lycees = () => {
         </button>
         <div className={style.containerMapFormation}>
           <div className={style.containerMap}>
-            <Map dataEtablissement={filteredEtablissements} />
+          <Map dataEtablissement={filteredEtablissements} hoveredEtablissement={hoveredEtablissement} />
           </div>
           <div className={style.containerListCard}>
-            <ListCard items={filteredEtablissements} />
+            <ListCard items={filteredEtablissements} onHover={setHoveredEtablissement} />
           </div>
         </div>
       </div>

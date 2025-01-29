@@ -21,6 +21,7 @@
     const navigate = useNavigate();
     const [item, setItem] = useState(null);
     const [filtredEtablissement, setFiltredEtablissement] = useState(null);
+    const [hoveredEtablissement, setHoveredEtablissement] = useState(null);
 
     
     const formations = useSelector(selectFormations);
@@ -91,9 +92,9 @@
               </div>
               {filtredEtablissement && 
               <div className={style.containerContent}>
-                <Map dataEtablissement={filtredEtablissement}/>
+                <Map dataEtablissement={filtredEtablissement} hoveredEtablissement={hoveredEtablissement}/>
                 <div className={style.containerListCard}>
-                  <ListCard items={filtredEtablissement} />
+                  <ListCard items={filtredEtablissement} onHover={setHoveredEtablissement}/>
                 </div>
               </div>
               }

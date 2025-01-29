@@ -35,15 +35,16 @@ function ListeGT() {
     // console.log("Obj en cours de filtrage :", obj); // Log des objets à filtrer
     // console.log("Filtres appliqués :", filters);   // Log des filtres appliqués
     return filters.every((filter) => {
+      console.log(filter)
       switch (filter.type) {
         case 'motClef':
           return obj.name.toLowerCase().includes(filter.value);
         case 'generale':
-          return filter.value.includes(obj.filiere);
+          return filter.value.includes(obj.type);
         case 'pro':
-          return obj.filiere === filter.value;
+          return obj.type === filter.value;
         case 'etablissement':
-          return obj.filiere === filter.value;
+          return obj.type === filter.value;
         default:
           return true; // Aucun filtre correspondant
       }
@@ -53,6 +54,7 @@ function ListeGT() {
 
   const filtredFormation = useMemo(() => {
     if (!filters.length) return formations; // Si aucun filtre, retourner toutes les formations
+    console.log('formation : ', formations)
     return formations.filter(combineFilters(filters));
   }, [formations, filters]);
 
