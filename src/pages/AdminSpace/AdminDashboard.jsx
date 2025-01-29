@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FormationList from "../../components/admin/FormationList";
 import EtablissementList from "../../components/admin/EtablissementList";
@@ -17,6 +17,9 @@ import {
   editFormation,
 } from "../../store/formation/formationAsyncAction.js";
 import AddEditForm from "../../components/admin/AddEditForm.jsx";
+import FilterForm from "../../components/FilterForm/FilterForm.jsx";
+import { selectFormationFilter } from "../../store/formation/formationSelector";
+import { setFormationFilter } from "../../store/formation/formationSlice.js";
 
 const AdminDashboard = () => {
   const [display, setDisplay] = useState("formation");
@@ -41,6 +44,16 @@ const AdminDashboard = () => {
   const isConnected = useSelector(selectIsConnected);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+    const filterArray = useSelector(selectFormationFilter)
+    // console.log('formation : ', formations)
+    const [filters, setFilters] = useState([]);  
+    useEffect(() => {
+      console.log("filterArray", filterArray);
+      if (filterArray) {
+        // console.log("Filtres récupérés depuis Redux :", filterArray);
+        setFilters(filterArray);
+      }
+    }, [filterArray]);
 
   useEffect(() => {
     if (!isConnected) {
@@ -170,6 +183,46 @@ const AdminDashboard = () => {
     });
   };
 
+    const combineFilters = (filters) => (obj) => {
+      // console.log("Obj en cours de filtrage :", obj); // Log des objets à filtrer
+      // console.log("Filtres appliqués :", filters);   // Log des filtres appliqués
+      return filters.every((filter) => {
+        console.log(filter)
+        switch (filter.type) {
+          case 'motClef':
+            return obj.name.toLowerCase().includes(filter.value);
+          case 'generale':
+            return filter.value.includes(obj.type);
+          case 'pro':
+            return obj.type === filter.value;
+          case 'etablissement':
+            return obj.type === filter.value;
+          default:
+            return true; // Aucun filtre correspondant
+        }
+      });
+    };
+  
+    const filtredFormation = useMemo(() => {
+      if (!filters.length) return formations; // Si aucun filtre, retourner toutes les formations
+      console.log('formation : ', formations)
+      return formations.filter(combineFilters(filters));
+    }, [formations, filters]);
+
+    const onFilter = (newFilters) => {
+      console.log("newFilters : ", newFilters);
+      const serializableFilters = newFilters.map((filter) => {
+        if (filter.type === "motClef") {
+          // Exemple : Conversion de la fonction en un objet de type 'nameContains'
+          return filter
+        }
+        return filter;
+      });
+      console.log("serializableFilters : ", serializableFilters)
+      setFilters(serializableFilters);
+      dispatch(setFormationFilter(serializableFilters)); // Envoi des filtres sérialisables à Redux
+    };
+
   return (
     <div className={styles.containerDashboard}>
       <h1 className={styles.titleDashboard}>Panel d'administration</h1>
@@ -183,8 +236,9 @@ const AdminDashboard = () => {
       {display === "formation" && (
         <section className={styles.sectionDashboard}>
           <h2 className={styles.h2Dashboard}>Formations</h2>
+          <FilterForm onFilter={onFilter} type={"all"} page={"formation"}/>
           <FormationList
-            formations={formations}
+            formations={filtredFormation}
             setPopupOpen={setIsPopupOpen}
             setPopupMode={setPopupMode}
             setFormData={setFormData}
