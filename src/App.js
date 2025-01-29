@@ -42,15 +42,15 @@ function ConditionalBreadCrumb() {
   const routes = ['/connexion', '/adminDashboard']; 
   const isInRoutes = routes.includes(location.pathname);
 
-  return isInRoutes ? null : <Header />;
+  return isInRoutes ? null : <BreadCrumb />;
 }
 
 function ConditionalHeader() {
   const location = useLocation();
-  const routes = ['/adminDashboard', "connexion"]; 
+  const routes = ['/adminDashboard', "/connexion"]; 
   const isInRoutes = routes.includes(location.pathname);
 
-  return isInRoutes ? null : <BreadCrumb />;
+  return isInRoutes ? null : <Header />;
 }
 
 function MainContent() {

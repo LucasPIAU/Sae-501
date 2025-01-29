@@ -17,6 +17,7 @@ import ListCard from '../../components/listCard/listCard';
 // import bgCardImage from '../../assets/images/stmg.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import ConfirmPopup from '../../components/admin/ConfirmPopup.jsx';
 
 function AdminSpace() {
 
@@ -36,7 +37,8 @@ function AdminSpace() {
     const [mediaFile, setMediaFile] = useState(null); // Fichier pour les médias
     const [hasChanges, setHasChanges] = useState(false); // Pour détecter les modifications
     const [filtredEtablissement, setFiltredEtablissement] = useState(null);
-
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [indexToDelete, setIndexToDelete] = useState(null);
         useEffect(()=>{
           console.log("itemId: ", itemId);
           // console.log("formations : ", formations);
@@ -89,13 +91,18 @@ function AdminSpace() {
         }
     };
 
-    const handleDelete = (index) => {
+    const handleDeleteConfirm = (index) => {
+        setShowConfirm(true);
+        setIndexToDelete(index)
+    };
+
+    const deleteContent = (index) => {
         // Crée une nouvelle version du tableau sans l'élément à l'index spécifié
         const newContent = item.content.filter((_, i) => i !== index);
-    
+        setShowConfirm(false);
         // Ensuite, tu mets à jour le tableau content avec cette nouvelle version
         dispatch(saveContentOrder({ formationId: item._id, content: newContent }));
-    };
+    }
     
 
     const handleAddElement = () => {
@@ -131,7 +138,7 @@ function AdminSpace() {
         return content.map((element, index) => (
             <div key={index} className={style.contentItem}>
                 <button onClick={() => handleEdit(index, element)}>Edit</button>
-                <button onClick={() => handleDelete(index)}>Delete</button>
+                <button onClick={() => handleDeleteConfirm(index)}>Delete</button>
                 <DraggableContent
                     index={index}
                     element={element}
@@ -246,6 +253,17 @@ function AdminSpace() {
                     <p>Pas de data trouvée</p>
                 )}
             </div>
+            {showConfirm && 
+        <ConfirmPopup
+          onCancel={() => {
+            setShowConfirm(false);
+          }}
+          onConfirm={() => {
+            deleteContent(indexToDelete);
+          }}
+          message={`Voulez-vous vraiment supprimer l'élément ?`}
+        />
+} 
         </DndProvider>
     );
 }

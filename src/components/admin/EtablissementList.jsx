@@ -50,6 +50,7 @@ const EtablissementList = ({
             >
               Supprimer
             </button>
+            </div>
           </li>
         ))}
       </ul>
