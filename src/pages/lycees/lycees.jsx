@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import style from './lycees.module.css';
 import ListCard from '../../components/listCard/listCard';
 import Map from "../../components/Map/map.jsx";
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { selectCity, selectEtablissements, selectRange } from '../../store/formation/formationSelector.js';
 import FilterForm from '../../components/FilterForm/FilterForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,7 +32,6 @@ const Lycees = () => {
   const [filteredEtablissements, setFilteredEtablissements] = useState([]);
   const [city, setCity] = useState('');
   const [range, setRange] = useState(15);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [hoveredEtablissement, setHoveredEtablissement] = useState(null);
 
@@ -68,10 +67,6 @@ const Lycees = () => {
     filterByLocation();
   }, [city, range, allEtablissements]);
 
-  const navigateTo = () => {
-    navigate(-1);
-  };
-
   return (
     <>
       <FilterForm
@@ -81,9 +76,9 @@ const Lycees = () => {
         page="etablissement"
       />
       <div className={style.containerLycee}>
-        <button className={style.backButton} onClick={navigateTo}>
+        <Link to={-1} className={style.backButton}>
           <FontAwesomeIcon icon={faArrowLeft} />
-        </button>
+        </Link>
         <div className={style.containerMapFormation}>
           <div className={style.containerMap}>
           <Map dataEtablissement={filteredEtablissements} hoveredEtablissement={hoveredEtablissement} />

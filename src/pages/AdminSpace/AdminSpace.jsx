@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { moveContent } from '../../store/formation/formationSlice';
@@ -24,7 +24,6 @@ function AdminSpace() {
     const allEtablissements = useSelector(selectEtablissements);
     const location = useLocation();
     const { itemId } = location.state || {}; // Récupérer l'id depuis les paramètres de la route
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const formations = useSelector(selectFormations); // Récupérer toutes les formations depuis Redux
@@ -37,10 +36,6 @@ function AdminSpace() {
     const [mediaFile, setMediaFile] = useState(null); // Fichier pour les médias
     const [hasChanges, setHasChanges] = useState(false); // Pour détecter les modifications
     const [filtredEtablissement, setFiltredEtablissement] = useState(null);
-
-    const navigateTo = () => {
-        navigate(-1);
-    };
 
         useEffect(()=>{
           console.log("itemId: ", itemId);
@@ -150,7 +145,9 @@ function AdminSpace() {
             <div className={style.detail}>
                 {item ? (
                     <>
-                        <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft} /></button>
+                        <Link to={-1} className={style.backButton}>
+                            <FontAwesomeIcon icon={faArrowLeft} />
+                        </Link>
                         {hasChanges && <button className={style.saveChange} onClick={handleSaveChanges}>Sauvegarder</button>}
                         <div className={style.containerDetail}>
                             <div className={style.containerContentTitle}>

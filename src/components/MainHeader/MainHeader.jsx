@@ -1,14 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import style from './MainHeader.module.css'
+import { Link } from 'react-router-dom';
+import style from './MainHeader.module.css';
 
 const MainHeader = () => {
-    const navigate = useNavigate();
-
-    const navigateTo = (href) => {
-        navigate(href);
-    }
-
     return (
         <>
             <header className={style.AppHeader}>
@@ -16,10 +10,9 @@ const MainHeader = () => {
                     <h1>Les lycées publics mayennais vous forment !</h1>
                 </div>
 
-                {/* <div className={style.mainButton}>Trouve ta formation grâce au chatbot</div> */}
                 <div className='divButtonHeader'>
-                    <div className={style.secondButton} onClick={() => navigateTo('/listeForma')}>Voir les formations</div>
-                    <div className={style.secondButton} onClick={() => navigateTo('/lycees')}>Voir les lycées</div>
+                    <Link to="/listeForma" className={style.secondButton}>Voir les formations</Link>
+                    <Link to="/lycees" className={style.secondButton}>Voir les lycées</Link>
                 </div>
             </header>
         </>

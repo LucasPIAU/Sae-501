@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import style from "./listeG&T.module.css";
 import ListCard from '../../components/listCard/listCard';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { setFormationFilter } from '../../store/formation/formationSlice';
 import { selectFormationFilter, selectFormations } from '../../store/formation/formationSelector.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -16,11 +16,6 @@ function ListeGT() {
   const [filters, setFilters] = useState([]);
 
   const dispatch = useDispatch();
-
-  const navigate = useNavigate();
-  const navigateTo = () => {
-    navigate(-1);
-  }
 
   useEffect(() => {
     console.log("filterArray", filterArray);
@@ -113,7 +108,9 @@ function ListeGT() {
   return (
     <>
       <div className={style.AppA}>
-        <button className={style.backButton} onClick={navigateTo}><FontAwesomeIcon icon={faArrowLeft} /></button>
+        <Link to={-1} className={style.backButton}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Link>
         <FilterForm onFilter={onFilter} type={"generale"} page={"formation"}/>
         <div className={style.containerMapFormation}>
           {!filters.length ? (
