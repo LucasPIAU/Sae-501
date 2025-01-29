@@ -15,6 +15,7 @@
   },
   "name": "Art",
   "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale",
+  "type": "generale",
   "etablissement": [
     "5fdb8c9b8b2d4d1f8c1f16e0"
   ]
@@ -25,6 +26,7 @@
   },
   "name": "Éducation physique, pratiques et culture sportives",
   "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale",
+  "type": "generale",
   "etablissement": [
     "5fdb8c9b8b2d4d1f8c1f16e0"
   ]
@@ -45,6 +47,7 @@
   },
   "name": "Histoire géographie, géopolitique et sciences politiques",
   "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale",
+  "type": "generale",
   "etablissement": [
     "5fdb8c9b8b2d4d1f8c1f16e0"
   ]
@@ -55,6 +58,7 @@
   },
   "name": "Humanités, littérature et philosophie",
   "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale",
+  "type": "generale",
   "etablissement": [
     "5fdb8c9b8b2d4d1f8c1f16e0"
   ]
@@ -65,6 +69,7 @@
   },
   "name": "LLCER - Langues, littératures et cultures étrangères et régionales",
   "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale",
+  "type": "generale",
   "etablissement": [
     "5fdb8c9b8b2d4d1f8c1f16e0"
   ]
@@ -75,6 +80,7 @@
   },
   "name": "Littératures, langues et cultures de l'Antiquité",
   "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale",
+  "type": "generale",
   "etablissement": [
     "5fdb8c9b8b2d4d1f8c1f16e0"
   ]
@@ -85,6 +91,7 @@
   },
   "name": "NSI - Numérique et sciences informatiques",
   "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale",
+  "type": "generale",
   "etablissement": [
     "5fdb8c9b8b2d4d1f8c1f16e0"
   ]
@@ -95,6 +102,7 @@
   },
   "name": "SI - Sciences de l'ingénieur",
   "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale",
+  "type": "generale",
   "etablissement": [
     "5fdb8c9b8b2d4d1f8c1f16e0"
   ]
@@ -105,6 +113,7 @@
   },
   "name": "Physique-chimie",
   "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale",
+  "type": "generale",
   "etablissement": [
     "5fdb8c9b8b2d4d1f8c1f16e0"
   ]
@@ -115,6 +124,7 @@
   },
   "name": "SVT - Sciences de la vie et de la Terre",
   "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale",
+  "type": "generale",
   "etablissement": [
     "5fdb8c9b8b2d4d1f8c1f16e0"
   ]
@@ -125,6 +135,7 @@
   },
   "name": "Sciences économiques et sociales",
   "link": "https://www.onisep.fr/formation/apres-la-2-les-poursuites-d-etudes/les-enseignements-de-specialite-en-voie-generale",
+  "type": "generale",
   "etablissement": [
     "5fdb8c9b8b2d4d1f8c1f16e0"
   ]
