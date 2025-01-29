@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { loadEtablissement, loadFormation, addContent, saveContentOrder, editContent, deleteFormation, addFormation, editFormation } from './formationAsyncAction';
+import { loadEtablissement, loadFormation, addContent, deleteContent, saveContentOrder, editContent, deleteFormation, addFormation, editFormation, addEtablissement, editEtablissement, deleteEtablissement } from './formationAsyncAction';
+
 
 const formationSlice = createSlice({
   name: 'formations',
@@ -18,6 +19,7 @@ const formationSlice = createSlice({
     filterCity: '',
     filterRange: 15,
     etablissementFilter: [],
+    categoriesPro: [],
   },
   reducers: {
     setFormations: (state, action) => {
@@ -123,6 +125,15 @@ const formationSlice = createSlice({
         });
 
         state.formations = mergedFormations;
+
+        state.formations.forEach((formation) => {
+          if (formation.type === "pro") {
+            if (!state.categoriesPro.includes(formation.data.categorie)) {
+              state.categoriesPro.push(formation.data.categorie);
+            }
+          }
+        });
+
         state.loading = false;
       })
       .addCase(loadFormation.rejected, (state, action) => {
@@ -223,7 +234,46 @@ const formationSlice = createSlice({
         // Mettre à jour le tableau `content` avec le nouvel ordre
         formation.content = content;
       }
-    });
+    })
+      .addCase(addEtablissement.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addEtablissement.fulfilled, (state, action) => {
+        state.etablissement.push(action.payload.data);
+        state.loading = false;
+      })
+      .addCase(addEtablissement.rejected, (state, action) => {
+        state.loading = false;
+        state.errors = action.payload;
+      })      
+      .addCase(editEtablissement.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editEtablissement.fulfilled, (state, action) => {
+        state.etablissement = state.etablissement.filter(
+          (etab) => etab._id !== action.payload.data._id
+        );
+        state.etablissement.push(action.payload.data);
+        state.loading = false;
+      })
+      .addCase(editEtablissement.rejected, (state, action) => {
+        state.loading = false;
+        state.errors = action.payload;
+      })
+      .addCase(deleteEtablissement.fulfilled, (state, action) => {
+        state.etablissement = state.etablissement.filter(
+          (etab) => etab._id !== action.payload
+        );
+        state.loading = false;
+      })
+      .addCase(deleteEtablissement.rejected, (state, action) => {
+        state.loading = false;
+        state.errors = action.payload;
+      })
+      .addCase(deleteEtablissement.pending, (state) => {
+        state.loading = true;
+      })
+
   }
 });
 

@@ -1,6 +1,8 @@
 // src/components/PopupForm.js
 import React, { useState } from "react";
 import styles from "./AddEditForm.module.css";
+import { useSelector } from "react-redux";
+import { selectedCategoriesPro } from "../../store/formation/formationSelector";
 
 const AddEditForm = ({
   display,
@@ -12,10 +14,20 @@ const AddEditForm = ({
   popupMode,
 }) => {
   const [formValues, setFormValues] = useState(formData);
+  const categoriesPro = useSelector(selectedCategoriesPro);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleInputNumberChange = (e) => {
+    const { name, value } = e.target;
+    if (value !== "") {
+      setFormValues((prev) => ({ ...prev, [name]: parseInt(value) }));
+    } else {
+      setFormValues((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleCheckboxChange = (e) => {
@@ -34,6 +46,17 @@ const AddEditForm = ({
     setIsPopupOpen(false);
   };
 
+  const handleCategChange = (e) => {
+    const { value } = e.target;
+    setFormValues((prev) => ({
+      ...prev,
+      data: {
+        ...prev.data,
+        categorie: value,
+      },
+    }));
+  };
+
   const handleClose = () => {
     setIsPopupOpen(false);
     setFormData({
@@ -42,6 +65,12 @@ const AddEditForm = ({
       description: "",
       etablissement: [],
       link: "",
+      adresse: "",
+      Latitude: 0,
+      Longitude: 0,
+      tel: "",
+      website: "",
+      data: { categorie: "" },
     });
   };
 
@@ -117,6 +146,19 @@ const AddEditForm = ({
                   </div>
                 ))}
               </div>
+              {formValues.type === "pro" && (
+                <select
+                  name="categorie"
+                  value={formValues.data.categorie}
+                  onChange={handleCategChange}
+                >
+                  {categoriesPro.map((categ, index) => (
+                    <option key={index} value={categ}>
+                      {categ}
+                    </option>
+                  ))}
+                </select>
+              )}
             </>
           )}
           {display === "etablissement" && (
@@ -127,6 +169,57 @@ const AddEditForm = ({
                   type="text"
                   name="name"
                   value={formValues.name}
+                  onChange={handleInputChange}
+                  required
+                />
+              </label>
+              <label>
+                Adresse :
+                <input
+                  type="text"
+                  name="adresse"
+                  value={formValues.adresse}
+                  onChange={handleInputChange}
+                  required
+                />
+              </label>
+              <label>
+                Latitude :
+                <input
+                  type="number"
+                  name="Latitude"
+                  value={formValues.Latitude}
+                  onChange={handleInputNumberChange}
+                  required
+                />
+              </label>
+              <label>
+                Longitude :
+                <input
+                  type="number"
+                  name="Longitude"
+                  value={formValues.Longitude}
+                  onChange={handleInputNumberChange}
+                  required
+                />
+              </label>
+              <label>
+                Téléphone :
+                <input
+                  type="tel"
+                  name="tel"
+                  pattern="(\+33|0)[1-9](\d{2}){4}"
+                  value={formValues.tel}
+                  onChange={handleInputChange}
+                  required
+                />
+              </label>
+              <label>
+                Site Web :
+                <input
+                  type="text"
+                  name="website"
+                  value={formValues.website}
                   onChange={handleInputChange}
                   required
                 />

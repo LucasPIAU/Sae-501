@@ -10,7 +10,12 @@ import {
 import { selectIsConnected } from "../../store/connexion/connexionSelector.js";
 import styles from "./AdminDashboard.module.css";
 import { useNavigate } from "react-router-dom/dist";
-import { addFormation, editFormation } from "../../store/formation/formationAsyncAction.js";
+import {
+  addEtablissement,
+  addFormation,
+  editEtablissement,
+  editFormation,
+} from "../../store/formation/formationAsyncAction.js";
 import AddEditForm from "../../components/admin/AddEditForm.jsx";
 
 const AdminDashboard = () => {
@@ -23,6 +28,12 @@ const AdminDashboard = () => {
     description: "",
     etablissement: [],
     link: "",
+    adresse: "",
+    Latitude: 0,
+    Longitude: 0,
+    tel: "",
+    website: "",
+    data: { categorie: "" },
   });
 
   const formations = useSelector(selectFormations);
@@ -40,15 +51,108 @@ const AdminDashboard = () => {
   const handleFormSubmit = (formValues) => {
     if (display === "formation") {
       if (popupMode === "add") {
-        dispatch(addFormation(formValues));
-      }else if (popupMode ==="edit") {
-        dispatch(editFormation(formValues));
+        if (formValues.type === "generale") {
+          const {
+            description,
+            adresse,
+            Latitude,
+            Longitude,
+            tel,
+            website,
+            etablissement,
+            ...filteredValues
+          } = formValues;
+          dispatch(addFormation(filteredValues));
+        } else if (
+          formValues.type === "techno" ||
+          formValues.type === "opt-seconde"
+        ) {
+          const {
+            link,
+            adresse,
+            Latitude,
+            Longitude,
+            tel,
+            website,
+            data,
+            ...filteredValues
+          } = formValues;
+          dispatch(addFormation(filteredValues));
+        } else if (formValues.type === "pro") {
+          const {
+            link,
+            adresse,
+            Latitude,
+            Longitude,
+            tel,
+            website,
+            ...filteredValues
+          } = formValues;
+          dispatch(addFormation(filteredValues));
+        }
+      } else if (popupMode === "edit") {
+        if (formValues.type === "generale") {
+          const {
+            description,
+            adresse,
+            Latitude,
+            Longitude,
+            tel,
+            website,
+            etablissement,
+            ...filteredValues
+          } = formValues;
+          dispatch(editFormation(filteredValues));
+        } else if (
+          formValues.type === "techno" ||
+          formValues.type === "opt-seconde"
+        ) {
+          const {
+            link,
+            adresse,
+            Latitude,
+            Longitude,
+            tel,
+            website,
+            data,
+            ...filteredValues
+          } = formValues;
+          dispatch(editFormation(filteredValues));
+        } else if (formValues.type === "pro") {
+          const {
+            link,
+            adresse,
+            Latitude,
+            Longitude,
+            tel,
+            website,
+            ...filteredValues
+          } = formValues;
+          dispatch(editFormation(filteredValues));
+        }
       }
     } else if (display === "etablissement") {
-      dispatch({
-        type: "etablissement/addEtablissement",
-        payload: { name: formData.name },
-      });
+      if (popupMode === "add") {
+        const {
+          link,
+          type,
+          description,
+          etablissement,
+          data,
+          ...filteredValues
+        } = formValues;
+        dispatch(addEtablissement(filteredValues));
+      } else if (popupMode === "edit") {
+        const {
+          link,
+          type,
+          description,
+          etablissement,
+          data,
+          ...filteredValues
+        } = formValues;
+        dispatch(editEtablissement(filteredValues));
+      }
     }
     setIsPopupOpen(false);
     setFormData({
@@ -57,6 +161,12 @@ const AdminDashboard = () => {
       description: "",
       etablissement: [],
       link: "",
+      adresse: "",
+      Latitude: 0,
+      Longitude: 0,
+      tel: "",
+      website: "",
+      data: { categorie: "" },
     });
   };
 
@@ -73,13 +183,23 @@ const AdminDashboard = () => {
       {display === "formation" && (
         <section className={styles.sectionDashboard}>
           <h2 className={styles.h2Dashboard}>Formations</h2>
-          <FormationList formations={formations} setPopupOpen={setIsPopupOpen} setPopupMode={setPopupMode} setFormData={setFormData}/>
+          <FormationList
+            formations={formations}
+            setPopupOpen={setIsPopupOpen}
+            setPopupMode={setPopupMode}
+            setFormData={setFormData}
+          />
         </section>
       )}
       {display === "etablissement" && (
         <section className={styles.sectionDashboard}>
           <h2 className={styles.h2Dashboard}>Etablissements</h2>
-          <EtablissementList etablissements={etablissements} />
+          <EtablissementList
+            etablissements={etablissements}
+            setPopupOpen={setIsPopupOpen}
+            setPopupMode={setPopupMode}
+            setFormData={setFormData}
+          />
         </section>
       )}
 
@@ -96,7 +216,10 @@ const AdminDashboard = () => {
       )}
       <button
         className={styles.openButton}
-        onClick={() => setIsPopupOpen(true)}
+        onClick={() => {
+          setIsPopupOpen(true);
+          setPopupMode("add");
+        }}
       >
         Ajouter
       </button>
