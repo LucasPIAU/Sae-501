@@ -100,6 +100,20 @@ export const addFormation = createAsyncThunk(
   }
 );
 
+export const editFormation = createAsyncThunk(
+  'formation/editFormation',
+  async (data, { rejectWithValue, getState }) => {
+    try {
+      const {_id, content, ...cleanedData } = data;
+
+      const patchedFormation = await axios.patch(process.env.REACT_APP_API_LINK + `/formation/edit/${data._id}`, cleanedData, { headers: { "x-auth-token": getState().connexion.token } });
+      return patchedFormation.data;
+    } catch (error) {
+      return rejectWithValue("erreur lors de la modification de la formation");
+    }
+  }
+);
+
 export const deleteFormation = createAsyncThunk(
   'formation/deleteFormation',
   async (id, { rejectWithValue, getState }) => {

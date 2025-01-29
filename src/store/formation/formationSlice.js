@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loadEtablissement, loadFormation, editContent, deleteFormation } from './formationAsyncAction';
+import { loadEtablissement, loadFormation, editContent, deleteFormation, addFormation, editFormation } from './formationAsyncAction';
 
 const formationSlice = createSlice({
   name: 'formations',
@@ -237,6 +237,33 @@ const formationSlice = createSlice({
         state.formations = state.formations.filter(
           (formation) => formation._id !== action.payload
         );
+      })
+      .addCase(addFormation.pending, (state) => {
+        state.loading = true;
+        state.errors = null;
+      })
+      .addCase(addFormation.rejected, (state, action) => {
+        state.loading = false;
+        state.errors = action.payload;
+      })
+      .addCase(addFormation.fulfilled, (state, action) => {
+        state.loading = false;
+        state.formations.push(action.payload.data);
+      })
+      .addCase(editFormation.pending, (state) => {
+        state.loading = true;
+        state.errors = null;
+      })
+      .addCase(editFormation.rejected, (state, action) => {
+        state.loading = false;
+        state.errors = action.payload;
+      })
+      .addCase(editFormation.fulfilled, (state, action) => {
+        state.loading = false;
+        state.formations = state.formations.filter(
+          (formation) => formation._id !== action.payload.data._id
+        );
+        state.formations.push(action.payload.data);
       })
   }
 });
