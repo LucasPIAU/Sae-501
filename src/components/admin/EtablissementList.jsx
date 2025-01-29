@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styles from "./List.module.css";
+import { deleteEtablissement } from "../../store/formation/formationAsyncAction";
 
-const EtablissementList = ({ etablissements }) => {
-  const [newEtablissement, setNewEtablissement] = useState("");
-  const [selectedEtablissement, setSelectedEtablissement] = useState(null);
+const EtablissementList = ({ etablissements, setFormData, setPopupMode, setPopupOpen }) => {
+  const dispatch = useDispatch();
+  
+  const handleDelete = (id) => {
+    dispatch(deleteEtablissement(id));
+  };
 
-  const handleAddEtablissement = () => {};
-
-  const handleUpdateEtablissement = (id) => {};
+  const handleOpenPopup = (etab) => {
+    setPopupOpen(true);
+    setPopupMode("edit");
+    setFormData(etab);
+  };
 
   return (
     <div className={styles.containerList}>
@@ -17,16 +23,19 @@ const EtablissementList = ({ etablissements }) => {
             {etablissement.name}
             <button
               className={styles.buttonList}
-              onClick={() => handleUpdateEtablissement(etablissement._id)}
+              onClick={() => handleOpenPopup(etablissement)}
             >
               Modifier
             </button>
+            <button
+                className={styles.buttonListDelete}
+                onClick={() => handleDelete(etablissement._id)}
+              >
+                Supprimer
+              </button>
           </li>
         ))}
       </ul>
-      <button className={styles.addButtonList} onClick={handleAddEtablissement}>
-        Ajouter
-      </button>
     </div>
   );
 };

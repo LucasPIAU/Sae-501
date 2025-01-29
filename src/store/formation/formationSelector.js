@@ -9,3 +9,4 @@ export const selectFormationFilter = (state) => state.formations.formationFilter
 export const selectMotClef = (state) => state.formations.filterMotClef;
 export const selectRange = (state) => state.formations.filterRange;
 export const selectCity = (state) => state.formations.filterCity;
+export const selectedCategoriesPro = (state)=> state.formations.categoriesPro;

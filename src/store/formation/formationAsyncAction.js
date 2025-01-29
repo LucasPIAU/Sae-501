@@ -192,19 +192,32 @@ export const addEtablissement = createAsyncThunk(
   'etablissement/addEtablissement',
   async (data, { rejectWithValue, getState }) => {
     try {
-      const newFormation = await axios.post(process.env.REACT_APP_API_LINK + "/etablissement/addEtablissement", data, { headers: { "x-auth-token": getState().connexion.token } });
-      return newFormation.data;
+      const newLycee = await axios.post(process.env.REACT_APP_API_LINK + "/lycee/add", data, { headers: { "x-auth-token": getState().connexion.token } });
+      return newLycee.data;
     } catch (error) {
       return rejectWithValue("erreur lors de la création de l'établissement");
     }
   }
 );
 
+export const editEtablissement = createAsyncThunk(
+  'etablissement/editEtablissement',
+  async (data, { rejectWithValue, getState }) => {
+    try {
+      const {_id, ...filteredData} = data;
+      const editLycee = await axios.patch(process.env.REACT_APP_API_LINK + `/lycee/edit/${data._id}`, filteredData, { headers: { "x-auth-token": getState().connexion.token } });
+      return editLycee.data;
+    } catch (error) {
+      return rejectWithValue("erreur lors de la modification de l'établissement");
+    }
+  }
+);
+
 export const deleteEtablissement = createAsyncThunk(
   'etablissement/deleteEtablissement',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, getState }) => {
     try {
-      await axios.post(process.env.REACT_APP_API_LINK + `/etablissement/deleteEtablissement/${id}`);
+      await axios.delete(process.env.REACT_APP_API_LINK + `/lycee/${id}`, { headers: { "x-auth-token": getState().connexion.token } });
       return id;
     } catch (error) {
       return rejectWithValue("erreur lors de la suppression de l'établissement");
