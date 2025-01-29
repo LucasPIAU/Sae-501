@@ -6,10 +6,15 @@
 .containerListCard {
   display: flex;
   flex-wrap: wrap;
+  flex: 1.5;
+  height: 550px;
+  padding: 25px;
+  overflow-y: scroll;
 }
 
 .containerMap {
   margin: 30px 25px 25px 25px;
+  flex: 1;
 }
 
 .backButton {
@@ -37,15 +42,8 @@
   margin: 0 25px;
 }
 
-.containerListCard {
-  height: 550px;
-  padding: 25px;
-  overflow-y: scroll;
-}
-
 @media screen and (max-width: 600px) {
   .containerMapFormation {
-    display: flex;
     flex-direction: column;
   }
 

@@ -141,3 +141,9 @@
   .backButton svg {
     margin: 10px 12px;
   }
+
+  @media screen and (max-width: 600px) {
+    .containerDetail {
+      flex-direction: column;
+    }
+  }

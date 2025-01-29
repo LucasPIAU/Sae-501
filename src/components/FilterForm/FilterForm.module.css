@@ -177,4 +177,8 @@ span {
     width: 100%;
     max-width: 100%;
   }
+
+  .filtreFiliere input[type="text"] {
+    width: auto;
+  }
 }

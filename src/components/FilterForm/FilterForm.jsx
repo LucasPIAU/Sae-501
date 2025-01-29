@@ -47,8 +47,8 @@ const FilterForm = ({ onFilter, type, onCityChange, onRangeChange, page }) => {
       dispatch(setMotClef(motCle));
     }
   
-    if ((type === 'generale' || type === 'options' || type === 'techno') && page === 'formation') {
-      filters.push({ type: 'generale', value: ['generale', 'option', 'techno'] });
+    if ((type === 'generale' || type === 'opt-seconde' || type === 'techno') && page === 'formation') {
+      filters.push({ type: 'generale', value: ['generale', 'opt-seconde', 'techno'] });
     } else if (type === 'pro' && page === 'formation') {
       filters.push({ type: 'pro', value: 'Professionel' });
     } else {
