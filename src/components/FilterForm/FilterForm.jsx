@@ -8,12 +8,11 @@ const FilterForm = ({ onFilter, type, onCityChange, onRangeChange, page }) => {
   const [motCle, setMotCle] = useState('');
   // const [type, setType] = useState('generale');
   const [city, setCity] = useState('');
-  const [range, setRange] = useState(20);
+  const [range, setRange] = useState(15);
   const dispatch = useDispatch();
   const storeMotClef = useSelector(selectMotClef);
   const storeCity = useSelector(selectCity);
   const storeRange = useSelector(selectRange);
-  console.log(type)
 
   useEffect(()=>{
     console.log("storeCity : ", storeCity)
@@ -73,9 +72,9 @@ const FilterForm = ({ onFilter, type, onCityChange, onRangeChange, page }) => {
   const handleReset = () => {
     setMotCle('');
     setCity('');
-    setRange(50);
+    setRange(15);
     page === "etablissement" && onCityChange("")
-    page === "etablissement" && onRangeChange(50)
+    page === "etablissement" && onRangeChange(15)
     onFilter([]);
   };
 

@@ -8,4 +8,7 @@
         width: 100%;
         height: 400px;
     }
+  .leaflet-label {
+      margin-bottom: 10px;
+  }
 }

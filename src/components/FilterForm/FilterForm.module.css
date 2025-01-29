@@ -67,7 +67,7 @@ fieldset legend {
   align-items: center;
 }
 
-input[type="text"] {
+.filtreFiliere input[type="text"] {
   padding: 10px;
   border: #adadad solid 1px;
   border-radius: 10px;
@@ -80,7 +80,7 @@ input[type="text"] {
   max-height: 1rem;
 }
 
-input[type="range"] {
+.filtreFiliere input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
   height: 10px;
@@ -92,24 +92,24 @@ input[type="range"] {
   transition: opacity .2s;
 }
 
-input[type="range"]:disabled {
+.filtreFiliere input[type="range"]:disabled {
   background: #e0e0e0; /* Couleur grise pour le fond */
   opacity: 0.5;       /* Rendre le slider semi-transparent */
   cursor: not-allowed; /* Indiquer que le slider n'est pas cliquable */
 }
 
-input[type="range"]:disabled::-webkit-slider-thumb {
+.filtreFiliere input[type="range"]:disabled::-webkit-slider-thumb {
   background: #c0c0c0; /* Griser le pouce */
   cursor: not-allowed; /* Indiquer que le pouce n'est pas cliquable */
 }
 
-input[type="range"]:disabled::-moz-range-thumb {
+.filtreFiliere input[type="range"]:disabled::-moz-range-thumb {
   background: #c0c0c0; /* Griser le pouce pour Firefox */
   cursor: not-allowed; /* Indiquer que le pouce n'est pas cliquable */
 }
 
 
-input[type="range"]::-webkit-slider-thumb {
+.filtreFiliere input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 20px;
@@ -119,7 +119,7 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
 }
 
-input[type="range"]::-moz-range-thumb {
+.filtreFiliere input[type="range"]::-moz-range-thumb {
   border-radius: 50%;
   width: 20px;
   height: 20px;
