@@ -109,10 +109,10 @@ const FilterForm = ({ onFilter, type, onCityChange, onRangeChange, page }) => {
               id="range"
               name="range"
               min="0"
-              max="100"
+              max="50"
               value={range}
               onChange={handleRangeChange}
-            
+              disabled={!city}
             />
             <span>{range} km</span>
           </div>
