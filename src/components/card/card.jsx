@@ -76,7 +76,7 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect, onHover =
         {item.type === "generale" ? null : (
           <div className={style.containerButtonCard}>
             {item.adresse ? (
-              <a href={item.website} target="_blank" rel="noopener noreferrer">
+              <a href={item.website} target="_blank" rel="noopener noreferrer" className={style.siteButton}>
                 Site web
               </a>
             ) : !item.link && item.type !== "pro" && item.type !== "techno" && item.type !== "opt-seconde" ? (
