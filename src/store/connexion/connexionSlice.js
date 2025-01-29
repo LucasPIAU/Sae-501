@@ -8,15 +8,29 @@ const connexionSlice = createSlice({
         loading: false,
         error: null,
         isConnected:false,
+        timer:null,
     },
     reducers: {
         logout: (state) => {
             state.token = null;
             state.isConnected = false;
             localStorage.removeItem("authToken");
+            if (state.timer) {
+                clearTimeout(state.timer);
+            }
         },
-        resetError: (state)=>{
+        resetError: ( state)=>{
             state.error = null;
+        },
+        setToken: (state, action) =>{
+            state.token = action.payload;
+            localStorage.setItem("authToken", action.payload);
+        },
+        setTimer:(state, action)=>{
+            if (state.timer) {
+                clearInterval(state.timer);
+            }
+            state.timer = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -28,9 +42,13 @@ const connexionSlice = createSlice({
             })
             .addCase(login.fulfilled, (state, action) => {
                 state.loading = false;
-                state.token = action.payload;
+                state.token = action.payload.token;
                 state.isConnected = true;
-                localStorage.setItem("authToken", action.payload);
+                localStorage.setItem("authToken", action.payload.token);
+                if (state.timer) {
+                    clearInterval(state.timer);
+                }
+                state.timer = action.payload.timer;
             })
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;
@@ -44,9 +62,13 @@ const connexionSlice = createSlice({
             })
             .addCase(reconnect.fulfilled, (state, action) => {
                 state.loading = false;
-                state.token = action.payload;
-                localStorage.setItem("authToken", action.payload);
+                state.token = action.payload.token;
+                localStorage.setItem("authToken", action.payload.token);
                 state.isConnected = true;
+                if (state.timer) {
+                    clearInterval(state.timer);
+                }
+                state.timer = action.payload.timer;
             })
             .addCase(reconnect.rejected, (state, action) => {
                 state.loading = false;
@@ -56,5 +78,5 @@ const connexionSlice = createSlice({
     },
 });
 
-export const { logout, resetError } = connexionSlice.actions;
+export const { logout, resetError,setToken, setTimer } = connexionSlice.actions;
 export default connexionSlice.reducer;

@@ -27,7 +27,7 @@ const AddEditForm = ({
       setFormValues((prev) => ({ ...prev, [name]: parseFloat(value) }));
     } else {
       setFormValues((prev) => ({ ...prev, [name]: value }));
-    }
+    } 
   };
 
   const handleCheckboxChange = (e) => {

@@ -88,6 +88,32 @@
         ]
       },
       "id": "node/817362758"
-    }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/26692004",
+        "addr:postcode": "53600",
+        "capital": "7",
+        "name": "Évron",
+        "name:fr": "Évron",
+        "place": "town",
+        "population": "7000",
+        "population:date": "2021",
+        "ref:FR:SIREN": "215300970",
+        "source:population": "INSEE 2024",
+        "website": "https://www.evron.fr/",
+        "wikidata": "Q1352336",
+        "wikipedia": "fr:Évron"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.399,
+          48.153
+        ]
+      },
+      "id": "node/26692004"
+    }    
   ]
 }

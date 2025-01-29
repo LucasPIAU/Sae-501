@@ -58,7 +58,7 @@ function ListeGT() {
     const serializableFilters = newFilters.map((filter) => {
       if (filter.type === "motClef") {
         // Exemple : Conversion de la fonction en un objet de type 'nameContains'
-        return filter
+        return filter;
       }
       return filter;
     });
