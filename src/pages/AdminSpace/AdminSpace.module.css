@@ -48,10 +48,15 @@
   background-color: #B059B1;
   position: absolute;
   top: 5px;
+  left: 150px;
 }
 
 .saveChange:hover {
   background-color: #914a92;
+}
+
+.disabledSaveChange {
+  background-color: #a0a0a0 !important;
 }
 
 .containerListCard {
