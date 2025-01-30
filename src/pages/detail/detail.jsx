@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectEtablissements, selectFormations } from '../../store/formation/formationSelector.js';
 import style from "./detail.module.css";
@@ -16,7 +16,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 function Detail() {
   const location = useLocation();
-  const { itemId } = location.state || {};
+  const { itemId } = useParams() || location.state || {};
   const [item, setItem] = useState(null);
   const [filtredEtablissement, setFiltredEtablissement] = useState(null);
   const [hoveredEtablissement, setHoveredEtablissement] = useState(null);
