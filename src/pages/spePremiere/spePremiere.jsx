@@ -54,7 +54,7 @@ function SpePremiere() {
 
 
     const filteredEtablissements = etablissements.filter(etablissement =>
-      updatedFormations.some(formation =>
+      updatedFormations.every(formation =>
         formation.etablissement.includes(etablissement._id)
       )
     );
@@ -64,7 +64,7 @@ function SpePremiere() {
     // console.log("etablissements : ", etablissements);
     // console.log("condition : ", filteredEtablissements.length == 0 ? etablissements : filteredEtablissements);
     
-    setFiltredEtablissement(filteredEtablissements.length == 0 ? etablissements : filteredEtablissements);
+    setFiltredEtablissement(filteredEtablissements.length == 0 && !selectFormation ? etablissements : filteredEtablissements);
 
     // setFiltredEtablissement(filteredEtablissements);
   };
