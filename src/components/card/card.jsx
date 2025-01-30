@@ -52,7 +52,7 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect, onHover =
       onMouseLeave={() => onHover(null)}
     >
       <div className={style.containerTitleMotClef}>
-        {item.type === "generale" ? (
+        {item.type === "generale" || mini ? (
           <Link to={item.link} className={style.linkToSpe}>{item.name}</Link>
         ) : (
           <h3>{item.name}</h3>
@@ -75,7 +75,7 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect, onHover =
       </div>
       <div className={style.containerButtonCard}>
         {item.type === "generale" ? null : (
-          <div className={style.containerButtonCard}>
+          <div className={`${mini && style.ContainerButtonMiniStyle}${style.containerButtonCard}`}>
             {item.adresse ? (
               <a href={item.website} target="_blank" rel="noopener noreferrer" className={style.siteButton}>
                 Site web

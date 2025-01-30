@@ -41,8 +41,8 @@
 }
 
 .containerListCard {
-  max-height: 450px;
   overflow: scroll;
+  margin-top: 25px;
 }
 
 @media screen and (max-width: 600px) {
