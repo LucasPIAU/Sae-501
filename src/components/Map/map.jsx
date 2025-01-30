@@ -116,8 +116,15 @@ const Map = ({ dataEtablissement, hoveredEtablissement }) => {
           });
 
           establishmentsInArea.forEach(etablissement => {
-            L.marker([etablissement.Latitude, etablissement.Longitude], { icon: redMarker }).addTo(mapRef.current);
+            const marker = L.marker([etablissement.Latitude, etablissement.Longitude], { icon: redMarker })
+              .addTo(mapRef.current)
+              .bindPopup(`<b>${etablissement.name}</b><br><a href="${etablissement.website}" target="_none">${etablissement.website}</a><br>${etablissement.adresse}`);
+          
+            marker.on('click', () => {
+              marker.openPopup();
+            });
           });
+          
         }
       }
     });
