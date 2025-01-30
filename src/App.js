@@ -1,6 +1,5 @@
 import React, { useState, createContext, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
-import logo from './logo.svg';
 import Header from './components/MainHeader/MainHeader.jsx';
 import BreadCrumb from "./components/breadCrumb/breadCrumb.jsx";
 import './App.css';
@@ -16,10 +15,10 @@ import Detail from "./pages/detail/detail.jsx"
 import AdminSpace from './pages/AdminSpace/AdminSpace.jsx';
 import Lycees from "./pages/lycees/lycees";
 import { useDispatch } from 'react-redux';
-import { loadEtablissement, loadFormation, loadInfos} from './store/formation/formationAsyncAction.js';
-import { selectEtablissements } from "./store/formation/formationSelector.js";
+import { loadEtablissement, loadFormation} from './store/formation/formationAsyncAction.js';
 import Connexion from "./pages/AdminSpace/Connexion.jsx";
 import AdminDashboard from "./pages/AdminSpace/AdminDashboard.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx";
 
 export const BreadcrumbContext = createContext();
 
@@ -29,7 +28,8 @@ function App({ item }) {
   return (
     <BreadcrumbContext.Provider value={{ breadcrumbs, setBreadcrumbs }}>
       <Router>
-        <ConditionalHeader />
+        {/* <ConditionalHeader /> */}
+        <ConditionalNavbar />
         <ConditionalBreadCrumb />
         <MainContent />
       </Router>
@@ -45,12 +45,17 @@ function ConditionalBreadCrumb() {
   return isInRoutes ? null : <BreadCrumb />;
 }
 
-function ConditionalHeader() {
-  const location = useLocation();
-  const routes = ['/adminDashboard', "/connexion"]; 
-  const isInRoutes = routes.includes(location.pathname);
+// function ConditionalHeader() {
+//   const location = useLocation();
+//   const routes = ["/"]; 
+//   const isInRoutes = routes.includes(location.pathname);
 
-  return isInRoutes ? null : <Header />;
+//   return isInRoutes ? null : <Header />;
+// }
+
+function ConditionalNavbar() {
+  const location = useLocation();
+  return location.pathname === "/" ? <Header/> : <Navbar />;
 }
 
 function MainContent() {
