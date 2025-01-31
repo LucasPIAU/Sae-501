@@ -81,9 +81,9 @@ function Card({ item, isInSearch = false, onDomainSelect, onSpeSelect, onHover =
                 Site web
               </a>
             ) : !item.link && item.type !== "pro" && item.type !== "techno" && item.type !== "opt-seconde" ? (
-              <button className={style.domainInfo}>
+              <Link className={style.domainInfo}>
                 Voir plus
-              </button>
+              </Link>
             ) : (
               <Link to={item.link || "/detail"} state={item.link ? {} : { itemId: item._id }} className={style.button}>
                 Voir plus
