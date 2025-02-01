@@ -47,7 +47,7 @@ function ConditionalBreadCrumb() {
 
 function ConditionalHeader() {
   const location = useLocation();
-  const routes = ["/"]; 
+  const routes = ['/connexion', '/adminDashboard']; 
   const isInRoutes = routes.includes(location.pathname);
 
   return isInRoutes ? null : <Header />;
