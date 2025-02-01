@@ -75,7 +75,7 @@ function Detail() {
               <div className={style.containerContent}>
                 <Map dataEtablissement={filtredEtablissement} hoveredEtablissement={hoveredEtablissement} />
                 <div className={style.containerListCard}>
-                  <ListCard items={filtredEtablissement} onHover={setHoveredEtablissement} />
+                  <ListCard items={filtredEtablissement} onHover={setHoveredEtablissement}  mini={true}/>
                 </div>
               </div>
             }

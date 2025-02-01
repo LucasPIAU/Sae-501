@@ -112,7 +112,6 @@ const AdminDashboard = () => {
             Longitude,
             tel,
             website,
-            etablissement,
             ...filteredValues
           } = formValues;
           dispatch(editFormation(filteredValues));

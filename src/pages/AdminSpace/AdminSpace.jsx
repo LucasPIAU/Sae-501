@@ -4,7 +4,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { moveContent } from '../../store/formation/formationSlice';
-import { editContent, addContent, deleteContent, saveContentOrder } from '../../store/formation/formationAsyncAction.js';
+import { editContent, addContent, saveContentOrder } from '../../store/formation/formationAsyncAction.js';
 import { selectEtablissements, selectFormations } from '../../store/formation/formationSelector.js';
 import style from "./AdminSpace.module.css";
 import Map from "../../components/Map/map.jsx";
@@ -137,8 +137,8 @@ function AdminSpace() {
 
         return content.map((element, index) => (
             <div key={index} className={style.contentItem}>
-                <button onClick={() => handleEdit(index, element)}>Edit</button>
-                <button onClick={() => handleDeleteConfirm(index)}>Delete</button>
+                <button disabled={hasChanges} className={`${hasChanges && style.disabledSaveChange}`} onClick={() => handleEdit(index, element)}>Modifier</button>
+                <button disabled={hasChanges} className={`${hasChanges && style.disabledSaveChange}`} onClick={() => handleDeleteConfirm(index)}>Supprimer</button>
                 <DraggableContent
                     index={index}
                     element={element}
@@ -163,7 +163,7 @@ function AdminSpace() {
                                 <h1 className={style.titleDetail}>{item.name}</h1>
                                 <div className={style.containerContent}>
                                     {getContent(item.content)}
-                                    <button onClick={() => setShowPopup(true)}>PLUS</button>
+                                    <button disabled={hasChanges} className={`${hasChanges && style.disabledSaveChange}`} onClick={() => setShowPopup(true)}>PLUS</button>
                                 </div>
                             </div>
                             {filtredEtablissement && 
